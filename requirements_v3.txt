@@ -1,0 +1,43 @@
+# Watermark Manager v3.0 - Dependencias Completas
+# ================================================
+
+# Core Dependencies (tu proyecto existente)
+telethon>=1.24.0
+python-dotenv>=0.19.0
+aiohttp>=3.8.0
+
+# New Dependencies - Watermark System
+Pillow>=9.0.0                  # Procesamiento de imágenes PNG/JPEG
+fastapi>=0.68.0               # Dashboard web API
+uvicorn[standard]>=0.15.0     # ASGI server
+python-multipart>=0.0.5      # File uploads
+websockets>=10.0              # WebSocket para real-time updates
+
+# Optional Dependencies (recomendadas para producción)
+redis>=4.0.0                  # Cache y sesiones (futuro)
+psycopg2-binary>=2.9.0       # PostgreSQL para persistencia (futuro)
+celery>=5.2.0                # Background tasks (futuro)
+
+# Development Dependencies (opcional)
+pytest>=6.2.0                # Testing
+black>=22.0.0                # Code formatting
+isort>=5.10.0                # Import sorting
+mypy>=0.910                  # Type checking
+
+# System Dependencies Notes:
+# ========================
+# 
+# FFmpeg (requerido para video watermarks):
+#   Ubuntu/Debian: sudo apt install ffmpeg
+#   macOS: brew install ffmpeg  
+#   Windows: Descargar desde https://ffmpeg.org/
+#
+# Redis (opcional, para cache):
+#   Ubuntu/Debian: sudo apt install redis-server
+#   macOS: brew install redis
+#   Docker: docker run -d -p 6379:6379 redis:alpine
+#
+# PostgreSQL (opcional, para persistencia):
+#   Ubuntu/Debian: sudo apt install postgresql postgresql-contrib
+#   macOS: brew install postgresql
+#   Docker: docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgres:13
