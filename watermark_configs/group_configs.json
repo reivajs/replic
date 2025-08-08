@@ -1,0 +1,16 @@
+{
+  "-4989347027": {
+    "text_enabled": true,
+    "image_enabled": true,
+    "footer_text": "\ud83d\udcf1 Powered by ReplicBot Enterprise",
+    "image_text": "\ud83d\udcf1 ReplicBot",
+    "image_position": "bottom-right",
+    "image_opacity": 0.7,
+    "text_color": "white",
+    "text_size": 24,
+    "text_font": "arial",
+    "background_enabled": false,
+    "background_color": "black",
+    "background_opacity": 0.3
+  }
+}

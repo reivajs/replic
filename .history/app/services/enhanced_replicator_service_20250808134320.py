@@ -25,24 +25,11 @@ from .watermark_service import WatermarkServiceIntegrated
 # Telegram imports with graceful fallback
 try:
     from telethon import TelegramClient, events
-    from telethon.tl.types import MessageMediaDocument, MessageMediaPhoto
-    # MessageMediaVideo doesn't exist in newer versions, we'll handle it differently
+    from telethon.tl.types import MessageMediaDocument, MessageMediaPhoto, MessageMediaVideo
     TELETHON_AVAILABLE = True
-    
-    # Try to import MessageMediaVideo, but it's OK if it doesn't exist
-    try:
-        from telethon.tl.types import MessageMediaVideo
-        MEDIA_VIDEO_AVAILABLE = True
-    except ImportError:
-        MEDIA_VIDEO_AVAILABLE = False
-        MessageMediaVideo = None
-        
 except ImportError:
     TELETHON_AVAILABLE = False
-    MEDIA_VIDEO_AVAILABLE = False
-    MessageMediaDocument = None
-    MessageMediaPhoto = None
-    MessageMediaVideo = None
+    logger.warning("⚠️ Telethon not available - Telegram functionality disabled")
 
 # Core dependencies check
 try:
@@ -194,7 +181,6 @@ class EnhancedReplicatorService:
         """Comprehensive dependency verification for enterprise deployment"""
         dependencies = {
             'telethon': TELETHON_AVAILABLE,
-            'telethon_video_support': MEDIA_VIDEO_AVAILABLE,
             'aiohttp': AIOHTTP_AVAILABLE,
             'pil': PIL_AVAILABLE,
             'pymupdf': PYMUPDF_AVAILABLE
@@ -205,10 +191,6 @@ class EnhancedReplicatorService:
             status = "✅ Available" if available else "❌ Missing"
             level = "INFO" if available else "WARNING"
             getattr(logger, level.lower())(f"   {dep}: {status}")
-        
-        # Special warning for video support
-        if TELETHON_AVAILABLE and not MEDIA_VIDEO_AVAILABLE:
-            logger.info("   📹 Video handling: Using document-based detection")
         
         # Check critical paths
         critical_paths = [
@@ -342,24 +324,11 @@ class EnhancedReplicatorService:
     
     async def _route_media_message(self, chat_id: int, message, webhook_url: str):
         """Enterprise media routing with type-specific handlers"""
-        
-        # Handle video messages properly based on Telethon version
-        if hasattr(message.media, 'document') and message.media.document:
-            # Check if it's a video by MIME type or attributes
-            mime_type = getattr(message.media.document, 'mime_type', '')
-            if mime_type.startswith('video/'):
-                await self._process_video_enterprise(chat_id, message, webhook_url)
-                return
-        
-        # Standard media routing
         media_handlers = {
             MessageMediaDocument: self._process_document_enterprise,
-            MessageMediaPhoto: self._process_image_enterprise
+            MessageMediaPhoto: self._process_image_enterprise,
+            MessageMediaVideo: self._process_video_enterprise
         }
-        
-        # Add MessageMediaVideo handler only if available
-        if MEDIA_VIDEO_AVAILABLE and MessageMediaVideo:
-            media_handlers[MessageMediaVideo] = self._process_video_enterprise
         
         media_type = type(message.media)
         handler = media_handlers.get(media_type, self._process_other_media_enterprise)

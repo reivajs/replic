@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+Telegram-Discord Replicator
+FastAPI Web Application
+"""
 import sys
 from pathlib import Path
 from fastapi import FastAPI, Request, HTTPException, Depends, WebSocket, WebSocketDisconnect
@@ -12,17 +16,23 @@ import asyncio
 import json
 from datetime import datetime
 from contextlib import asynccontextmanager
+from app.api.dashboard import router as dashboard_router
+
 
 # Agregar path para imports
 sys.path.append(os.path.join(os.path.dirname(__file__), 'app'))
 sys.path.append(str(Path(__file__).parent / "services"))
 
-# ✅ IMPORTS NECESARIOS PARA EL DASHBOARD
+from watermark_client import WatermarkClient
+
+# Cliente global
+watermark_client = WatermarkClient()
+
+# Imports de la aplicación
 from app.config.settings import get_settings
 from app.models.database import get_db, init_database
 from app.services.enhanced_replicator_service import EnhancedReplicatorService
 from app.api.routes import router as api_router
-from app.api.dashboard import router as dashboard_router  # ← NUEVA LÍNEA
 from app.api.websocket import WebSocketManager
 from app.utils.logger import setup_logger
 
@@ -72,9 +82,9 @@ async def lifespan(app: FastAPI):
 
 # Crear aplicación FastAPI
 app = FastAPI(
-    title="Telegram-Discord Replicator Enterprise",
-    description="Sistema enterprise de replicación con dashboard moderno",
-    version="3.0.0",
+    title="Telegram-Discord Replicator",
+    description="Sistema de replicación de mensajes entre Telegram y Discord",
+    version="2.0.0",
     lifespan=lifespan
 )
 
@@ -91,9 +101,10 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# ✅ INCLUIR ROUTERS (AGREGAR LA LÍNEA DEL DASHBOARD)
+# Incluir routers
 app.include_router(api_router, prefix="/api", tags=["API"])
-app.include_router(dashboard_router, tags=["Dashboard"])  # ← NUEVA LÍNEA
+app.include_router(dashboard_router, tags=["Dashboard"])
+
 
 # ==================== RUTAS PRINCIPALES ====================
 
