@@ -14,6 +14,7 @@ import uvicorn
 import os
 import asyncio
 import json
+import sys
 from datetime import datetime
 from contextlib import asynccontextmanager
 
@@ -58,7 +59,7 @@ async def lifespan(app: FastAPI):
         
         # Inicializar servicio del replicador
         logger.info("🔧 Inicializando servicio de replicación...")
-        replicator_service = EnhancedReplicatorService()
+        replicator_service = ReplicatorService()
         await replicator_service.initialize()
         
         # Iniciar escucha en background
@@ -166,39 +167,30 @@ async def dashboard(request: Request):
 @app.get("/routes", response_class=HTMLResponse)
 async def routes_page(request: Request):
     """Página de gestión de rutas"""
-    if templates:
-        return templates.TemplateResponse("routes.html", {"request": request})
-    else:
-        return HTMLResponse("<h1>Routes Page</h1><p>Templates not available</p>")
+    return templates.TemplateResponse("routes.html", {"request": request})
 
 @app.get("/accounts", response_class=HTMLResponse)
 async def accounts_page(request: Request):
     """Página de gestión de cuentas"""
-    if templates:
-        return templates.TemplateResponse("accounts.html", {"request": request})
-    else:
-        return HTMLResponse("<h1>Accounts Page</h1><p>Templates not available</p>")
+    return templates.TemplateResponse("accounts.html", {"request": request})
 
 @app.get("/settings", response_class=HTMLResponse)
 async def settings_page(request: Request):
     """Página de configuración"""
-    if templates:
-        return templates.TemplateResponse("settings.html", {"request": request})
-    else:
-        return HTMLResponse("<h1>Settings Page</h1><p>Templates not available</p>")
+    return templates.TemplateResponse("settings.html", {"request": request})
 
 # ==================== WEBSOCKET ====================
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    """WebSocket para actualizaciones en tiempo real (TU CÓDIGO ACTUAL)"""
+    """WebSocket para actualizaciones en tiempo real"""
     await websocket_manager.connect(websocket)
     
     try:
         # Enviar mensaje de bienvenida
         await websocket_manager.send_personal_message({
             "type": "welcome",
-            "message": "Conectado al sistema Enterprise",
+            "message": "Conectado al sistema de replicación",
             "timestamp": datetime.now().isoformat(),
             "system_status": await get_system_status() if replicator_service else {}
         }, websocket)
@@ -214,15 +206,6 @@ async def websocket_endpoint(websocket: WebSocket):
                         "type": "pong",
                         "timestamp": datetime.now().isoformat()
                     }, websocket)
-                elif data.strip().lower() == "stats":
-                    # Enviar estadísticas actuales
-                    if replicator_service:
-                        stats = await replicator_service.get_dashboard_stats()
-                        await websocket_manager.send_personal_message({
-                            "type": "stats_update",
-                            "data": stats,
-                            "timestamp": datetime.now().isoformat()
-                        }, websocket)
                 
             except asyncio.TimeoutError:
                 # Ping automático cada 30 segundos
@@ -245,7 +228,9 @@ async def get_system_status():
     if not replicator_service:
         return {"status": "not_initialized"}
     
-    return await replicator_service.get_health()
+    return await replicator_service.get_system_status()
+
+# ==================== EVENTOS DE MENSAJES ====================
 
 async def on_message_replicated(message_data):
     """Callback cuando se replica un mensaje"""
@@ -268,35 +253,13 @@ async def on_stats_updated(stats_data):
 # ==================== MAIN ====================
 
 if __name__ == "__main__":
-    print("🚀 Iniciando Telegram-Discord Replicator v3.0 Enterprise")
-    print("=" * 80)
-    print("✅ SOLUCIONES ENTERPRISE IMPLEMENTADAS:")
-    print("   📄 PDFs: Preview automático + enlace de descarga funcional")
-    print("   🎵 Audios: Transcripción automática + conversión MP3")  
-    print("   🎬 Videos: Compresión automática + watermarks aplicados")
-    print("   🎨 Watermarks: Texto fijo + marcas visuales en imágenes")
-    print("   📊 UI: Dashboard moderno inspirado en tu imagen")
-    print("   🏗️ Arquitectura: Servicios integrados modulares")
-    print("=" * 80)
-    print("🌐 URLs disponibles:")
-    print("   Dashboard: http://localhost:8000/dashboard")
-    print("   Health: http://localhost:8000/health")
-    print("   API Docs: http://localhost:8000/docs")
-    print("   Download: http://localhost:8000/download/{filename}")
-    print("=" * 80)
-    
     try:
         # Verificar configuración básica
-        if not settings.telegram.api_id or not settings.telegram.api_hash:
+        if not settings.telegram_api_id or not settings.telegram_api_hash:
             logger.error("❌ Configura TELEGRAM_API_ID y TELEGRAM_API_HASH en .env")
-            print("\n📝 Configura tu archivo .env:")
-            print("   TELEGRAM_API_ID=tu_api_id")
-            print("   TELEGRAM_API_HASH=tu_api_hash")
-            print("   TELEGRAM_PHONE=+1234567890")
-            print("   WEBHOOK_-1001234567890=https://discord.com/api/webhooks/tu_webhook")
             sys.exit(1)
         
-        logger.info("🌐 Iniciando servidor web enterprise...")
+        logger.info("🌐 Iniciando servidor web...")
         uvicorn.run(
             "main:app",
             host="0.0.0.0",

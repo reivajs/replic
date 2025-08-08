@@ -97,3 +97,34 @@
 2025-08-07 22:28:23,826 - app.services.replicator_service - INFO - stop:651 - ✅ Enhanced Replicator Service detenido
 2025-08-07 22:28:23,826 - main - INFO - lifespan:80 - 👋 Sistema detenido
 2025-08-07 22:28:23,826 - app.services.replicator_service - INFO - start_listening:220 - 🛑 Escucha detenida
+2025-08-07 23:20:19,911 - __main__ - INFO - <module>:262 - 🌐 Iniciando servidor web...
+2025-08-07 23:20:19,961 - main - INFO - lifespan:53 - 🚀 Iniciando Telegram-Discord Replicator...
+2025-08-07 23:20:19,961 - main - INFO - lifespan:57 - 🔧 Inicializando base de datos...
+2025-08-07 23:20:19,961 - main - INFO - lifespan:61 - 🔧 Inicializando servicio de replicación...
+2025-08-07 23:20:19,961 - app.services.replicator_service - INFO - __init__:86 - 🚀 Enhanced Replicator Service inicializado
+2025-08-07 23:20:19,961 - app.services.replicator_service - INFO - initialize:91 - 🔧 Inicializando Enhanced Replicator Service...
+2025-08-07 23:20:19,961 - app.services.replicator_service - INFO - _initialize_telegram:129 - 📱 Conectando a Telegram...
+2025-08-07 23:20:21,535 - app.services.replicator_service - INFO - _initialize_telegram:147 - ✅ Conectado a Telegram como: Ja (@sin_username)
+2025-08-07 23:20:21,555 - app.services.replicator_service - WARNING - _initialize_microservices:165 - ⚠️ Watermark microservice no disponible
+2025-08-07 23:20:21,556 - app.services.replicator_service - WARNING - _initialize_microservices:184 - ⚠️ Usando Discord sender básico
+2025-08-07 23:20:21,556 - app.services.replicator_service - INFO - _setup_event_handlers:197 - 📡 Event handlers configurados
+2025-08-07 23:20:21,557 - app.services.replicator_service - INFO - initialize:111 - ✅ Enhanced Replicator Service inicializado correctamente
+2025-08-07 23:20:21,557 - app.services.replicator_service - INFO - initialize:114 - 📊 Configuración:
+2025-08-07 23:20:21,557 - app.services.replicator_service - INFO - initialize:115 -    Grupos configurados: 2
+2025-08-07 23:20:21,557 - app.services.replicator_service - INFO - initialize:116 -    Watermarks: ❌
+2025-08-07 23:20:21,557 - app.services.replicator_service - INFO - initialize:117 -    Discord sender: ❌
+2025-08-07 23:20:21,557 - app.services.replicator_service - INFO - initialize:118 -    Filtros: ✅
+2025-08-07 23:20:21,557 - main - INFO - lifespan:68 - ✅ Sistema iniciado correctamente
+2025-08-07 23:20:21,557 - app.services.replicator_service - INFO - start_listening:206 - 👂 Iniciando escucha de mensajes de Telegram...
+2025-08-07 23:20:21,558 - app.services.replicator_service - INFO - start_listening:211 -    👥 Monitoreando grupo: -4989347027
+2025-08-07 23:20:21,558 - app.services.replicator_service - INFO - start_listening:211 -    👥 Monitoreando grupo: -1001697798998
+2025-08-07 23:26:45,180 - app.services.replicator_service - INFO - _handle_new_message:265 - ✅ Mensaje replicado: Test2 → Discord
+2025-08-07 23:26:57,763 - app.services.replicator_service - INFO - _process_image_message:306 - 🖼️ Procesando imagen de Test2
+2025-08-07 23:27:00,821 - app.services.replicator_service - INFO - _handle_new_message:265 - ✅ Mensaje replicado: Test2 → Discord
+2025-08-07 23:27:16,923 - app.services.replicator_service - INFO - _process_video_message:342 - 🎬 Procesando video de Test2
+2025-08-07 23:27:28,913 - app.services.replicator_service - INFO - _handle_new_message:265 - ✅ Mensaje replicado: Test2 → Discord
+2025-08-07 23:27:38,612 - app.services.replicator_service - INFO - _handle_new_message:265 - ✅ Mensaje replicado: Test2 → Discord
+2025-08-07 23:28:50,187 - app.services.replicator_service - INFO - _handle_new_message:265 - ✅ Mensaje replicado: Test2 → Discord
+2025-08-07 23:29:10,133 - app.services.replicator_service - INFO - _handle_new_message:265 - ✅ Mensaje replicado: Test2 → Discord
+2025-08-08 00:01:54,355 - main - INFO - websocket_endpoint:218 - Cliente WebSocket desconectado
+2025-08-08 00:02:20,068 - main - INFO - websocket_endpoint:218 - Cliente WebSocket desconectado
