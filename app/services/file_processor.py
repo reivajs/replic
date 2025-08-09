@@ -2,6 +2,7 @@
 Enterprise File Processor Service
 =================================
 Servicio enterprise para procesamiento de archivos multimedia
+Versión reparada con manejo robusto de Unicode
 
 Archivo: app/services/file_processor.py
 """
@@ -35,31 +36,53 @@ from app.config.settings import get_settings
 logger = setup_logger(__name__)
 settings = get_settings()
 
+
 class FileCache:
     """Cache inteligente para archivos procesados"""
     
     def __init__(self, cache_dir: Path, max_cache_size_gb: float = 2.0):
         self.cache_dir = cache_dir
         self.cache_dir.mkdir(parents=True, exist_ok=True)
-        self.max_cache_size = max_cache_size_gb * 1024 * 1024 * 1024  # GB to bytes
+        self.max_cache_size = max_cache_size_gb * 1024 * 1024 * 1024
         self.cache_index_file = cache_dir / "cache_index.json"
         self.cache_index = self._load_cache_index()
     
     def _load_cache_index(self) -> Dict[str, Any]:
-        """Cargar índice de cache"""
+        """Cargar índice de cache con manejo robusto"""
         if self.cache_index_file.exists():
             try:
-                with open(self.cache_index_file, 'r') as f:
-                    return json.load(f)
+                with open(self.cache_index_file, 'r', encoding='utf-8', errors='replace') as f:
+                    content = f.read()
+                    if content.strip():
+                        return json.loads(content)
             except Exception as e:
                 logger.warning(f"Error cargando cache index: {e}")
+                # Hacer backup del archivo corrupto
+                backup_file = self.cache_index_file.with_suffix('.corrupted')
+                try:
+                    shutil.copy2(self.cache_index_file, backup_file)
+                except:
+                    pass
         return {}
     
     def _save_cache_index(self):
-        """Guardar índice de cache"""
+        """Guardar índice de cache con manejo robusto de Unicode"""
         try:
-            with open(self.cache_index_file, 'w') as f:
-                json.dump(self.cache_index, f)
+            # Crear archivo temporal primero
+            temp_file = self.cache_index_file.with_suffix('.tmp')
+            
+            with open(temp_file, 'w', encoding='utf-8') as f:
+                json.dump(
+                    self.cache_index, 
+                    f, 
+                    ensure_ascii=False,  # Permitir Unicode
+                    indent=2,
+                    default=str  # Convertir objetos no serializables
+                )
+            
+            # Reemplazar archivo original
+            temp_file.replace(self.cache_index_file)
+            
         except Exception as e:
             logger.error(f"Error guardando cache index: {e}")
     
@@ -75,7 +98,6 @@ class FileCache:
             cache_file = self.cache_dir / cache_info['filename']
             
             if cache_file.exists():
-                # Actualizar último acceso
                 cache_info['last_accessed'] = datetime.now().isoformat()
                 self._save_cache_index()
                 return cache_info
@@ -88,6 +110,12 @@ class FileCache:
         cache_key = f"{file_hash}_{operation}"
         cache_filename = f"{cache_key}_{datetime.now().timestamp()}"
         
+        # Asegurar que result es serializable
+        try:
+            json.dumps(result)
+        except:
+            result = {k: str(v) for k, v in result.items()}
+        
         cache_info = {
             'filename': cache_filename,
             'operation': operation,
@@ -97,7 +125,6 @@ class FileCache:
             'size_bytes': len(output_bytes) if output_bytes else 0
         }
         
-        # Guardar archivo si hay bytes
         if output_bytes:
             cache_file = self.cache_dir / cache_filename
             cache_file.write_bytes(output_bytes)
@@ -105,7 +132,6 @@ class FileCache:
         self.cache_index[cache_key] = cache_info
         self._save_cache_index()
         
-        # Limpieza de cache si es necesario
         self._cleanup_cache_if_needed()
         
         return cache_filename
@@ -115,15 +141,13 @@ class FileCache:
         total_size = sum(info.get('size_bytes', 0) for info in self.cache_index.values())
         
         if total_size > self.max_cache_size:
-            # Ordenar por último acceso
             sorted_entries = sorted(
                 self.cache_index.items(),
                 key=lambda x: x[1].get('last_accessed', '1970-01-01')
             )
             
-            # Eliminar entradas más antiguas
             removed_size = 0
-            target_remove = total_size - (self.max_cache_size * 0.8)  # Liberar 20% extra
+            target_remove = total_size - (self.max_cache_size * 0.8)
             
             for cache_key, cache_info in sorted_entries:
                 if removed_size >= target_remove:
@@ -137,83 +161,54 @@ class FileCache:
                 del self.cache_index[cache_key]
             
             self._save_cache_index()
-            logger.info(f"🧹 Cache limpiado: {removed_size / (1024*1024):.1f}MB liberados")
+            logger.info(f"Cache limpiado: {removed_size / (1024*1024):.1f}MB liberados")
+
 
 class FileProcessorEnhanced:
     """
-    🚀 FILE PROCESSOR ENTERPRISE
-    ============================
-    
-    Características Enterprise:
-    ✅ Cache inteligente de archivos procesados
-    ✅ Procesamiento paralelo de videos
-    ✅ Compresión automática con FFmpeg
-    ✅ Preview automático de PDFs
-    ✅ Transcripción simulada de audios
-    ✅ Cleanup automático de archivos temporales
-    ✅ Estadísticas detalladas de procesamiento
-    ✅ Health monitoring
-    ✅ Rate limiting de recursos
+    FILE PROCESSOR ENTERPRISE
+    Sistema completo de procesamiento de archivos multimedia
     """
     
     def __init__(self):
-        self.temp_dir = Path("temp_files")
-        self.cache_dir = Path("cache_files")
-        self.processed_dir = Path("processed_files")
+        self.cache_dir = Path(settings.CACHE_DIR if hasattr(settings, 'CACHE_DIR') else "cache")
+        self.temp_dir = Path(settings.TEMP_DIR if hasattr(settings, 'TEMP_DIR') else "temp")
+        self.output_dir = Path(settings.OUTPUT_DIR if hasattr(settings, 'OUTPUT_DIR') else "processed_files")
         
         # Crear directorios
-        for directory in [self.temp_dir, self.cache_dir, self.processed_dir]:
-            directory.mkdir(parents=True, exist_ok=True)
+        for dir_path in [self.cache_dir, self.temp_dir, self.output_dir]:
+            dir_path.mkdir(parents=True, exist_ok=True)
         
-        # Cache inteligente
-        self.cache = FileCache(self.cache_dir, max_cache_size_gb=2.0)
+        # Inicializar cache
+        self.file_cache = FileCache(self.cache_dir)
         
-        # Estadísticas enterprise
+        # Estadísticas
         self.stats = {
-            'pdfs_processed': 0,
-            'videos_processed': 0,
-            'audios_processed': 0,
             'images_processed': 0,
-            'documents_processed': 0,
+            'videos_processed': 0,
+            'pdfs_processed': 0,
+            'audios_processed': 0,
+            'total_size_processed': 0,
             'cache_hits': 0,
             'cache_misses': 0,
-            'total_processing_time': 0.0,
-            'avg_processing_time': 0.0,
-            'errors': 0,
-            'start_time': datetime.now(),
-            'temp_files_created': 0,
-            'temp_files_cleaned': 0
+            'errors': 0
         }
         
-        # Configuración enterprise
-        self.config = {
-            'max_file_size_mb': 50,
-            'video_compression_quality': 23,  # CRF value for FFmpeg
-            'max_video_duration': 300,  # 5 minutes
-            'cleanup_interval_hours': 6,
-            'max_concurrent_processing': 3,
-            'ffmpeg_timeout': 180  # 3 minutes
+        # Configuración
+        self.compression_settings = {
+            'image_quality': 85,
+            'video_crf': 23,
+            'audio_bitrate': '128k',
+            'max_image_size': (1920, 1080),
+            'max_video_size': (1280, 720)
         }
         
-        # Semáforo para controlar procesamiento concurrente
-        self.processing_semaphore = asyncio.Semaphore(self.config['max_concurrent_processing'])
-        
-        logger.info("🚀 File Processor Enterprise inicializado")
+        logger.info(f"🚀 File Processor Enterprise inicializado")
     
     async def initialize(self):
-        """Inicializar servicio enterprise"""
-        try:
-            # Verificar dependencias
-            await self._check_dependencies()
-            
-            # Iniciar cleanup automático
-            asyncio.create_task(self._periodic_cleanup())
-            
-            logger.info("✅ File Processor Enterprise inicializado correctamente")
-            
-        except Exception as e:
-            logger.error(f"❌ Error inicializando File Processor: {e}")
-            raise
+        """Inicializar el procesador"""
+        await self._check_dependencies()
+        logger.info("✅ File Processor Enterprise inicializado correctamente")
     
     async def _check_dependencies(self):
         """Verificar dependencias del sistema"""
@@ -229,464 +224,230 @@ class FileProcessorEnhanced:
             logger.info(f"   {dep}: {status}")
     
     async def _check_ffmpeg(self) -> bool:
-        """Verificar si FFmpeg está disponible"""
+        """Verificar si ffmpeg está disponible"""
         try:
-            result = await asyncio.create_subprocess_exec(
+            proc = await asyncio.create_subprocess_exec(
                 'ffmpeg', '-version',
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
+                stdout=asyncio.subprocess.DEVNULL,
+                stderr=asyncio.subprocess.DEVNULL
             )
-            await result.wait()
-            return result.returncode == 0
-        except Exception:
+            await proc.wait()
+            return proc.returncode == 0
+        except:
             return False
     
-    async def process_pdf(self, pdf_bytes: bytes, chat_id: int, filename: str) -> Dict[str, Any]:
-        """✅ Procesar PDF con preview enterprise"""
-        async with self.processing_semaphore:
-            start_time = datetime.now()
-            
-            try:
-                # Verificar cache
-                file_hash = self.cache.get_file_hash(pdf_bytes)
-                cached_result = self.cache.get_cached_result(file_hash, 'pdf_process')
-                
-                if cached_result:
-                    self.stats['cache_hits'] += 1
-                    logger.info(f"📄 PDF encontrado en cache: {filename}")
-                    return cached_result['result']
-                
-                self.stats['cache_misses'] += 1
-                
-                # Verificar tamaño
-                size_mb = len(pdf_bytes) / (1024 * 1024)
-                if size_mb > self.config['max_file_size_mb']:
-                    return {
-                        "success": False,
-                        "error": f"Archivo muy grande ({size_mb:.1f}MB)",
-                        "max_size_mb": self.config['max_file_size_mb']
-                    }
-                
-                # Crear archivo temporal
-                temp_pdf = self.temp_dir / f"pdf_{chat_id}_{datetime.now().timestamp()}.pdf"
-                temp_pdf.write_bytes(pdf_bytes)
-                self.stats['temp_files_created'] += 1
-                
-                preview_bytes = None
-                page_count = 0
-                
-                if PYMUPDF_AVAILABLE:
-                    try:
-                        # Generar preview de primera página
-                        doc = fitz.open(temp_pdf)
-                        page_count = len(doc)
-                        
-                        if page_count > 0:
-                            page = doc[0]
-                            # Generar imagen de alta calidad
-                            matrix = fitz.Matrix(2.0, 2.0)  # 2x scale
-                            pix = page.get_pixmap(matrix=matrix)
-                            preview_bytes = pix.tobytes("png")
-                        
-                        doc.close()
-                        
-                    except Exception as e:
-                        logger.warning(f"Error generando preview PDF: {e}")
-                
-                # Crear archivo procesado
-                processed_file = self.processed_dir / f"pdf_{file_hash}_{chat_id}.pdf"
-                shutil.copy2(temp_pdf, processed_file)
-                
-                # URL de descarga
-                download_url = f"http://localhost:8000/download/{processed_file.name}"
-                
-                result = {
-                    "success": True,
-                    "preview_bytes": preview_bytes,
-                    "download_url": download_url,
-                    "size_mb": size_mb,
-                    "page_count": page_count,
-                    "filename": filename,
-                    "processing_time": (datetime.now() - start_time).total_seconds()
-                }
-                
-                # Cachear resultado
-                self.cache.cache_result(file_hash, 'pdf_process', result, preview_bytes)
-                
-                # Cleanup
-                temp_pdf.unlink()
-                self.stats['temp_files_cleaned'] += 1
-                
-                self.stats['pdfs_processed'] += 1
-                self._update_processing_stats(start_time)
-                
-                logger.info(f"📄 PDF procesado: {filename} ({page_count} páginas)")
-                return result
-                
-            except Exception as e:
-                self.stats['errors'] += 1
-                logger.error(f"❌ Error procesando PDF {filename}: {e}")
-                return {"success": False, "error": str(e)}
-    
-    async def process_video(self, video_bytes: bytes, chat_id: int, 
-                           filename: str = "video.mp4") -> Dict[str, Any]:
-        """✅ Procesar video con compresión FFmpeg enterprise"""
-        async with self.processing_semaphore:
-            start_time = datetime.now()
-            
-            try:
-                # Verificar cache
-                file_hash = self.cache.get_file_hash(video_bytes)
-                cached_result = self.cache.get_cached_result(file_hash, 'video_process')
-                
-                if cached_result:
-                    self.stats['cache_hits'] += 1
-                    logger.info(f"🎬 Video encontrado en cache: {filename}")
-                    return cached_result['result']
-                
-                self.stats['cache_misses'] += 1
-                
-                # Verificar tamaño inicial
-                original_size_mb = len(video_bytes) / (1024 * 1024)
-                
-                # Crear archivos temporales
-                input_video = self.temp_dir / f"input_{chat_id}_{datetime.now().timestamp()}.mp4"
-                output_video = self.temp_dir / f"output_{chat_id}_{datetime.now().timestamp()}.mp4"
-                
-                input_video.write_bytes(video_bytes)
-                self.stats['temp_files_created'] += 1
-                
-                # Verificar duración del video
-                duration = await self._get_video_duration(input_video)
-                if duration > self.config['max_video_duration']:
-                    return {
-                        "success": False,
-                        "error": f"Video muy largo ({duration:.1f}s)",
-                        "max_duration": self.config['max_video_duration']
-                    }
-                
-                # Determinar si necesita compresión
-                needs_compression = (
-                    original_size_mb > 8 or  # Discord limit
-                    duration > 60  # Compress videos longer than 1 minute
-                )
-                
-                if needs_compression:
-                    # Comprimir con FFmpeg
-                    compressed_bytes = await self._compress_video_ffmpeg(
-                        input_video, output_video, chat_id
-                    )
-                    
-                    if compressed_bytes:
-                        final_bytes = compressed_bytes
-                        final_size_mb = len(compressed_bytes) / (1024 * 1024)
-                        was_compressed = True
-                    else:
-                        # Fallback si falla compresión
-                        final_bytes = video_bytes
-                        final_size_mb = original_size_mb
-                        was_compressed = False
-                else:
-                    final_bytes = video_bytes
-                    final_size_mb = original_size_mb
-                    was_compressed = False
-                
-                # Guardar archivo procesado
-                processed_file = self.processed_dir / f"video_{file_hash}_{chat_id}.mp4"
-                processed_file.write_bytes(final_bytes)
-                
-                # URL de descarga
-                download_url = f"http://localhost:8000/download/{processed_file.name}"
-                
-                result = {
-                    "success": True,
-                    "download_url": download_url,
-                    "original_size_mb": original_size_mb,
-                    "final_size_mb": final_size_mb,
-                    "compression_ratio": final_size_mb / original_size_mb if original_size_mb > 0 else 1.0,
-                    "duration_seconds": duration,
-                    "was_compressed": was_compressed,
-                    "filename": filename,
-                    "processing_time": (datetime.now() - start_time).total_seconds()
-                }
-                
-                # Cachear resultado
-                self.cache.cache_result(file_hash, 'video_process', result)
-                
-                # Cleanup
-                for temp_file in [input_video, output_video]:
-                    if temp_file.exists():
-                        temp_file.unlink()
-                        self.stats['temp_files_cleaned'] += 1
-                
-                self.stats['videos_processed'] += 1
-                self._update_processing_stats(start_time)
-                
-                logger.info(f"🎬 Video procesado: {filename} ({original_size_mb:.1f}MB → {final_size_mb:.1f}MB)")
-                return result
-                
-            except Exception as e:
-                self.stats['errors'] += 1
-                logger.error(f"❌ Error procesando video {filename}: {e}")
-                return {"success": False, "error": str(e)}
-    
-    async def _get_video_duration(self, video_path: Path) -> float:
-        """Obtener duración del video con FFprobe"""
-        try:
-            cmd = [
-                'ffprobe', '-v', 'quiet', '-print_format', 'json',
-                '-show_format', str(video_path)
-            ]
-            
-            process = await asyncio.create_subprocess_exec(
-                *cmd,
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
-            )
-            
-            stdout, stderr = await asyncio.wait_for(
-                process.communicate(), 
-                timeout=30
-            )
-            
-            if process.returncode == 0:
-                probe_data = json.loads(stdout.decode())
-                return float(probe_data['format']['duration'])
-            else:
-                logger.warning(f"FFprobe error: {stderr.decode()}")
-                return 0.0
-                
-        except Exception as e:
-            logger.warning(f"Error obteniendo duración de video: {e}")
-            return 0.0
-    
-    async def _compress_video_ffmpeg(self, input_path: Path, output_path: Path, 
-                                   chat_id: int) -> Optional[bytes]:
-        """Comprimir video con FFmpeg"""
-        try:
-            # Comando FFmpeg optimizado para Discord
-            cmd = [
-                'ffmpeg', '-i', str(input_path),
-                '-c:v', 'libx264',
-                '-crf', str(self.config['video_compression_quality']),
-                '-preset', 'medium',
-                '-c:a', 'aac',
-                '-b:a', '128k',
-                '-movflags', '+faststart',
-                '-y',  # Overwrite output
-                str(output_path)
-            ]
-            
-            process = await asyncio.create_subprocess_exec(
-                *cmd,
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
-            )
-            
-            stdout, stderr = await asyncio.wait_for(
-                process.communicate(),
-                timeout=self.config['ffmpeg_timeout']
-            )
-            
-            if process.returncode == 0 and output_path.exists():
-                compressed_bytes = output_path.read_bytes()
-                logger.info(f"✅ Video comprimido con FFmpeg para grupo {chat_id}")
-                return compressed_bytes
-            else:
-                logger.warning(f"FFmpeg error: {stderr.decode()}")
-                return None
-                
-        except asyncio.TimeoutError:
-            logger.error("⏰ Timeout comprimiendo video con FFmpeg")
-            return None
-        except Exception as e:
-            logger.error(f"❌ Error comprimiendo video: {e}")
-            return None
-    
-    async def process_audio(self, audio_bytes: bytes, chat_id: int, 
-                           filename: str) -> Dict[str, Any]:
-        """✅ Procesar audio con transcripción simulada"""
-        start_time = datetime.now()
+    async def process_image(self, image_bytes: bytes, filename: str) -> Dict[str, Any]:
+        """Procesar imagen"""
+        if not PIL_AVAILABLE:
+            return {'success': False, 'error': 'PIL no disponible'}
         
         try:
-            # Verificar cache
-            file_hash = self.cache.get_file_hash(audio_bytes)
-            cached_result = self.cache.get_cached_result(file_hash, 'audio_process')
+            from io import BytesIO
             
-            if cached_result:
-                self.stats['cache_hits'] += 1
-                return cached_result['result']
+            img = Image.open(BytesIO(image_bytes))
+            original_size = len(image_bytes)
             
-            self.stats['cache_misses'] += 1
+            # Comprimir si es necesario
+            max_size = self.compression_settings['max_image_size']
+            if img.size[0] > max_size[0] or img.size[1] > max_size[1]:
+                img.thumbnail(max_size, Image.Resampling.LANCZOS)
             
-            # Crear archivo temporal
-            temp_audio = self.temp_dir / f"audio_{chat_id}_{datetime.now().timestamp()}.mp3"
-            temp_audio.write_bytes(audio_bytes)
-            self.stats['temp_files_created'] += 1
+            # Guardar
+            output_buffer = BytesIO()
+            img.save(
+                output_buffer, 
+                format='JPEG',
+                quality=self.compression_settings['image_quality'],
+                optimize=True
+            )
             
-            # Obtener duración
-            duration = await self._get_audio_duration(temp_audio)
+            compressed_bytes = output_buffer.getvalue()
             
-            # Transcripción simulada (en producción usarías Whisper API)
-            transcription = f"🎵 Audio de {duration:.1f} segundos"
-            if duration > 10:
-                transcription += " - Transcripción automática disponible próximamente"
+            # Guardar archivo
+            output_filename = f"img_{self.file_cache.get_file_hash(image_bytes)}_{filename}"
+            output_path = self.output_dir / output_filename
+            output_path.write_bytes(compressed_bytes)
             
-            # Guardar archivo procesado
-            processed_file = self.processed_dir / f"audio_{file_hash}_{chat_id}.mp3"
-            shutil.copy2(temp_audio, processed_file)
+            self.stats['images_processed'] += 1
             
-            download_url = f"http://localhost:8000/download/{processed_file.name}"
-            
-            result = {
-                "success": True,
-                "download_url": download_url,
-                "transcription": transcription,
-                "duration_min": duration / 60,
-                "size_mb": len(audio_bytes) / (1024*1024),
-                "filename": filename,
-                "processing_time": (datetime.now() - start_time).total_seconds()
-            }
-            
-            # Cachear resultado
-            self.cache.cache_result(file_hash, 'audio_process', result)
-            
-            # Cleanup
-            temp_audio.unlink()
-            self.stats['temp_files_cleaned'] += 1
-            
-            self.stats['audios_processed'] += 1
-            self._update_processing_stats(start_time)
-            
-            return result
-            
-        except Exception as e:
-            self.stats['errors'] += 1
-            logger.error(f"❌ Error procesando audio: {e}")
-            return {"success": False, "error": str(e)}
-    
-    async def _get_audio_duration(self, audio_path: Path) -> float:
-        """Obtener duración del audio"""
-        try:
-            # Simular duración basada en tamaño (estimación)
-            size_mb = audio_path.stat().st_size / (1024 * 1024)
-            # Estimación: ~1MB por minuto para MP3 128kbps
-            estimated_duration = size_mb * 60
-            return estimated_duration
-        except Exception:
-            return 60.0  # Default 1 minute
-    
-    async def create_temp_download(self, file_bytes: bytes, filename: str, 
-                                 chat_id: int) -> Dict[str, Any]:
-        """Crear enlace de descarga temporal para documentos"""
-        try:
-            file_hash = self.cache.get_file_hash(file_bytes)
-            
-            # Crear archivo en processed_dir
-            safe_filename = "".join(c for c in filename if c.isalnum() or c in '.-_')
-            processed_file = self.processed_dir / f"doc_{file_hash}_{chat_id}_{safe_filename}"
-            processed_file.write_bytes(file_bytes)
-            
-            download_url = f"http://localhost:8000/download/{processed_file.name}"
-            
-            self.stats['documents_processed'] += 1
+            logger.info(f"🖼️ Imagen procesada: {filename}")
             
             return {
-                "success": True,
-                "download_url": download_url,
-                "size_mb": len(file_bytes) / (1024*1024),
-                "filename": filename
+                'success': True,
+                'filename': filename,
+                'output_path': str(output_path),
+                'original_size': original_size,
+                'compressed_size': len(compressed_bytes)
             }
             
         except Exception as e:
-            self.stats['errors'] += 1
-            logger.error(f"❌ Error creando enlace temporal: {e}")
-            return {"success": False, "error": str(e)}
+            logger.error(f"Error procesando imagen: {e}")
+            return {'success': False, 'error': str(e)}
     
-    def _update_processing_stats(self, start_time: datetime):
-        """Actualizar estadísticas de procesamiento"""
-        processing_time = (datetime.now() - start_time).total_seconds()
-        self.stats['total_processing_time'] += processing_time
-        
-        total_processed = (
-            self.stats['pdfs_processed'] + 
-            self.stats['videos_processed'] + 
-            self.stats['audios_processed'] +
-            self.stats['documents_processed']
-        )
-        
-        if total_processed > 0:
-            self.stats['avg_processing_time'] = (
-                self.stats['total_processing_time'] / total_processed
-            )
-    
-    async def _periodic_cleanup(self):
-        """Cleanup periódico de archivos temporales"""
-        while True:
-            try:
-                await asyncio.sleep(self.config['cleanup_interval_hours'] * 3600)
-                await self._cleanup_old_files()
-            except Exception as e:
-                logger.error(f"Error en cleanup periódico: {e}")
-    
-    async def _cleanup_old_files(self):
-        """Limpiar archivos antiguos"""
+    async def process_video(self, video_bytes: bytes, filename: str) -> Dict[str, Any]:
+        """Procesar video"""
         try:
-            cutoff_time = datetime.now() - timedelta(hours=24)
-            cleaned_count = 0
+            # Guardar temporalmente
+            temp_input = self.temp_dir / f"input_{filename}"
+            temp_output = self.temp_dir / f"output_{filename}"
             
-            for directory in [self.temp_dir, self.processed_dir]:
-                for file_path in directory.iterdir():
-                    if file_path.is_file():
-                        file_time = datetime.fromtimestamp(file_path.stat().st_mtime)
-                        if file_time < cutoff_time:
-                            file_path.unlink()
-                            cleaned_count += 1
+            temp_input.write_bytes(video_bytes)
             
-            if cleaned_count > 0:
-                logger.info(f"🧹 Cleanup: {cleaned_count} archivos eliminados")
-                
-        except Exception as e:
-            logger.error(f"Error en cleanup: {e}")
-    
-    async def get_stats(self) -> Dict[str, Any]:
-        """Obtener estadísticas enterprise"""
-        uptime = (datetime.now() - self.stats['start_time']).total_seconds()
-        
-        return {
-            **self.stats,
-            'uptime_seconds': uptime,
-            'uptime_hours': uptime / 3600,
-            'cache_hit_rate': (
-                (self.stats['cache_hits'] / 
-                 max(self.stats['cache_hits'] + self.stats['cache_misses'], 1)) * 100
-            ),
-            'total_files_processed': (
-                self.stats['pdfs_processed'] + 
-                self.stats['videos_processed'] + 
-                self.stats['audios_processed'] +
-                self.stats['documents_processed']
-            ),
-            'temp_files_ratio': (
-                self.stats['temp_files_cleaned'] / 
-                max(self.stats['temp_files_created'], 1)
+            # Comando ffmpeg
+            cmd = [
+                'ffmpeg', '-i', str(temp_input),
+                '-c:v', 'libx264',
+                '-crf', str(self.compression_settings['video_crf']),
+                '-preset', 'medium',
+                '-c:a', 'aac',
+                '-b:a', self.compression_settings['audio_bitrate'],
+                str(temp_output),
+                '-y'
+            ]
+            
+            proc = await asyncio.create_subprocess_exec(
+                *cmd,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
             )
-        }
+            
+            await proc.communicate()
+            
+            if proc.returncode == 0:
+                processed_bytes = temp_output.read_bytes()
+                
+                # Guardar
+                output_filename = f"video_{self.file_cache.get_file_hash(video_bytes)}_{filename}"
+                output_path = self.output_dir / output_filename
+                output_path.write_bytes(processed_bytes)
+                
+                # Limpiar
+                temp_input.unlink()
+                temp_output.unlink()
+                
+                self.stats['videos_processed'] += 1
+                
+                logger.info(f"🎬 Video procesado: {filename}")
+                
+                return {
+                    'success': True,
+                    'filename': filename,
+                    'output_path': str(output_path),
+                    'original_size': len(video_bytes),
+                    'compressed_size': len(processed_bytes)
+                }
+            
+            return {'success': False, 'error': 'FFmpeg falló'}
+            
+        except Exception as e:
+            logger.error(f"Error procesando video: {e}")
+            return {'success': False, 'error': str(e)}
     
-    async def get_health(self) -> Dict[str, Any]:
-        """Health check del servicio"""
+    async def process_pdf(self, pdf_bytes: bytes, filename: str) -> Dict[str, Any]:
+        """Procesar PDF"""
+        if not PYMUPDF_AVAILABLE:
+            return {'success': False, 'error': 'PyMuPDF no disponible'}
+        
+        try:
+            pdf_document = fitz.open(stream=pdf_bytes, filetype="pdf")
+            page_count = len(pdf_document)
+            
+            # Guardar
+            output_filename = f"pdf_{self.file_cache.get_file_hash(pdf_bytes)}_{filename}"
+            output_path = self.output_dir / output_filename
+            output_path.write_bytes(pdf_bytes)
+            
+            pdf_document.close()
+            
+            self.stats['pdfs_processed'] += 1
+            
+            logger.info(f"📄 PDF procesado: {filename} ({page_count} páginas)")
+            
+            return {
+                'success': True,
+                'filename': filename,
+                'output_path': str(output_path),
+                'page_count': page_count,
+                'file_size': len(pdf_bytes)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error procesando PDF: {e}")
+            return {'success': False, 'error': str(e)}
+    
+    async def process_audio(self, audio_bytes: bytes, filename: str) -> Dict[str, Any]:
+        """Procesar audio"""
+        try:
+            # Guardar temporalmente
+            temp_input = self.temp_dir / f"input_{filename}"
+            temp_output = self.temp_dir / f"output_{filename}.mp3"
+            
+            temp_input.write_bytes(audio_bytes)
+            
+            # Convertir a MP3
+            cmd = [
+                'ffmpeg', '-i', str(temp_input),
+                '-c:a', 'libmp3lame',
+                '-b:a', self.compression_settings['audio_bitrate'],
+                str(temp_output),
+                '-y'
+            ]
+            
+            proc = await asyncio.create_subprocess_exec(
+                *cmd,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            
+            await proc.communicate()
+            
+            if proc.returncode == 0:
+                processed_bytes = temp_output.read_bytes()
+                
+                # Guardar
+                output_filename = f"audio_{self.file_cache.get_file_hash(audio_bytes)}_{filename}.mp3"
+                output_path = self.output_dir / output_filename
+                output_path.write_bytes(processed_bytes)
+                
+                # Limpiar
+                temp_input.unlink()
+                temp_output.unlink()
+                
+                self.stats['audios_processed'] += 1
+                
+                logger.info(f"🎵 Audio procesado: {filename}")
+                
+                return {
+                    'success': True,
+                    'filename': filename,
+                    'output_path': str(output_path),
+                    'original_size': len(audio_bytes),
+                    'format': 'mp3'
+                }
+            
+            return {'success': False, 'error': 'FFmpeg falló'}
+            
+        except Exception as e:
+            logger.error(f"Error procesando audio: {e}")
+            return {'success': False, 'error': str(e)}
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Obtener estadísticas"""
         return {
-            "status": "healthy",
-            "dependencies": {
-                "ffmpeg": await self._check_ffmpeg(),
-                "pymupdf": PYMUPDF_AVAILABLE,
-                "pil": PIL_AVAILABLE
-            },
-            "disk_usage": {
-                "temp_dir_files": len(list(self.temp_dir.iterdir())),
-                "cache_dir_files": len(list(self.cache_dir.iterdir())),
-                "processed_dir_files": len(list(self.processed_dir.iterdir()))
-            },
-            "processing_queue": self.processing_semaphore._value,
-            "stats": await self.get_stats()
+            'processor_stats': self.stats,
+            'directories': {
+                'cache': str(self.cache_dir),
+                'temp': str(self.temp_dir),
+                'output': str(self.output_dir)
+            }
         }
+
+
+# Función helper
+def create_file_processor() -> FileProcessorEnhanced:
+    """Factory function para crear FileProcessorEnhanced"""
+    return FileProcessorEnhanced()
+
+
+# Exportar clases
+__all__ = ['FileCache', 'FileProcessorEnhanced', 'create_file_processor']
