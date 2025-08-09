@@ -1,11 +1,11 @@
 """
-⚙️ SHARED CONFIGURATION v4.0
-============================
-Configuración centralizada para todos los microservicios
+App Config Settings
+==================
+Configuración centralizada para el sistema
 """
 
 import os
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from dataclasses import dataclass, field
 from dotenv import load_dotenv
 
@@ -13,7 +13,6 @@ load_dotenv()
 
 @dataclass 
 class TelegramSettings:
-    """Configuración de Telegram"""
     api_id: int = int(os.getenv('TELEGRAM_API_ID', 0))
     api_hash: str = os.getenv('TELEGRAM_API_HASH', '')
     phone: str = os.getenv('TELEGRAM_PHONE', '')
@@ -21,13 +20,12 @@ class TelegramSettings:
 
 @dataclass
 class DiscordSettings:
-    """Configuración de Discord"""
     webhooks: Dict[int, str] = field(default_factory=dict)
     max_file_size_mb: int = int(os.getenv('MAX_FILE_SIZE_MB', 8))
     timeout: int = int(os.getenv('DISCORD_TIMEOUT', 60))
     
     def __post_init__(self):
-        # Cargar webhooks desde variables de entorno
+        # Cargar webhooks
         for key, value in os.environ.items():
             if key.startswith('WEBHOOK_'):
                 try:
@@ -37,28 +35,52 @@ class DiscordSettings:
                     continue
 
 @dataclass
+class DatabaseSettings:
+    url: str = os.getenv('DATABASE_URL', 'sqlite:///./replicator.db')
+    echo: bool = os.getenv('DATABASE_ECHO', 'false').lower() == 'true'
+
+@dataclass
 class Settings:
-    """Configuración principal del sistema"""
+    """Configuración principal de la aplicación"""
     
     # Configuraciones por módulo
     telegram: TelegramSettings = field(default_factory=TelegramSettings)
     discord: DiscordSettings = field(default_factory=DiscordSettings)
+    database: DatabaseSettings = field(default_factory=DatabaseSettings)
     
-    # Configuraciones generales
+    # Configuración general
     debug: bool = os.getenv('DEBUG', 'false').lower() == 'true'
     log_level: str = os.getenv('LOG_LEVEL', 'INFO')
+    
+    # API y servidor
     host: str = os.getenv('HOST', '0.0.0.0')
     port: int = int(os.getenv('PORT', 8000))
     
-    # Funcionalidades
+    # Watermarks
     watermarks_enabled: bool = os.getenv('WATERMARKS_ENABLED', 'true').lower() == 'true'
+    watermark_service_url: str = os.getenv('WATERMARK_SERVICE_URL', 'http://localhost:8081')
+    
+    @property
+    def telegram_api_id(self) -> int:
+        return self.telegram.api_id
+    
+    @property  
+    def telegram_api_hash(self) -> str:
+        return self.telegram.api_hash
+    
+    @property
+    def telegram_phone(self) -> str:
+        return self.telegram.phone
 
-# Singleton para configuración global
-_settings_instance: Optional[Settings] = None
+# Instancia global
+_settings = None
 
 def get_settings() -> Settings:
-    """Obtener instancia singleton de configuración"""
-    global _settings_instance
-    if _settings_instance is None:
-        _settings_instance = Settings()
-    return _settings_instance
+    """Obtener configuración global"""
+    global _settings
+    if _settings is None:
+        _settings = Settings()
+    return _settings
+
+# Para compatibilidad
+settings = get_settings()

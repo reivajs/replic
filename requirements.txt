@@ -1,24 +1,27 @@
-# Dependencias principales del sistema
+# 🎭 ENTERPRISE MICROSERVICES REQUIREMENTS v4.0
+# ===============================================
+
+# Core Dependencies (de tu proyecto original)
 telethon>=1.24.0
 python-dotenv>=0.19.0
 aiohttp>=3.8.0
 
-# FastAPI y servidor web
+# FastAPI Stack (para microservicios)
 fastapi>=0.68.0
 uvicorn[standard]>=0.15.0
 jinja2>=3.0.0
 python-multipart>=0.0.5
 
-# Base de datos
-sqlite3
+# HTTP Client (para comunicación entre servicios)
+httpx>=0.24.0
 
-# Watermarks y multimedia
+# Multimedia y archivos (manteniendo compatibilidad)
 Pillow>=9.0.0
-
-# Utilidades
 python-dateutil>=2.8.0
+
+# Validation y Models
+pydantic>=1.8.0
 
 # Desarrollo (opcional)
 pytest>=6.2.0
 black>=22.0.0
-isort>=5.10.0

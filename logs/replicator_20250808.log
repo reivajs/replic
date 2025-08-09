@@ -492,3 +492,162 @@
 2025-08-08 18:05:56,720 - app.services.enhanced_replicator_service - INFO - start_listening:778 - 🛑 Enterprise listening stopped
 2025-08-08 18:05:56,721 - app.services.enhanced_replicator_service - INFO - stop:804 - ✅ Enhanced Replicator Service Enterprise stopped
 2025-08-08 18:05:56,721 - main - INFO - lifespan:71 - 👋 Sistema detenido
+2025-08-08 22:18:50,017 - app.services.file_processor - WARNING - _load_cache_index:55 - Error cargando cache index: Expecting value: line 1 column 3498 (char 3497)
+2025-08-08 22:18:50,017 - app.services.file_processor - INFO - __init__:201 - 🚀 File Processor Enterprise inicializado
+2025-08-08 22:18:50,018 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-08 22:18:50,018 - app.services.discord_sender - INFO - __init__:166 - 🚀 Discord Sender Enterprise inicializado
+2025-08-08 22:18:50,018 - app.services.enhanced_replicator_service - INFO - __init__:147 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized
+2025-08-08 22:18:50,018 - app.services.enhanced_replicator_service - INFO - initialize:157 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-08 22:18:50,019 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:203 - 🔍 Enterprise dependency verification:
+2025-08-08 22:18:50,019 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    telethon: ✅ Available
+2025-08-08 22:18:50,019 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:207 -    telethon_video_support: ❌ Missing
+2025-08-08 22:18:50,019 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    aiohttp: ✅ Available
+2025-08-08 22:18:50,019 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pil: ✅ Available
+2025-08-08 22:18:50,019 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pymupdf: ✅ Available
+2025-08-08 22:18:50,019 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:211 -    📹 Video handling: Using document-based detection
+2025-08-08 22:18:50,020 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:228 - 📱 Connecting to Telegram Enterprise...
+2025-08-08 22:18:51,020 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:255 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-08 22:18:51,464 - app.services.file_processor - INFO - _check_dependencies:226 - 📦 Dependencias verificadas:
+2025-08-08 22:18:51,464 - app.services.file_processor - INFO - _check_dependencies:229 -    ffmpeg: ✅
+2025-08-08 22:18:51,464 - app.services.file_processor - INFO - _check_dependencies:229 -    pymupdf: ✅
+2025-08-08 22:18:51,464 - app.services.file_processor - INFO - _check_dependencies:229 -    pil: ✅
+2025-08-08 22:18:51,464 - app.services.file_processor - INFO - initialize:212 - ✅ File Processor Enterprise inicializado correctamente
+2025-08-08 22:18:51,464 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ File Processor Enterprise initialized
+2025-08-08 22:18:51,465 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-08 22:18:51,480 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-08 22:18:51,481 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-08 22:18:51,481 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-08 22:18:51,481 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-08 22:18:51,481 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Watermark Service Enterprise initialized
+2025-08-08 22:18:51,481 - app.services.discord_sender - INFO - initialize:189 - ✅ Discord Sender Enterprise inicializado correctamente
+2025-08-08 22:18:51,481 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Discord Sender Enterprise initialized
+2025-08-08 22:18:51,482 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:319 - 📡 Enterprise event handlers configured
+2025-08-08 22:18:51,482 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:668 - 🔄 Enterprise background tasks started
+2025-08-08 22:18:51,482 - app.services.enhanced_replicator_service - INFO - initialize:181 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-08 22:18:51,482 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:741 - 📊 Enterprise Configuration:
+2025-08-08 22:18:51,482 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:742 -    Groups configured: 2
+2025-08-08 22:18:51,482 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:743 -    Max concurrent processing: 10
+2025-08-08 22:18:51,482 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:744 -    Circuit breaker threshold: 5
+2025-08-08 22:18:51,482 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:745 -    Processing timeout: 300s
+2025-08-08 22:18:51,482 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:746 -    Enterprise Services:
+2025-08-08 22:18:51,483 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:747 -      - File Processor: ✅ Advanced
+2025-08-08 22:18:51,483 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:748 -      - Watermark Service: ✅ Multi-tenant
+2025-08-08 22:18:51,483 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:749 -      - Discord Sender: ✅ Circuit breaker enabled
+2025-08-08 22:18:51,483 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:750 -    Dependencies:
+2025-08-08 22:18:51,483 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:751 -      - Telethon: ✅
+2025-08-08 22:18:51,483 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:752 -      - PIL: ✅
+2025-08-08 22:18:51,483 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:753 -      - PyMuPDF: ✅
+2025-08-08 22:18:51,483 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:754 -      - aiohttp: ✅
+2025-08-08 22:18:51,484 - app.services.enhanced_replicator_service - INFO - start_listening:764 - 👂 Starting enterprise message listening...
+2025-08-08 22:18:51,484 - app.services.enhanced_replicator_service - INFO - start_listening:768 -    👥 Monitoring enterprise group: -4989347027
+2025-08-08 22:18:51,484 - app.services.enhanced_replicator_service - INFO - start_listening:768 -    👥 Monitoring enterprise group: -1001697798998
+2025-08-08 22:46:33,990 - app.services.enhanced_replicator_service - INFO - stop:783 - 🛑 Stopping Enhanced Replicator Service Enterprise...
+2025-08-08 22:46:33,991 - app.services.discord_sender - INFO - close:507 - ✅ Discord Sender cerrado correctamente
+2025-08-08 22:46:33,991 - app.services.enhanced_replicator_service - INFO - _shutdown_discord_sender:823 - 📤 Discord sender closed
+2025-08-08 22:46:33,996 - app.services.enhanced_replicator_service - INFO - _shutdown_telegram:815 - 📱 Telegram client disconnected
+2025-08-08 22:46:33,996 - app.services.enhanced_replicator_service - INFO - start_listening:778 - 🛑 Enterprise listening stopped
+2025-08-08 22:46:33,996 - app.services.enhanced_replicator_service - INFO - stop:804 - ✅ Enhanced Replicator Service Enterprise stopped
+2025-08-08 23:43:41,589 - app.services.file_processor - WARNING - _load_cache_index:55 - Error cargando cache index: Expecting value: line 1 column 3498 (char 3497)
+2025-08-08 23:43:41,590 - app.services.file_processor - INFO - __init__:201 - 🚀 File Processor Enterprise inicializado
+2025-08-08 23:43:41,590 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-08 23:43:41,590 - app.services.discord_sender - INFO - __init__:166 - 🚀 Discord Sender Enterprise inicializado
+2025-08-08 23:43:41,590 - app.services.enhanced_replicator_service - INFO - __init__:147 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized
+2025-08-08 23:43:41,591 - app.services.enhanced_replicator_service - INFO - initialize:157 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-08 23:43:41,591 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:203 - 🔍 Enterprise dependency verification:
+2025-08-08 23:43:41,591 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    telethon: ✅ Available
+2025-08-08 23:43:41,591 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:207 -    telethon_video_support: ❌ Missing
+2025-08-08 23:43:41,591 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    aiohttp: ✅ Available
+2025-08-08 23:43:41,591 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pil: ✅ Available
+2025-08-08 23:43:41,592 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pymupdf: ✅ Available
+2025-08-08 23:43:41,592 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:211 -    📹 Video handling: Using document-based detection
+2025-08-08 23:43:41,592 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:228 - 📱 Connecting to Telegram Enterprise...
+2025-08-08 23:43:42,635 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:255 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-08 23:43:42,896 - app.services.file_processor - INFO - _check_dependencies:226 - 📦 Dependencias verificadas:
+2025-08-08 23:43:42,896 - app.services.file_processor - INFO - _check_dependencies:229 -    ffmpeg: ✅
+2025-08-08 23:43:42,896 - app.services.file_processor - INFO - _check_dependencies:229 -    pymupdf: ✅
+2025-08-08 23:43:42,897 - app.services.file_processor - INFO - _check_dependencies:229 -    pil: ✅
+2025-08-08 23:43:42,897 - app.services.file_processor - INFO - initialize:212 - ✅ File Processor Enterprise inicializado correctamente
+2025-08-08 23:43:42,897 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ File Processor Enterprise initialized
+2025-08-08 23:43:42,898 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-08 23:43:42,914 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-08 23:43:42,915 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-08 23:43:42,915 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-08 23:43:42,915 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-08 23:43:42,915 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Watermark Service Enterprise initialized
+2025-08-08 23:43:42,916 - app.services.discord_sender - INFO - initialize:189 - ✅ Discord Sender Enterprise inicializado correctamente
+2025-08-08 23:43:42,916 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Discord Sender Enterprise initialized
+2025-08-08 23:43:42,916 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:319 - 📡 Enterprise event handlers configured
+2025-08-08 23:43:42,916 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:668 - 🔄 Enterprise background tasks started
+2025-08-08 23:43:42,916 - app.services.enhanced_replicator_service - INFO - initialize:181 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-08 23:43:42,916 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:741 - 📊 Enterprise Configuration:
+2025-08-08 23:43:42,916 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:742 -    Groups configured: 2
+2025-08-08 23:43:42,917 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:743 -    Max concurrent processing: 10
+2025-08-08 23:43:42,917 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:744 -    Circuit breaker threshold: 5
+2025-08-08 23:43:42,917 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:745 -    Processing timeout: 300s
+2025-08-08 23:43:42,917 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:746 -    Enterprise Services:
+2025-08-08 23:43:42,917 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:747 -      - File Processor: ✅ Advanced
+2025-08-08 23:43:42,917 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:748 -      - Watermark Service: ✅ Multi-tenant
+2025-08-08 23:43:42,917 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:749 -      - Discord Sender: ✅ Circuit breaker enabled
+2025-08-08 23:43:42,917 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:750 -    Dependencies:
+2025-08-08 23:43:42,917 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:751 -      - Telethon: ✅
+2025-08-08 23:43:42,918 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:752 -      - PIL: ✅
+2025-08-08 23:43:42,918 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:753 -      - PyMuPDF: ✅
+2025-08-08 23:43:42,918 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:754 -      - aiohttp: ✅
+2025-08-08 23:43:42,918 - app.services.enhanced_replicator_service - INFO - start_listening:764 - 👂 Starting enterprise message listening...
+2025-08-08 23:43:42,918 - app.services.enhanced_replicator_service - INFO - start_listening:768 -    👥 Monitoring enterprise group: -4989347027
+2025-08-08 23:43:42,918 - app.services.enhanced_replicator_service - INFO - start_listening:768 -    👥 Monitoring enterprise group: -1001697798998
+2025-08-08 23:45:55,722 - app.services.enhanced_replicator_service - INFO - stop:783 - 🛑 Stopping Enhanced Replicator Service Enterprise...
+2025-08-08 23:45:55,723 - app.services.discord_sender - INFO - close:507 - ✅ Discord Sender cerrado correctamente
+2025-08-08 23:45:55,723 - app.services.enhanced_replicator_service - INFO - _shutdown_discord_sender:823 - 📤 Discord sender closed
+2025-08-08 23:45:55,731 - app.services.enhanced_replicator_service - INFO - _shutdown_telegram:815 - 📱 Telegram client disconnected
+2025-08-08 23:45:55,732 - app.services.enhanced_replicator_service - INFO - start_listening:778 - 🛑 Enterprise listening stopped
+2025-08-08 23:45:55,734 - app.services.enhanced_replicator_service - INFO - stop:804 - ✅ Enhanced Replicator Service Enterprise stopped
+2025-08-08 23:48:31,532 - app.services.file_processor - WARNING - _load_cache_index:55 - Error cargando cache index: Expecting value: line 1 column 3498 (char 3497)
+2025-08-08 23:48:31,533 - app.services.file_processor - INFO - __init__:201 - 🚀 File Processor Enterprise inicializado
+2025-08-08 23:48:31,533 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-08 23:48:31,533 - app.services.discord_sender - INFO - __init__:166 - 🚀 Discord Sender Enterprise inicializado
+2025-08-08 23:48:31,534 - app.services.enhanced_replicator_service - INFO - __init__:147 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized
+2025-08-08 23:48:31,534 - app.services.enhanced_replicator_service - INFO - initialize:157 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-08 23:48:31,534 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:203 - 🔍 Enterprise dependency verification:
+2025-08-08 23:48:31,535 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    telethon: ✅ Available
+2025-08-08 23:48:31,535 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:207 -    telethon_video_support: ❌ Missing
+2025-08-08 23:48:31,535 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    aiohttp: ✅ Available
+2025-08-08 23:48:31,536 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pil: ✅ Available
+2025-08-08 23:48:31,536 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pymupdf: ✅ Available
+2025-08-08 23:48:31,536 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:211 -    📹 Video handling: Using document-based detection
+2025-08-08 23:48:31,536 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:228 - 📱 Connecting to Telegram Enterprise...
+2025-08-08 23:48:32,484 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:255 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-08 23:48:32,533 - app.services.file_processor - INFO - _check_dependencies:226 - 📦 Dependencias verificadas:
+2025-08-08 23:48:32,533 - app.services.file_processor - INFO - _check_dependencies:229 -    ffmpeg: ✅
+2025-08-08 23:48:32,533 - app.services.file_processor - INFO - _check_dependencies:229 -    pymupdf: ✅
+2025-08-08 23:48:32,533 - app.services.file_processor - INFO - _check_dependencies:229 -    pil: ✅
+2025-08-08 23:48:32,533 - app.services.file_processor - INFO - initialize:212 - ✅ File Processor Enterprise inicializado correctamente
+2025-08-08 23:48:32,533 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ File Processor Enterprise initialized
+2025-08-08 23:48:32,534 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-08 23:48:32,547 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-08 23:48:32,548 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-08 23:48:32,548 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-08 23:48:32,548 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-08 23:48:32,548 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Watermark Service Enterprise initialized
+2025-08-08 23:48:32,548 - app.services.discord_sender - INFO - initialize:189 - ✅ Discord Sender Enterprise inicializado correctamente
+2025-08-08 23:48:32,549 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Discord Sender Enterprise initialized
+2025-08-08 23:48:32,549 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:319 - 📡 Enterprise event handlers configured
+2025-08-08 23:48:32,549 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:668 - 🔄 Enterprise background tasks started
+2025-08-08 23:48:32,549 - app.services.enhanced_replicator_service - INFO - initialize:181 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-08 23:48:32,549 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:741 - 📊 Enterprise Configuration:
+2025-08-08 23:48:32,549 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:742 -    Groups configured: 2
+2025-08-08 23:48:32,550 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:743 -    Max concurrent processing: 10
+2025-08-08 23:48:32,550 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:744 -    Circuit breaker threshold: 5
+2025-08-08 23:48:32,550 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:745 -    Processing timeout: 300s
+2025-08-08 23:48:32,550 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:746 -    Enterprise Services:
+2025-08-08 23:48:32,550 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:747 -      - File Processor: ✅ Advanced
+2025-08-08 23:48:32,550 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:748 -      - Watermark Service: ✅ Multi-tenant
+2025-08-08 23:48:32,551 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:749 -      - Discord Sender: ✅ Circuit breaker enabled
+2025-08-08 23:48:32,551 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:750 -    Dependencies:
+2025-08-08 23:48:32,551 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:751 -      - Telethon: ✅
+2025-08-08 23:48:32,551 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:752 -      - PIL: ✅
+2025-08-08 23:48:32,551 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:753 -      - PyMuPDF: ✅
+2025-08-08 23:48:32,551 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:754 -      - aiohttp: ✅
+2025-08-08 23:48:32,552 - app.services.enhanced_replicator_service - INFO - start_listening:764 - 👂 Starting enterprise message listening...
+2025-08-08 23:48:32,552 - app.services.enhanced_replicator_service - INFO - start_listening:768 -    👥 Monitoring enterprise group: -4989347027
+2025-08-08 23:48:32,552 - app.services.enhanced_replicator_service - INFO - start_listening:768 -    👥 Monitoring enterprise group: -1001697798998
