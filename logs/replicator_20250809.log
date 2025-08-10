@@ -1,0 +1,561 @@
+2025-08-09 09:51:19,684 - app.services.file_processor - INFO - __init__:206 - 🚀 File Processor Enterprise inicializado
+2025-08-09 09:51:45,058 - app.services.file_processor - INFO - __init__:206 - 🚀 File Processor Enterprise inicializado
+2025-08-09 09:51:45,059 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-09 09:51:45,060 - app.services.discord_sender - INFO - __init__:166 - 🚀 Discord Sender Enterprise inicializado
+2025-08-09 09:51:45,060 - app.services.enhanced_replicator_service - INFO - __init__:147 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized
+2025-08-09 09:51:45,060 - app.services.enhanced_replicator_service - INFO - initialize:157 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-09 09:51:45,061 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:203 - 🔍 Enterprise dependency verification:
+2025-08-09 09:51:45,061 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    telethon: ✅ Available
+2025-08-09 09:51:45,061 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:207 -    telethon_video_support: ❌ Missing
+2025-08-09 09:51:45,061 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    aiohttp: ✅ Available
+2025-08-09 09:51:45,062 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pil: ✅ Available
+2025-08-09 09:51:45,062 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pymupdf: ✅ Available
+2025-08-09 09:51:45,062 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:211 -    📹 Video handling: Using document-based detection
+2025-08-09 09:51:45,063 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:228 - 📱 Connecting to Telegram Enterprise...
+2025-08-09 09:51:46,094 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:255 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-09 09:51:46,678 - app.services.file_processor - INFO - _check_dependencies:221 - 📦 Dependencias verificadas:
+2025-08-09 09:51:46,678 - app.services.file_processor - INFO - _check_dependencies:224 -    ffmpeg: ✅
+2025-08-09 09:51:46,678 - app.services.file_processor - INFO - _check_dependencies:224 -    pymupdf: ✅
+2025-08-09 09:51:46,678 - app.services.file_processor - INFO - _check_dependencies:224 -    pil: ✅
+2025-08-09 09:51:46,679 - app.services.file_processor - INFO - initialize:211 - ✅ File Processor Enterprise inicializado correctamente
+2025-08-09 09:51:46,679 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ File Processor Enterprise initialized
+2025-08-09 09:51:46,679 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-09 09:51:46,694 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-09 09:51:46,695 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-09 09:51:46,695 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-09 09:51:46,695 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-09 09:51:46,695 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Watermark Service Enterprise initialized
+2025-08-09 09:51:46,696 - app.services.discord_sender - INFO - initialize:189 - ✅ Discord Sender Enterprise inicializado correctamente
+2025-08-09 09:51:46,696 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Discord Sender Enterprise initialized
+2025-08-09 09:51:46,696 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:319 - 📡 Enterprise event handlers configured
+2025-08-09 09:51:46,696 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:668 - 🔄 Enterprise background tasks started
+2025-08-09 09:51:46,696 - app.services.enhanced_replicator_service - INFO - initialize:181 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-09 09:51:46,696 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:741 - 📊 Enterprise Configuration:
+2025-08-09 09:51:46,697 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:742 -    Groups configured: 2
+2025-08-09 09:51:46,697 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:743 -    Max concurrent processing: 10
+2025-08-09 09:51:46,697 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:744 -    Circuit breaker threshold: 5
+2025-08-09 09:51:46,697 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:745 -    Processing timeout: 300s
+2025-08-09 09:51:46,697 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:746 -    Enterprise Services:
+2025-08-09 09:51:46,697 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:747 -      - File Processor: ✅ Advanced
+2025-08-09 09:51:46,697 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:748 -      - Watermark Service: ✅ Multi-tenant
+2025-08-09 09:51:46,697 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:749 -      - Discord Sender: ✅ Circuit breaker enabled
+2025-08-09 09:51:46,698 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:750 -    Dependencies:
+2025-08-09 09:51:46,698 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:751 -      - Telethon: ✅
+2025-08-09 09:51:46,698 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:752 -      - PIL: ✅
+2025-08-09 09:51:46,698 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:753 -      - PyMuPDF: ✅
+2025-08-09 09:51:46,698 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:754 -      - aiohttp: ✅
+2025-08-09 09:51:46,699 - app.services.enhanced_replicator_service - INFO - start_listening:764 - 👂 Starting enterprise message listening...
+2025-08-09 09:51:46,699 - app.services.enhanced_replicator_service - INFO - start_listening:768 -    👥 Monitoring enterprise group: -4989347027
+2025-08-09 09:51:46,699 - app.services.enhanced_replicator_service - INFO - start_listening:768 -    👥 Monitoring enterprise group: -1001697798998
+2025-08-09 09:54:45,489 - app.services.enhanced_replicator_service - INFO - _process_image_enterprise:576 - 🖼️ Enterprise image processed for group -4989347027
+2025-08-09 09:55:17,170 - app.services.enhanced_replicator_service - ERROR - _process_video_enterprise:616 - ❌ Enterprise video processing error: FileProcessorEnhanced.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 09:55:17,170 - app.services.enhanced_replicator_service - ERROR - _process_message_enterprise:339 - ❌ Enterprise message processing failed: FileProcessorEnhanced.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 09:55:17,171 - app.services.enhanced_replicator_service - ERROR - handle_enterprise_message:313 - ❌ Enterprise message processing error: FileProcessorEnhanced.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 09:55:17,171 - app.services.enhanced_replicator_service - ERROR - _handle_processing_error:732 - ❌ Processing error for group -4989347027: FileProcessorEnhanced.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 09:55:28,435 - app.services.enhanced_replicator_service - ERROR - _handle_audio_enterprise:510 - ❌ Enterprise audio handling error: FileProcessorEnhanced.process_audio() takes 3 positional arguments but 4 were given
+2025-08-09 09:55:43,241 - app.services.enhanced_replicator_service - ERROR - _handle_pdf_enterprise:467 - ❌ Enterprise PDF handling error: FileProcessorEnhanced.process_pdf() takes 3 positional arguments but 4 were given
+2025-08-09 09:55:46,723 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 09:56:16,728 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 09:56:46,729 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 09:57:16,730 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 09:57:46,731 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 09:58:16,734 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 09:58:46,738 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 11:09:06,003 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 11:24:13,317 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:26:41,547 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:27:11,470 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:27:41,480 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:28:11,490 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:28:41,494 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:29:11,499 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:29:41,500 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:30:11,505 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:30:41,506 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:31:11,511 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:31:41,513 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:32:11,518 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:32:41,520 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 60.00%
+2025-08-09 13:33:10,483 - app.services.enhanced_replicator_service - INFO - _process_image_enterprise:576 - 🖼️ Enterprise image processed for group -4989347027
+2025-08-09 13:33:11,520 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:33:41,524 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:34:11,525 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:34:41,530 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:35:11,530 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:35:41,534 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:36:11,539 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:36:41,540 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:37:11,540 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:37:41,541 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:38:11,545 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:38:41,549 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 42.86%
+2025-08-09 13:39:01,757 - app.services.enhanced_replicator_service - INFO - stop:783 - 🛑 Stopping Enhanced Replicator Service Enterprise...
+2025-08-09 13:39:01,759 - app.services.discord_sender - INFO - close:507 - ✅ Discord Sender cerrado correctamente
+2025-08-09 13:39:01,759 - app.services.enhanced_replicator_service - INFO - _shutdown_discord_sender:823 - 📤 Discord sender closed
+2025-08-09 13:39:01,782 - app.services.enhanced_replicator_service - INFO - _shutdown_telegram:815 - 📱 Telegram client disconnected
+2025-08-09 13:39:01,782 - app.services.enhanced_replicator_service - INFO - start_listening:778 - 🛑 Enterprise listening stopped
+2025-08-09 13:39:01,783 - app.services.enhanced_replicator_service - INFO - stop:804 - ✅ Enhanced Replicator Service Enterprise stopped
+2025-08-09 15:03:04,147 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 15:03:04,147 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 15:03:04,391 - __main__ - ERROR - main:297 - Fatal error: No module named 'app.services.file_processor'
+2025-08-09 15:03:04,391 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 15:03:04,391 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 15:16:32,721 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 15:16:32,721 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 15:16:32,916 - __main__ - ERROR - main:297 - Fatal error: No module named 'app.services.file_processor'
+2025-08-09 15:16:32,916 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 15:16:32,916 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 15:16:57,056 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 15:16:57,057 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 15:16:57,248 - __main__ - ERROR - main:297 - Fatal error: No module named 'app.services.file_processor'
+2025-08-09 15:16:57,248 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 15:16:57,248 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 15:18:33,020 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 15:18:33,020 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 15:18:33,215 - __main__ - ERROR - main:297 - Fatal error: No module named 'app.services.file_processor'
+2025-08-09 15:18:33,215 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 15:18:33,216 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 15:18:57,315 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 15:18:57,316 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 15:18:57,512 - __main__ - ERROR - main:297 - Fatal error: No module named 'app.services.file_processor'
+2025-08-09 15:18:57,512 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 15:18:57,512 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 15:19:46,475 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 15:19:46,475 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 15:19:46,674 - __main__ - ERROR - main:297 - Fatal error: No module named 'app.services.file_processor'
+2025-08-09 15:19:46,674 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 15:19:46,674 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 15:24:50,157 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 15:24:50,157 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 15:24:50,363 - __main__ - ERROR - main:298 - Fatal error: No module named 'app.services.file_processor'
+2025-08-09 15:24:50,363 - __main__ - INFO - shutdown:254 - 🛑 Shutting down services...
+2025-08-09 15:24:50,363 - __main__ - INFO - shutdown:273 - ✅ All services stopped
+2025-08-09 18:25:18,211 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 18:25:18,211 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 18:25:18,485 - __main__ - ERROR - main:297 - Fatal error: No module named 'app.services.file_processor'
+2025-08-09 18:25:18,485 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 18:25:18,485 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:09:12,921 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:09:12,924 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:09:13,190 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 708)
+2025-08-09 21:09:13,190 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:09:13,190 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:11:36,164 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:11:36,164 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:11:36,368 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 708)
+2025-08-09 21:11:36,368 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:11:36,368 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:12:18,007 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:12:18,007 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:12:18,221 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 708)
+2025-08-09 21:12:18,221 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:12:18,222 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:21:04,934 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:21:04,934 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:21:05,150 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 708)
+2025-08-09 21:21:05,150 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:21:05,151 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:25:45,429 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:25:45,429 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:25:45,668 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 708)
+2025-08-09 21:25:45,668 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:25:45,669 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:26:04,786 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:26:04,786 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:26:04,998 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 708)
+2025-08-09 21:26:04,998 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:26:04,999 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:29:33,897 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:29:33,897 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:29:34,102 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 708)
+2025-08-09 21:29:34,102 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:29:34,103 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:32:57,360 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:32:57,360 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:32:57,569 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 708)
+2025-08-09 21:32:57,569 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:32:57,569 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:33:19,950 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:33:19,950 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:33:20,166 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 708)
+2025-08-09 21:33:20,167 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:33:20,167 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:40:36,679 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:40:36,679 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:40:36,891 - __main__ - ERROR - main:297 - Fatal error: invalid syntax (file_processor_v2.py, line 724)
+2025-08-09 21:40:36,891 - __main__ - INFO - shutdown:253 - 🛑 Shutting down services...
+2025-08-09 21:40:36,891 - __main__ - INFO - shutdown:272 - ✅ All services stopped
+2025-08-09 21:45:20,772 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:45:20,772 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:45:21,349 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-09 21:45:21,349 - __main__ - INFO - start_services:57 - 🔄 Starting Enhanced Replicator Service...
+2025-08-09 21:45:21,708 - app.services.file_processor - INFO - __init__:199 - 🚀 File Processor Enterprise inicializado
+2025-08-09 21:45:21,708 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-09 21:45:21,708 - app.services.discord_sender - INFO - __init__:166 - 🚀 Discord Sender Enterprise inicializado
+2025-08-09 21:45:21,708 - app.services.enhanced_replicator_service - INFO - __init__:147 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized
+2025-08-09 21:45:21,708 - app.services.integration_bridge - INFO - initialize:59 - ✅ Using new microservice architecture
+2025-08-09 21:45:21,708 - app.services.enhanced_replicator_service - INFO - initialize:157 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-09 21:45:21,708 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:203 - 🔍 Enterprise dependency verification:
+2025-08-09 21:45:21,708 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    telethon: ✅ Available
+2025-08-09 21:45:21,709 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:207 -    telethon_video_support: ❌ Missing
+2025-08-09 21:45:21,709 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    aiohttp: ✅ Available
+2025-08-09 21:45:21,709 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pil: ✅ Available
+2025-08-09 21:45:21,709 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pymupdf: ✅ Available
+2025-08-09 21:45:21,709 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:211 -    📹 Video handling: Using document-based detection
+2025-08-09 21:45:21,709 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:228 - 📱 Connecting to Telegram Enterprise...
+2025-08-09 21:45:21,714 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-09 21:45:22,841 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:255 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-09 21:45:22,841 - app.services.integration_bridge - INFO - initialize:59 - ✅ Using new microservice architecture
+2025-08-09 21:45:22,841 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ File Processor Enterprise initialized
+2025-08-09 21:45:22,844 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-09 21:45:22,858 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-09 21:45:22,858 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-09 21:45:22,858 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-09 21:45:22,858 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-09 21:45:22,858 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Watermark Service Enterprise initialized
+2025-08-09 21:45:22,858 - app.services.discord_sender - INFO - initialize:189 - ✅ Discord Sender Enterprise inicializado correctamente
+2025-08-09 21:45:22,858 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Discord Sender Enterprise initialized
+2025-08-09 21:45:22,858 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:319 - 📡 Enterprise event handlers configured
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:668 - 🔄 Enterprise background tasks started
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - initialize:181 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:741 - 📊 Enterprise Configuration:
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:742 -    Groups configured: 2
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:743 -    Max concurrent processing: 10
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:744 -    Circuit breaker threshold: 5
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:745 -    Processing timeout: 300s
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:746 -    Enterprise Services:
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:747 -      - File Processor: ✅ Advanced
+2025-08-09 21:45:22,859 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:748 -      - Watermark Service: ✅ Multi-tenant
+2025-08-09 21:45:22,860 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:749 -      - Discord Sender: ✅ Circuit breaker enabled
+2025-08-09 21:45:22,860 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:750 -    Dependencies:
+2025-08-09 21:45:22,860 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:751 -      - Telethon: ✅
+2025-08-09 21:45:22,860 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:752 -      - PIL: ✅
+2025-08-09 21:45:22,860 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:753 -      - PyMuPDF: ✅
+2025-08-09 21:45:22,860 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:754 -      - aiohttp: ✅
+2025-08-09 21:45:22,860 - app.services.integration_bridge - INFO - initialize:208 - ✅ Enhanced Replicator Service V2 initialized
+2025-08-09 21:45:22,860 - __main__ - INFO - start_services:64 - 📤 Starting Discord Sender...
+2025-08-09 21:45:22,860 - app.services.discord_sender - INFO - __init__:166 - 🚀 Discord Sender Enterprise inicializado
+2025-08-09 21:45:22,861 - app.services.discord_sender - INFO - initialize:189 - ✅ Discord Sender Enterprise inicializado correctamente
+2025-08-09 21:45:22,861 - __main__ - INFO - start_services:71 - 🎨 Starting Watermark Service...
+2025-08-09 21:45:22,861 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-09 21:45:22,861 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-09 21:45:22,867 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-09 21:45:22,867 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-09 21:45:22,868 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-09 21:45:22,868 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-09 21:45:22,868 - __main__ - INFO - start_services:79 - 📊 Starting Web Dashboard...
+2025-08-09 21:45:22,871 - __main__ - INFO - start_services:90 - ✅ All services started successfully!
+2025-08-09 21:45:23,907 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 10.6% | RAM 52.8% | Disk 2.3%
+2025-08-09 21:49:58,651 - app.services.enhanced_replicator_service - ERROR - _process_video_enterprise:616 - ❌ Enterprise video processing error: FileProcessorBridge.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 21:49:58,651 - app.services.enhanced_replicator_service - ERROR - _process_message_enterprise:339 - ❌ Enterprise message processing failed: FileProcessorBridge.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 21:49:58,652 - app.services.enhanced_replicator_service - ERROR - handle_enterprise_message:313 - ❌ Enterprise message processing error: FileProcessorBridge.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 21:49:58,652 - app.services.enhanced_replicator_service - ERROR - _handle_processing_error:732 - ❌ Processing error for group -4989347027: FileProcessorBridge.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 21:50:00,209 - app.services.enhanced_replicator_service - ERROR - _handle_audio_enterprise:510 - ❌ Enterprise audio handling error: FileProcessorBridge.process_audio() takes 3 positional arguments but 4 were given
+2025-08-09 21:50:22,892 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 100.00%
+2025-08-09 21:50:28,924 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.5% | RAM 53.3% | Disk 2.3%
+2025-08-09 21:50:37,525 - app.services.enhanced_replicator_service - ERROR - _handle_pdf_enterprise:467 - ❌ Enterprise PDF handling error: FileProcessorBridge.process_pdf() takes 3 positional arguments but 4 were given
+2025-08-09 21:50:52,896 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:51:22,897 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:51:52,902 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:52:22,907 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:52:52,913 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:53:22,915 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:53:52,922 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:54:28,312 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-09 21:54:28,312 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-09 21:54:28,648 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-09 21:54:28,648 - __main__ - INFO - start_services:57 - 🔄 Starting Enhanced Replicator Service...
+2025-08-09 21:54:28,859 - app.services.file_processor - INFO - __init__:386 - 🚀 File Processor Enterprise inicializado
+2025-08-09 21:54:28,859 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-09 21:54:28,859 - app.services.discord_sender - INFO - __init__:166 - 🚀 Discord Sender Enterprise inicializado
+2025-08-09 21:54:28,859 - app.services.enhanced_replicator_service - INFO - __init__:147 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized
+2025-08-09 21:54:28,859 - app.services.integration_bridge - INFO - initialize:59 - ✅ Using new microservice architecture
+2025-08-09 21:54:28,860 - app.services.enhanced_replicator_service - INFO - initialize:157 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-09 21:54:28,860 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:203 - 🔍 Enterprise dependency verification:
+2025-08-09 21:54:28,860 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    telethon: ✅ Available
+2025-08-09 21:54:28,860 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:207 -    telethon_video_support: ❌ Missing
+2025-08-09 21:54:28,860 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    aiohttp: ✅ Available
+2025-08-09 21:54:28,860 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pil: ✅ Available
+2025-08-09 21:54:28,860 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:207 -    pymupdf: ✅ Available
+2025-08-09 21:54:28,860 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:211 -    📹 Video handling: Using document-based detection
+2025-08-09 21:54:28,861 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:228 - 📱 Connecting to Telegram Enterprise...
+2025-08-09 21:54:28,864 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-09 21:54:29,942 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:255 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-09 21:54:29,942 - app.services.integration_bridge - INFO - initialize:59 - ✅ Using new microservice architecture
+2025-08-09 21:54:29,942 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ File Processor Enterprise initialized
+2025-08-09 21:54:29,943 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-09 21:54:29,952 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-09 21:54:29,953 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-09 21:54:29,953 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-09 21:54:29,953 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-09 21:54:29,953 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Watermark Service Enterprise initialized
+2025-08-09 21:54:29,953 - app.services.discord_sender - INFO - initialize:189 - ✅ Discord Sender Enterprise inicializado correctamente
+2025-08-09 21:54:29,953 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:277 - ✅ Discord Sender Enterprise initialized
+2025-08-09 21:54:29,953 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:319 - 📡 Enterprise event handlers configured
+2025-08-09 21:54:29,953 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:668 - 🔄 Enterprise background tasks started
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - initialize:181 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:741 - 📊 Enterprise Configuration:
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:742 -    Groups configured: 2
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:743 -    Max concurrent processing: 10
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:744 -    Circuit breaker threshold: 5
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:745 -    Processing timeout: 300s
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:746 -    Enterprise Services:
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:747 -      - File Processor: ✅ Advanced
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:748 -      - Watermark Service: ✅ Multi-tenant
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:749 -      - Discord Sender: ✅ Circuit breaker enabled
+2025-08-09 21:54:29,954 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:750 -    Dependencies:
+2025-08-09 21:54:29,955 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:751 -      - Telethon: ✅
+2025-08-09 21:54:29,955 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:752 -      - PIL: ✅
+2025-08-09 21:54:29,955 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:753 -      - PyMuPDF: ✅
+2025-08-09 21:54:29,955 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:754 -      - aiohttp: ✅
+2025-08-09 21:54:29,955 - app.services.integration_bridge - INFO - initialize:208 - ✅ Enhanced Replicator Service V2 initialized
+2025-08-09 21:54:29,955 - __main__ - INFO - start_services:64 - 📤 Starting Discord Sender...
+2025-08-09 21:54:29,955 - app.services.discord_sender - INFO - __init__:166 - 🚀 Discord Sender Enterprise inicializado
+2025-08-09 21:54:29,956 - app.services.discord_sender - INFO - initialize:189 - ✅ Discord Sender Enterprise inicializado correctamente
+2025-08-09 21:54:29,956 - __main__ - INFO - start_services:71 - 🎨 Starting Watermark Service...
+2025-08-09 21:54:29,956 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-09 21:54:29,957 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-09 21:54:29,962 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-09 21:54:29,962 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-09 21:54:29,963 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-09 21:54:29,963 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-09 21:54:29,963 - __main__ - INFO - start_services:79 - 📊 Starting Web Dashboard...
+2025-08-09 21:54:29,968 - __main__ - INFO - start_services:90 - ✅ All services started successfully!
+2025-08-09 21:55:26,444 - app.services.enhanced_replicator_service - INFO - _process_image_enterprise:576 - 🖼️ Enterprise image processed for group -4989347027
+2025-08-09 21:55:26,625 - app.services.enhanced_replicator_service - ERROR - _handle_audio_enterprise:510 - ❌ Enterprise audio handling error: FileProcessorBridge.process_audio() takes 3 positional arguments but 4 were given
+2025-08-09 21:55:28,071 - app.services.enhanced_replicator_service - ERROR - _process_video_enterprise:616 - ❌ Enterprise video processing error: FileProcessorBridge.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 21:55:28,071 - app.services.enhanced_replicator_service - ERROR - _process_message_enterprise:339 - ❌ Enterprise message processing failed: FileProcessorBridge.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 21:55:28,071 - app.services.enhanced_replicator_service - ERROR - handle_enterprise_message:313 - ❌ Enterprise message processing error: FileProcessorBridge.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 21:55:28,071 - app.services.enhanced_replicator_service - ERROR - _handle_processing_error:732 - ❌ Processing error for group -4989347027: FileProcessorBridge.process_video() takes 3 positional arguments but 4 were given
+2025-08-09 21:55:29,979 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 100.00%
+2025-08-09 21:55:32,002 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 7.2% | RAM 53.6% | Disk 2.3%
+2025-08-09 21:55:36,713 - app.services.enhanced_replicator_service - ERROR - _handle_pdf_enterprise:467 - ❌ Enterprise PDF handling error: FileProcessorBridge.process_pdf() takes 3 positional arguments but 4 were given
+2025-08-09 21:55:59,981 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:56:29,984 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:56:59,984 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:57:29,985 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:57:59,975 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:58:29,978 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:58:59,979 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:59:29,982 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 21:59:59,983 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:00:29,988 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:00:37,002 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.5% | RAM 53.9% | Disk 2.3%
+2025-08-09 22:00:59,994 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:01:29,996 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:02:00,000 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:02:30,006 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:03:00,006 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:03:30,008 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:04:00,009 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:04:30,015 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:05:00,016 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:05:30,026 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:05:42,023 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 13.2% | RAM 55.6% | Disk 2.3%
+2025-08-09 22:06:00,028 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:06:30,028 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:07:00,035 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:07:30,045 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:08:00,046 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:08:30,051 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:09:00,054 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:09:30,063 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:10:00,072 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:10:30,081 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:10:47,052 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.5% | RAM 54.8% | Disk 2.3%
+2025-08-09 22:11:00,089 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:11:30,098 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:12:00,107 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:12:30,108 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:13:00,107 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:13:30,107 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:14:00,117 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:14:30,125 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:15:00,127 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:15:30,135 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:15:52,092 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 7.6% | RAM 54.9% | Disk 2.3%
+2025-08-09 22:16:00,136 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:16:30,141 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:17:00,144 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:17:30,150 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:18:00,152 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:18:30,152 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:19:00,160 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:19:30,168 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:20:00,169 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:20:30,170 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:20:57,139 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 4.6% | RAM 55.2% | Disk 2.3%
+2025-08-09 22:21:00,170 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:21:30,175 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:22:00,179 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:22:30,187 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:23:00,196 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:23:30,204 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:24:00,213 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:24:30,222 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:25:01,187 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 4.6% | RAM 55.3% | Disk 2.3%
+2025-08-09 22:25:01,188 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:25:31,188 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:26:02,198 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:26:32,205 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:27:03,204 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:27:33,209 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:28:04,207 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:28:34,208 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:29:05,207 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:29:35,209 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:30:06,204 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.2% | RAM 55.1% | Disk 2.3%
+2025-08-09 22:30:06,205 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:30:36,208 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:31:07,205 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:31:37,213 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:32:08,210 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:32:38,215 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:33:09,212 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:33:39,215 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:34:10,218 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:34:40,223 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:35:11,219 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 48.1% | RAM 56.6% | Disk 2.3%
+2025-08-09 22:35:11,237 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:35:41,239 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:36:12,228 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:36:42,228 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:37:13,231 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:37:43,231 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:38:14,234 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:38:44,239 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:39:15,241 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:39:45,244 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:40:16,247 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 7.6% | RAM 56.1% | Disk 2.3%
+2025-08-09 22:40:16,248 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:40:46,252 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:41:17,257 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:41:47,259 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:42:18,262 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:42:48,266 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:43:19,267 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:43:49,271 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:44:20,266 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:44:50,271 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:45:21,268 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 2.9% | RAM 54.7% | Disk 2.3%
+2025-08-09 22:45:21,268 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:45:51,268 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:46:22,268 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:46:52,272 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:47:23,270 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:47:53,274 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:48:24,273 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:48:54,283 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:49:25,277 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:49:55,285 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:50:26,285 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 3.9% | RAM 54.6% | Disk 2.3%
+2025-08-09 22:50:26,285 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:50:56,288 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:51:27,286 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:51:57,290 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:52:28,290 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:52:58,290 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:53:29,293 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:53:59,295 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:54:30,295 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:55:00,298 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:55:31,297 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.5% | RAM 55.8% | Disk 2.3%
+2025-08-09 22:55:31,298 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:56:01,300 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:56:32,300 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:57:02,302 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:57:33,302 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:58:03,305 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:58:34,305 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:59:04,306 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 22:59:35,316 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:00:05,325 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:00:36,321 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 2.0% | RAM 55.1% | Disk 2.3%
+2025-08-09 23:00:36,326 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:01:06,329 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:01:37,334 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:02:07,339 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:02:38,346 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:03:08,348 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:03:39,354 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:04:09,358 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:04:40,358 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:05:10,360 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:05:41,360 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 12.6% | RAM 55.7% | Disk 2.3%
+2025-08-09 23:05:41,366 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:06:11,370 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:06:42,377 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:07:12,387 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:07:43,380 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:08:13,384 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:08:44,383 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:09:14,385 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:09:45,384 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:10:15,389 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:10:46,382 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 4.1% | RAM 55.3% | Disk 2.3%
+2025-08-09 23:10:46,388 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:11:16,391 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:11:47,397 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:12:17,407 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:12:48,400 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:13:18,405 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:13:49,411 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:14:19,416 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:14:50,414 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:15:20,418 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:15:51,411 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 7.9% | RAM 55.5% | Disk 2.3%
+2025-08-09 23:15:51,416 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:16:21,420 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:16:52,417 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:17:22,418 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:17:53,420 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:18:23,424 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:18:54,428 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:19:24,429 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:19:55,439 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:20:25,443 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:20:56,440 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 13.4% | RAM 56.3% | Disk 2.3%
+2025-08-09 23:20:56,445 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:21:26,448 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:21:57,443 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:22:27,444 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:22:58,447 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:23:28,449 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:23:59,451 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:24:29,454 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:25:00,448 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 5.6% | RAM 54.9% | Disk 2.3%
+2025-08-09 23:25:00,453 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:25:30,457 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:26:01,455 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:26:31,459 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:27:02,469 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:27:32,472 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:28:03,469 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:28:33,471 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:29:04,469 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:29:34,474 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:30:05,469 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.9% | RAM 51.4% | Disk 2.3%
+2025-08-09 23:30:05,475 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:30:35,477 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:31:06,476 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:31:36,480 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:32:07,482 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:32:37,483 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:33:08,487 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:33:38,488 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:34:09,492 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:34:39,492 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:35:10,489 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.4% | RAM 51.6% | Disk 2.3%
+2025-08-09 23:35:10,494 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:35:40,497 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:36:11,496 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:36:41,496 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:37:12,499 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:37:42,499 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:38:13,501 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-09 23:38:43,504 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-10 02:33:26,805 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-10 03:58:43,803 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-10 07:00:11,494 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 30.4% | RAM 29.1% | Disk 2.3%
+2025-08-10 07:00:11,506 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%
+2025-08-10 07:00:41,519 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1055 - ⚠️ High error rate: 75.00%

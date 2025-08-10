@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Processor Analytics - Zero Cost Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(26, 27, 47, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-title {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .stat-badge {
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+        }
+
+        .badge-warning {
+            background: rgba(251, 146, 60, 0.2);
+            color: #fb923c;
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .stat-desc {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+        }
+
+        .chart-container {
+            height: 80px;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .mini-chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        .main-charts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .chart-card h3 {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .queue-table {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .table-title {
+            color: white;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        td {
+            padding: 12px;
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-processing {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .status-completed {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .status-failed {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .status-pending {
+            background: rgba(251, 146, 60, 0.2);
+            color: #fb923c;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-item {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .sidebar-item.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-charts {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .loading {
+            animation: pulse 2s infinite;
+        }
+
+        /* Dark theme toggle */
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">📊</div>
+                <div class="logo-text">
+                    <h1>File Processor Analytics</h1>
+                    <p>Zero Cost Microservices Architecture</p>
+                </div>
+            </div>
+            <div class="user-info">
+                <button class="theme-toggle">🌙</button>
+                <span>Laptop Mode</span>
+                <div class="user-avatar"></div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">
+                        <span class="stat-icon">📁</span>
+                        Total Processed
+                    </div>
+                    <span class="stat-badge badge-success">+15%</span>
+                </div>
+                <div class="stat-value" id="totalProcessed">12,278</div>
+                <div class="stat-desc">From last week</div>
+                <div class="chart-container">
+                    <canvas class="mini-chart" id="processedChart"></canvas>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">
+                        <span class="stat-icon">⚡</span>
+                        Queue Size
+                    </div>
+                    <span class="stat-badge badge-warning">-2%</span>
+                </div>
+                <div class="stat-value" id="queueSize">47</div>
+                <div class="stat-desc">Files pending</div>
+                <div class="chart-container">
+                    <canvas class="mini-chart" id="queueChart"></canvas>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">
+                        <span class="stat-icon">💾</span>
+                        Cache Hit Rate
+                    </div>
+                    <span class="stat-badge badge-success">+18%</span>
+                </div>
+                <div class="stat-value" id="cacheRate">87.3%</div>
+                <div class="stat-desc">Efficiency improved</div>
+                <div class="chart-container">
+                    <canvas class="mini-chart" id="cacheChart"></canvas>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">
+                        <span class="stat-icon">🚀</span>
+                        Avg Process Time
+                    </div>
+                    <span class="stat-badge badge-success">-17%</span>
+                </div>
+                <div class="stat-value" id="avgTime">1.2s</div>
+                <div class="stat-desc">Per file average</div>
+                <div class="chart-container">
+                    <canvas class="mini-chart" id="timeChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Charts -->
+        <div class="main-charts">
+            <div class="chart-card">
+                <h3>Processing Volume</h3>
+                <canvas id="volumeChart" height="200"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>File Types Distribution</h3>
+                <canvas id="typesChart" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Queue Table -->
+        <div class="queue-table">
+            <div class="table-header">
+                <h3 class="table-title">Recent Processing Jobs</h3>
+                <div style="display: flex; gap: 10px;">
+                    <span class="status-badge status-processing">Processing: <span id="processingCount">3</span></span>
+                    <span class="status-badge status-pending">Pending: <span id="pendingCount">44</span></span>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>Type</th>
+                        <th>Size</th>
+                        <th>Status</th>
+                        <th>Progress</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody id="jobsTable">
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-item active" title="Dashboard">📊</div>
+        <div class="sidebar-item" title="Files">📁</div>
+        <div class="sidebar-item" title="Stats">📈</div>
+        <div class="sidebar-item" title="Settings">⚙️</div>
+    </div>
+
+    <script>
+        // WebSocket connection for real-time updates
+        let ws = null;
+        
+        function connectWebSocket() {
+            ws = new WebSocket('ws://localhost:8000/ws');
+            
+            ws.onopen = () => {
+                console.log('Connected to server');
+            };
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                updateDashboard(data);
+            };
+            
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+            
+            ws.onclose = () => {
+                console.log('Disconnected from server');
+                // Reconnect after 3 seconds
+                setTimeout(connectWebSocket, 3000);
+            };
+        }
+
+        // Update dashboard with new data
+        function updateDashboard(data) {
+            // Update stats
+            if (data.totalProcessed) {
+                animateValue('totalProcessed', data.totalProcessed);
+            }
+            if (data.queueSize !== undefined) {
+                animateValue('queueSize', data.queueSize);
+            }
+            if (data.cacheRate) {
+                document.getElementById('cacheRate').textContent = data.cacheRate + '%';
+            }
+            if (data.avgTime) {
+                document.getElementById('avgTime').textContent = data.avgTime + 's';
+            }
+            
+            // Update job table
+            if (data.jobs) {
+                updateJobsTable(data.jobs);
+            }
+        }
+
+        // Animate number changes
+        function animateValue(id, newValue) {
+            const element = document.getElementById(id);
+            const current = parseInt(element.textContent.replace(/,/g, ''));
+            const increment = (newValue - current) / 20;
+            let step = 0;
+            
+            const timer = setInterval(() => {
+                step++;
+                const value = Math.round(current + increment * step);
+                element.textContent = value.toLocaleString();
+                
+                if (step >= 20) {
+                    clearInterval(timer);
+                    element.textContent = newValue.toLocaleString();
+                }
+            }, 50);
+        }
+
+        // Update jobs table
+        function updateJobsTable(jobs) {
+            const tbody = document.getElementById('jobsTable');
+            tbody.innerHTML = '';
+            
+            jobs.forEach(job => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${job.filename}</td>
+                    <td><span class="status-badge">${job.type}</span></td>
+                    <td>${formatSize(job.size)}</td>
+                    <td><span class="status-badge status-${job.status}">${job.status}</span></td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${job.progress}%"></div>
+                        </div>
+                    </td>
+                    <td>${job.time}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Format file size
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        // Initialize mini charts (using Canvas API for zero dependencies)
+        function drawMiniChart(canvasId, data, color) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            const step = canvas.width / (data.length - 1);
+            const max = Math.max(...data);
+            const min = Math.min(...data);
+            const range = max - min || 1;
+            
+            data.forEach((value, index) => {
+                const x = index * step;
+                const y = canvas.height - ((value - min) / range) * canvas.height * 0.8 - 10;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            
+            ctx.stroke();
+            
+            // Fill gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, color + '40');
+            gradient.addColorStop(1, color + '00');
+            
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+        }
+
+        // Generate mock data
+        function generateMockData() {
+            const jobs = [];
+            const statuses = ['processing', 'completed', 'pending', 'failed'];
+            const types = ['IMAGE', 'VIDEO', 'PDF', 'AUDIO'];
+            
+            for (let i = 0; i < 10; i++) {
+                jobs.push({
+                    filename: `file_${Math.random().toString(36).substr(2, 9)}.${types[Math.floor(Math.random() * types.length)].toLowerCase()}`,
+                    type: types[Math.floor(Math.random() * types.length)],
+                    size: Math.floor(Math.random() * 10000000),
+                    status: statuses[Math.floor(Math.random() * statuses.length)],
+                    progress: Math.floor(Math.random() * 100),
+                    time: `${Math.floor(Math.random() * 60)} sec ago`
+                });
+            }
+            
+            return {
+                totalProcessed: Math.floor(Math.random() * 1000) + 12000,
+                queueSize: Math.floor(Math.random() * 100),
+                cacheRate: (Math.random() * 20 + 80).toFixed(1),
+                avgTime: (Math.random() * 2 + 0.5).toFixed(1),
+                jobs: jobs
+            };
+        }
+
+        // Initialize dashboard
+        function initDashboard() {
+            // Draw mini charts
+            const chartData = Array.from({length: 20}, () => Math.random() * 100);
+            drawMiniChart('processedChart', chartData, '#34d399');
+            drawMiniChart('queueChart', chartData.map(v => 100 - v), '#fb923c');
+            drawMiniChart('cacheChart', chartData.map(v => v * 0.8 + 20), '#3b82f6');
+            drawMiniChart('timeChart', chartData.map(v => 50 - v * 0.5), '#a855f7');
+            
+            // Load initial data
+            updateDashboard(generateMockData());
+            
+            // Try to connect WebSocket
+            // connectWebSocket(); // Uncomment when server is ready
+            
+            // Simulate real-time updates for demo
+            setInterval(() => {
+                updateDashboard(generateMockData());
+            }, 5000);
+        }
+
+        // Start when page loads
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>
