@@ -1,0 +1,19 @@
+2025-08-11 08:38:31,520 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-11 08:38:31,520 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-11 08:38:32,067 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-11 08:38:32,067 - __main__ - INFO - start_services:57 - 🔄 Starting Enhanced Replicator Service...
+2025-08-11 08:38:32,381 - app.services.file_processor - INFO - __init__:383 - 🚀 FileProcessorEnhanced initialized
+2025-08-11 08:38:32,381 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-11 08:38:32,381 - app.services.discord_sender - INFO - __init__:189 - 🚀 Discord Sender Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-11 08:38:32,381 - app.services.enhanced_replicator_service - INFO - __init__:165 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-11 08:38:32,381 - app.services.enhanced_replicator_service - INFO - initialize:175 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-11 08:38:32,381 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:221 - 🔍 Enterprise dependency verification:
+2025-08-11 08:38:32,381 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    telethon: ✅ Available
+2025-08-11 08:38:32,382 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:225 -    telethon_video_support: ❌ Missing
+2025-08-11 08:38:32,382 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    aiohttp: ✅ Available
+2025-08-11 08:38:32,382 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pil: ✅ Available
+2025-08-11 08:38:32,382 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pymupdf: ✅ Available
+2025-08-11 08:38:32,382 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:229 -    📹 Video handling: Using document-based detection
+2025-08-11 08:38:32,382 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:246 - 📱 Connecting to Telegram Enterprise...
+2025-08-11 08:38:32,393 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-11 08:38:40,305 - __main__ - INFO - signal_handler:281 - Received shutdown signal

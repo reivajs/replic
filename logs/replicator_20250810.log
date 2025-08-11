@@ -609,3 +609,379 @@
 2025-08-10 21:20:25,894 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 4.9% | RAM 56.7% | Disk 2.3%
 2025-08-10 21:21:46,957 - app.services.discord_sender - INFO - send_message_with_file:310 - ✅ Archivo enviado DIRECTAMENTE: PadrõesRítmicosMelódicos.pdf (0.0MB)
 2025-08-10 21:21:46,957 - app.services.enhanced_replicator_service - INFO - _handle_pdf_enterprise:487 - 📄 Enterprise PDF enviado DIRECTAMENTE: PadrõesRítmicosMelódicos.pdf
+2025-08-10 21:26:08,565 - __main__ - INFO - start_services:48 - 🚀 Starting Zero Cost Architecture...
+2025-08-10 21:26:08,565 - __main__ - INFO - start_services:51 - 📦 Starting File Processor Microservice...
+2025-08-10 21:26:08,936 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-10 21:26:08,936 - __main__ - INFO - start_services:57 - 🔄 Starting Enhanced Replicator Service...
+2025-08-10 21:26:09,178 - app.services.file_processor - INFO - __init__:383 - 🚀 FileProcessorEnhanced initialized
+2025-08-10 21:26:09,178 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-10 21:26:09,178 - app.services.discord_sender - INFO - __init__:189 - 🚀 Discord Sender Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-10 21:26:09,178 - app.services.enhanced_replicator_service - INFO - __init__:165 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-10 21:26:09,178 - app.services.enhanced_replicator_service - INFO - initialize:175 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-10 21:26:09,178 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:221 - 🔍 Enterprise dependency verification:
+2025-08-10 21:26:09,179 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    telethon: ✅ Available
+2025-08-10 21:26:09,179 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:225 -    telethon_video_support: ❌ Missing
+2025-08-10 21:26:09,179 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    aiohttp: ✅ Available
+2025-08-10 21:26:09,179 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pil: ✅ Available
+2025-08-10 21:26:09,179 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pymupdf: ✅ Available
+2025-08-10 21:26:09,179 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:229 -    📹 Video handling: Using document-based detection
+2025-08-10 21:26:09,179 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:246 - 📱 Connecting to Telegram Enterprise...
+2025-08-10 21:26:09,182 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-10 21:26:10,129 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:273 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-10 21:26:10,129 - app.services.file_processor - INFO - initialize:137 - ✅ V2 Processor Adapter initialized
+2025-08-10 21:26:10,129 - app.services.file_processor - INFO - initialize:395 - ✅ Using V2 processor (microservices architecture)
+2025-08-10 21:26:10,209 - app.services.file_processor - INFO - _check_dependencies:415 - 📦 Dependencies:
+2025-08-10 21:26:10,209 - app.services.file_processor - INFO - _check_dependencies:418 -    ffmpeg: ✅
+2025-08-10 21:26:10,209 - app.services.file_processor - INFO - _check_dependencies:418 -    pymupdf: ✅
+2025-08-10 21:26:10,209 - app.services.file_processor - INFO - _check_dependencies:418 -    pil: ✅
+2025-08-10 21:26:10,209 - app.services.file_processor - INFO - initialize:405 - ✅ FileProcessorEnhanced ready
+2025-08-10 21:26:10,209 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ File Processor Enterprise initialized
+2025-08-10 21:26:10,210 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-10 21:26:10,227 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-10 21:26:10,228 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-10 21:26:10,228 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-10 21:26:10,228 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-10 21:26:10,228 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ Watermark Service Enterprise initialized
+2025-08-10 21:26:10,228 - app.services.discord_sender - INFO - initialize:216 - ✅ Discord Sender Enterprise inicializado
+2025-08-10 21:26:10,228 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ Discord Sender Enterprise initialized
+2025-08-10 21:26:10,229 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:337 - 📡 Enterprise event handlers configured
+2025-08-10 21:26:10,229 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:869 - 🔄 Enterprise background tasks started
+2025-08-10 21:26:10,229 - app.services.enhanced_replicator_service - INFO - initialize:199 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-10 21:26:10,229 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:942 - 📊 Enterprise Configuration - ENVÍO DIRECTO:
+2025-08-10 21:26:10,229 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:943 -    Groups configured: 2
+2025-08-10 21:26:10,229 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:944 -    Max concurrent processing: 10
+2025-08-10 21:26:10,229 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:945 -    Circuit breaker threshold: 5
+2025-08-10 21:26:10,229 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:946 -    Processing timeout: 300s
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:947 -    Direct Sending Settings:
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:948 -      - Max file size: 25MB
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:949 -      - Auto compress: True
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:950 -      - Compression quality: 75
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:951 -      - Prefer direct: True
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:952 -    Enterprise Services:
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:953 -      - File Processor: ✅ Advanced
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:954 -      - Watermark Service: ✅ Multi-tenant
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:955 -      - Discord Sender: ✅ ENVÍO DIRECTO enabled
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:956 -    Dependencies:
+2025-08-10 21:26:10,230 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:957 -      - Telethon: ✅
+2025-08-10 21:26:10,231 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:958 -      - PIL: ✅
+2025-08-10 21:26:10,231 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:959 -      - PyMuPDF: ✅
+2025-08-10 21:26:10,231 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:960 -      - aiohttp: ✅
+2025-08-10 21:26:10,231 - __main__ - INFO - start_services:64 - 📤 Starting Discord Sender...
+2025-08-10 21:26:10,231 - app.services.discord_sender - INFO - __init__:189 - 🚀 Discord Sender Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-10 21:26:10,231 - app.services.discord_sender - INFO - initialize:216 - ✅ Discord Sender Enterprise inicializado
+2025-08-10 21:26:10,231 - __main__ - INFO - start_services:71 - 🎨 Starting Watermark Service...
+2025-08-10 21:26:10,232 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-10 21:26:10,232 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-10 21:26:10,239 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-10 21:26:10,239 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-10 21:26:10,239 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-10 21:26:10,239 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-10 21:26:10,240 - __main__ - INFO - start_services:79 - 📊 Starting Web Dashboard...
+2025-08-10 21:26:10,244 - __main__ - INFO - start_services:90 - ✅ All services started successfully!
+2025-08-10 21:26:40,247 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:27:10,247 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:27:40,251 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:28:10,256 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:28:40,256 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:29:10,258 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:29:40,259 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:30:10,263 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:30:15,296 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 6.8% | RAM 56.8% | Disk 2.3%
+2025-08-10 21:30:40,269 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:31:10,269 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:31:40,269 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:32:10,271 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:32:40,272 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:33:10,272 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:33:40,274 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:34:10,278 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:34:40,279 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:35:10,280 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:35:20,316 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 10.5% | RAM 56.3% | Disk 2.3%
+2025-08-10 21:35:40,280 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:36:10,281 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:36:40,286 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:37:10,287 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:37:40,289 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:38:10,292 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:38:40,293 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:39:10,297 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:39:40,302 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:40:10,304 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:40:25,327 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 12.5% | RAM 57.0% | Disk 2.3%
+2025-08-10 21:40:40,305 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:41:10,311 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:41:40,312 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:42:10,315 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:42:40,318 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:43:10,320 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:43:40,321 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:44:10,321 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:44:40,325 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:45:10,330 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:45:30,341 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 9.5% | RAM 56.4% | Disk 2.3%
+2025-08-10 21:45:40,334 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:46:10,335 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:46:40,336 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:47:10,341 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:47:40,342 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:48:10,344 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:48:40,346 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:49:10,351 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:49:40,355 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:50:10,359 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:50:35,358 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 26.4% | RAM 56.7% | Disk 2.3%
+2025-08-10 21:50:40,365 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:51:10,369 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:51:40,372 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:52:10,373 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:52:40,376 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:53:10,377 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:53:40,378 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:54:10,378 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:54:40,379 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:55:10,380 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:55:40,370 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 19.4% | RAM 56.6% | Disk 2.3%
+2025-08-10 21:55:40,381 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:56:10,381 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:56:41,373 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:57:11,374 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:57:42,376 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:58:12,376 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:58:43,377 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:59:13,378 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 21:59:44,380 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:00:14,384 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:00:45,383 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 5.5% | RAM 57.2% | Disk 2.3%
+2025-08-10 22:00:45,384 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:01:15,384 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:01:46,389 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:02:16,394 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:02:47,397 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:03:17,402 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:03:48,400 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:04:18,401 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:04:49,402 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:05:19,403 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:05:50,404 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 24.2% | RAM 56.7% | Disk 2.3%
+2025-08-10 22:05:50,405 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:06:20,405 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:06:51,407 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:07:21,412 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:07:52,409 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:08:22,414 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:08:53,411 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:09:23,416 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:09:54,414 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:10:24,419 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:10:55,416 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 5.4% | RAM 57.0% | Disk 2.3%
+2025-08-10 22:10:55,417 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:11:25,420 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:11:56,418 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:12:26,419 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:12:57,426 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:13:27,429 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:13:58,431 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:14:28,432 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:14:59,432 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:15:29,433 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:16:00,433 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:16:30,436 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:17:01,438 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:17:31,438 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:18:02,445 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:18:32,449 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:19:03,447 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:19:33,447 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:20:04,452 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 6.4% | RAM 57.5% | Disk 2.3%
+2025-08-10 22:20:04,453 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:20:34,453 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:21:05,456 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:21:35,458 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:22:06,459 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:22:36,459 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:23:07,460 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:23:37,464 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:24:08,462 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:24:38,467 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:25:09,466 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 3.4% | RAM 57.9% | Disk 2.3%
+2025-08-10 22:25:09,466 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-10 22:25:39,475 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 04:18:57,291 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 04:19:26,863 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 04:32:41,802 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 05:34:16,548 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 06:22:27,502 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 06:22:57,537 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 06:40:54,765 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 2.1% | RAM 36.7% | Disk 2.3%
+2025-08-11 06:40:54,766 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:00:12,113 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:04:38,553 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:05:08,007 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:05:39,003 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 9.4% | RAM 39.2% | Disk 2.3%
+2025-08-11 07:05:39,004 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:06:09,008 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:06:40,008 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:07:10,010 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:07:41,012 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:08:11,012 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:08:42,016 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:09:12,017 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:09:43,025 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:10:13,027 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:10:44,028 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.5% | RAM 40.3% | Disk 2.3%
+2025-08-11 07:10:44,029 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:11:14,034 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:11:45,030 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:12:15,035 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:12:46,033 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:13:16,036 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:13:47,035 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:14:17,039 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:14:48,037 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:15:18,047 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:15:49,040 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.2% | RAM 39.8% | Disk 2.3%
+2025-08-11 07:15:49,041 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:16:19,046 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:16:50,042 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:17:20,048 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:17:51,044 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:18:21,049 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:18:52,048 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:19:22,048 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:19:53,049 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:20:23,055 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:20:54,051 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 4.4% | RAM 40.3% | Disk 2.3%
+2025-08-11 07:20:54,052 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:21:24,054 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:21:55,054 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:22:25,058 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:22:56,056 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:23:26,057 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:23:57,059 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:24:27,064 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:24:58,061 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:25:28,061 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:25:59,063 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 18.3% | RAM 41.8% | Disk 2.3%
+2025-08-11 07:25:59,063 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:26:29,065 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:27:00,066 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:27:30,072 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:28:01,068 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:28:31,073 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:29:02,071 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:29:32,076 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:30:03,073 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 3.7% | RAM 45.0% | Disk 2.3%
+2025-08-11 07:30:03,074 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:30:33,074 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:31:04,075 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:31:34,075 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:32:05,077 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:32:35,079 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:33:06,081 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:33:36,085 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:34:07,085 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:34:37,091 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:35:08,092 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 36.3% | RAM 46.2% | Disk 2.3%
+2025-08-11 07:35:08,092 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:35:38,093 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:36:09,094 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:36:39,094 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:37:10,099 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:37:40,104 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:38:11,108 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:38:41,113 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:39:12,111 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:39:42,112 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:40:13,112 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.6% | RAM 46.3% | Disk 2.3%
+2025-08-11 07:40:13,113 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:40:43,116 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:41:14,115 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:41:44,116 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:42:15,118 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:42:45,119 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:43:16,119 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:43:46,119 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:44:17,121 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:44:47,121 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:45:18,125 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.6% | RAM 46.3% | Disk 2.3%
+2025-08-11 07:45:18,126 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:45:48,131 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:46:19,135 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:46:49,135 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:47:20,137 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:47:50,138 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:48:21,138 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:48:51,141 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:49:22,142 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:49:52,142 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:50:23,145 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 17.1% | RAM 49.3% | Disk 2.3%
+2025-08-11 07:50:23,145 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:50:53,146 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:51:24,153 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:51:54,158 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:52:25,168 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:52:55,172 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:53:26,177 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:53:56,185 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:54:27,178 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:54:57,184 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:55:28,180 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 1.1% | RAM 51.2% | Disk 2.3%
+2025-08-11 07:55:28,181 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:55:58,183 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:56:29,183 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:56:59,188 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:57:30,185 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:58:00,189 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:58:31,188 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:59:01,193 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 07:59:32,197 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:00:02,206 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:00:33,202 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 0.9% | RAM 51.6% | Disk 2.3%
+2025-08-11 08:00:33,203 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:01:03,203 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:01:34,217 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:02:04,220 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:02:35,231 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:03:05,238 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:03:36,240 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:04:06,249 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:04:37,243 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:05:07,251 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:05:38,255 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 4.5% | RAM 52.3% | Disk 2.3%
+2025-08-11 08:05:38,255 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:06:08,261 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:06:39,264 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:07:09,272 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:07:40,266 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:08:10,275 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:08:41,279 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:09:11,281 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:09:42,283 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:10:12,287 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:10:43,288 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 5.0% | RAM 52.0% | Disk 2.3%
+2025-08-11 08:10:43,288 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:11:13,293 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:11:44,289 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:12:14,290 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:12:45,296 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:13:15,296 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:13:46,299 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:14:16,300 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:14:47,301 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:15:17,304 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:15:48,303 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 18.1% | RAM 55.1% | Disk 2.3%
+2025-08-11 08:15:48,304 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:16:18,305 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:16:49,306 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:17:19,307 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:17:50,310 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:18:20,315 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:18:51,311 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:19:21,312 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:19:52,313 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:20:22,317 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:20:53,315 - __main__ - INFO - monitoring_loop:200 - 📊 System: CPU 22.3% | RAM 52.9% | Disk 2.3%
+2025-08-11 08:20:53,316 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:21:23,316 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-11 08:21:54,320 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%

@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Discovery System - Enterprise SaaS</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ============= ENTERPRISE DESIGN SYSTEM ============= */
+        :root {
+            /* Colors - Enterprise Blue/Purple Theme */
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            
+            /* Glass morphism */
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-glass-hover: rgba(255, 255, 255, 0.1);
+            --bg-card: rgba(255, 255, 255, 0.08);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            
+            /* Text colors */
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(79, 172, 254, 0.2) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        /* ============= LAYOUT ============= */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .header-left h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header-left p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        /* ============= BUTTONS ============= */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-glass-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn-success {
+            background: var(--success-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+        
+        /* ============= STATUS BAR ============= */
+        .status-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .status-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+        
+        .status-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .status-icon.primary { background: var(--primary-gradient); }
+        .status-icon.success { background: var(--success-gradient); }
+        .status-icon.warning { background: var(--warning-gradient); }
+        
+        .status-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .status-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* ============= FILTERS & CONTROLS ============= */
+        .controls-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .controls-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .form-input, .form-select {
+            padding: 0.75rem;
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .view-toggles {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .view-toggle {
+            padding: 0.5rem;
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .view-toggle.active {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: transparent;
+        }
+        
+        /* ============= CHAT GRID ============= */
+        .chats-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .chats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .chat-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        .chat-card.selected {
+            border-color: rgba(102, 126, 234, 0.8);
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .chat-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+        
+        .chat-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .chat-type.channel { background: var(--primary-gradient); color: white; }
+        .chat-type.group { background: var(--success-gradient); color: white; }
+        .chat-type.supergroup { background: var(--warning-gradient); color: white; }
+        .chat-type.user { background: var(--bg-glass); color: var(--text-secondary); }
+        
+        .chat-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .meta-icon {
+            width: 16px;
+            color: var(--text-muted);
+        }
+        
+        .chat-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .action-btn.primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+        
+        .action-btn.secondary {
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-glass);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        /* ============= LOADING & EMPTY STATES ============= */
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-glass);
+            border-top: 3px solid rgba(102, 126, 234, 0.8);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        /* ============= BULK ACTIONS ============= */
+        .bulk-actions {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-xl);
+            display: none;
+            gap: 1rem;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .bulk-actions.active {
+            display: flex;
+        }
+        
+        .selected-count {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* ============= MODALS ============= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            color: var(--text-primary);
+            background: var(--bg-glass);
+        }
+        
+        /* ============= RESPONSIVE ============= */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-bar {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ============= ANIMATIONS ============= */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1><i class="fas fa-search"></i> Discovery System</h1>
+                <p>Auto-discovery y configuración de chats de Telegram</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Dashboard
+                </button>
+                <button class="btn btn-primary" onclick="triggerScan()">
+                    <i class="fas fa-refresh"></i> Escanear Chats
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-icon primary">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <span class="status-label">Total Discovered</span>
+                </div>
+                <div class="status-value" id="totalChats">{{ data.status.stats.database_stats.total_chats or 0 }}</div>
+                <div class="status-label">chats encontrados</div>
+            </div>
+            
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-icon success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <span class="status-label">Configured</span>
+                </div>
+                <div class="status-value" id="configuredChats">0</div>
+                <div class="status-label">chats configurados</div>
+            </div>
+            
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-icon warning">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <span class="status-label">Last Scan</span>
+                </div>
+                <div class="status-value" id="lastScan">
+                    {% if data.status.stats.scanner_stats.last_scan %}
+                        <small style="font-size: 0.8rem;">{{ data.status.stats.scanner_stats.last_scan[:10] }}</small>
+                    {% else %}
+                        Never
+                    {% endif %}
+                </div>
+                <div class="status-label">último escaneo</div>
+            </div>
+            
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-icon" id="scanStatusIcon">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <span class="status-label">Scan Status</span>
+                </div>
+                <div class="status-value" id="scanStatus">
+                    {% if data.status.stats.current_scan.is_scanning %}
+                        Scanning...
+                    {% else %}
+                        Ready
+                    {% endif %}
+                </div>
+                <div class="status-label" id="scanProgress">
+                    {% if data.status.stats.current_scan.is_scanning %}
+                        {{ data.status.stats.current_scan.progress_percent or 0 }}% completado
+                    {% else %}
+                        listo para escanear
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="controls-section">
+            <div class="controls-header">
+                <h3><i class="fas fa-filter"></i> Filtros y Controles</h3>
+                <div class="view-toggles">
+                    <button class="view-toggle active" data-view="grid" onclick="setViewMode('grid')">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-toggle" data-view="list" onclick="setViewMode('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    <button class="view-toggle" data-view="cards" onclick="setViewMode('cards')">
+                        <i class="fas fa-id-card"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="controls-grid">
+                <div class="form-group">
+                    <label class="form-label">Tipo de Chat</label>
+                    <select class="form-select" id="filterType" onchange="applyFilters()">
+                        <option value="">Todos los tipos</option>
+                        <option value="channel">Canales</option>
+                        <option value="group">Grupos</option>
+                        <option value="supergroup">Supergrupos</option>
+                        <option value="user">Usuarios</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Buscar</label>
+                    <input type="text" class="form-input" id="searchTerm" placeholder="Nombre, descripción..." onchange="applyFilters()">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Min. Participantes</label>
+                    <input type="number" class="form-input" id="minParticipants" placeholder="0" onchange="applyFilters()">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Estado</label>
+                    <select class="form-select" id="statusFilter" onchange="applyFilters()">
+                        <option value="">Todos</option>
+                        <option value="active">Activos</option>
+                        <option value="inactive">Inactivos</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="clearFilters()">
+                    <i class="fas fa-times"></i> Limpiar Filtros
+                </button>
+                <button class="btn btn-primary" onclick="refreshChats()">
+                    <i class="fas fa-refresh"></i> Actualizar
+                </button>
+                <button class="btn btn-success" onclick="selectAll()">
+                    <i class="fas fa-check-square"></i> Seleccionar Todo
+                </button>
+            </div>
+        </div>
+
+        <!-- Chats Section -->
+        <div class="chats-section">
+            <div class="chats-header">
+                <h3><i class="fas fa-comments"></i> Chats Discovered (<span id="chatsCount">0</span>)</h3>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary" onclick="exportChats()">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                    <button class="btn btn-primary" onclick="bulkConfigure()">
+                        <i class="fas fa-cogs"></i> Configurar Seleccionados
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chats-grid" id="chatsContainer">
+                <!-- Loading state -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Actions Bar -->
+    <div class="bulk-actions" id="bulkActions">
+        <span class="selected-count" id="selectedCount">0 seleccionados</span>
+        <button class="btn btn-success" onclick="bulkEnable()">
+            <i class="fas fa-check"></i> Habilitar
+        </button>
+        <button class="btn btn-secondary" onclick="bulkDisable()">
+            <i class="fas fa-times"></i> Deshabilitar
+        </button>
+        <button class="btn btn-primary" onclick="bulkConfigure()">
+            <i class="fas fa-cogs"></i> Configurar
+        </button>
+        <button class="btn btn-secondary" onclick="clearSelection()">
+            <i class="fas fa-times-circle"></i> Limpiar
+        </button>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div class="modal-overlay" id="configModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Configurar Chat</div>
+                <button class="modal-close" onclick="closeModal('configModal')">&times;</button>
+            </div>
+            <div id="configForm">
+                <!-- Dynamic form content -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============= GLOBAL STATE =============
+        let discoveryState = {
+            chats: [],
+            filteredChats: [],
+            selectedChats: new Set(),
+            viewMode: 'grid',
+            filters: {
+                type: '',
+                search: '',
+                minParticipants: '',
+                status: ''
+            },
+            isScanning: false,
+            websocket: null
+        };
+
+        // ============= INITIALIZATION =============
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDiscovery();
+            setupWebSocket();
+            loadChats();
+            
+            // Auto refresh every 30 seconds
+            setInterval(updateStatus, 30000);
+        });
+
+        function initializeDiscovery() {
+            console.log('🔍 Discovery System initialized');
+            updateScanStatusUI();
+        }
+
+        // ============= WEBSOCKET CONNECTION =============
+        function setupWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws/discovery`;
+            
+            discoveryState.websocket = new WebSocket(wsUrl);
+            
+            discoveryState.websocket.onopen = function(event) {
+                console.log('✅ WebSocket connected');
+            };
+            
+            discoveryState.websocket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                handleWebSocketMessage(data);
+            };
+            
+            discoveryState.websocket.onclose = function(event) {
+                console.log('❌ WebSocket disconnected');
+                // Reconnect after 5 seconds
+                setTimeout(setupWebSocket, 5000);
+            };
+        }
+
+        function handleWebSocketMessage(data) {
+            switch(data.type) {
+                case 'discovery_update':
+                    updateStatusFromWebSocket(data.status);
+                    break;
+                case 'scan_progress':
+                    updateScanProgress(data.progress);
+                    break;
+                case 'new_chats':
+                    refreshChats();
+                    break;
+            }
+        }
+
+        // ============= API CALLS =============
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(endpoint, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API call failed:', error);
+                showNotification('Error en la API: ' + error.message, 'error');
+                throw error;
+            }
+        }
+
+        async function triggerScan() {
+            if (discoveryState.isScanning) {
+                showNotification('Ya hay un escaneo en progreso', 'warning');
+                return;
+            }
+            
+            try {
+                showNotification('Iniciando escaneo de chats...', 'info');
+                discoveryState.isScanning = true;
+                updateScanStatusUI();
+                
+                const result = await apiCall('/api/discovery/scan', {
+                    method: 'POST',
+                    body: JSON.stringify({ force_refresh: true })
+                });
+                
+                showNotification('Escaneo iniciado correctamente', 'success');
+                
+                // Monitor progress
+                monitorScanProgress();
+                
+            } catch (error) {
+                discoveryState.isScanning = false;
+                updateScanStatusUI();
+                showNotification('Error al iniciar escaneo: ' + error.message, 'error');
+            }
+        }
+
+        async function loadChats() {
+            try {
+                const response = await apiCall('/api/discovery/chats?' + new URLSearchParams({
+                    limit: 100,
+                    offset: 0,
+                    ...discoveryState.filters
+                }));
+                
+                discoveryState.chats = response.chats || [];
+                applyFilters();
+                
+            } catch (error) {
+                showNotification('Error al cargar chats: ' + error.message, 'error');
+            }
+        }
+
+        async function updateStatus() {
+            try {
+                const status = await apiCall('/api/discovery/status');
+                updateStatusFromAPI(status);
+            } catch (error) {
+                console.error('Error updating status:', error);
+            }
+        }
+
+        // ============= UI UPDATES =============
+        function updateStatusFromAPI(status) {
+            const stats = status.stats || {};
+            const dbStats = stats.database_stats || {};
+            const scanStats = stats.scanner_stats || {};
+            const currentScan = stats.current_scan || {};
+            
+            document.getElementById('totalChats').textContent = dbStats.total_chats || 0;
+            
+            if (scanStats.last_scan) {
+                const lastScanDate = new Date(scanStats.last_scan);
+                document.getElementById('lastScan').innerHTML = 
+                    `<small style="font-size: 0.8rem;">${lastScanDate.toLocaleDateString()}</small>`;
+            }
+            
+            discoveryState.isScanning = currentScan.is_scanning || false;
+            updateScanStatusUI();
+            
+            if (currentScan.is_scanning) {
+                document.getElementById('scanProgress').textContent = 
+                    `${Math.round(currentScan.progress_percent || 0)}% completado`;
+            }
+        }
+
+        function updateStatusFromWebSocket(status) {
+            updateStatusFromAPI(status);
+        }
+
+        function updateScanStatusUI() {
+            const statusEl = document.getElementById('scanStatus');
+            const iconEl = document.getElementById('scanStatusIcon');
+            const progressEl = document.getElementById('scanProgress');
+            
+            if (discoveryState.isScanning) {
+                statusEl.textContent = 'Scanning...';
+                iconEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                iconEl.className = 'status-icon warning';
+                progressEl.textContent = 'escaneo en progreso...';
+            } else {
+                statusEl.textContent = 'Ready';
+                iconEl.innerHTML = '<i class="fas fa-check-circle"></i>';
+                iconEl.className = 'status-icon success';
+                progressEl.textContent = 'listo para escanear';
+            }
+        }
+
+        function monitorScanProgress() {
+            const interval = setInterval(async () => {
+                try {
+                    const response = await apiCall('/api/discovery/scan/status');
+                    
+                    if (!response.is_scanning) {
+                        clearInterval(interval);
+                        discoveryState.isScanning = false;
+                        updateScanStatusUI();
+                        
+                        if (response.new_chats_found > 0) {
+                            showNotification(`Escaneo completado: ${response.new_chats_found} nuevos chats encontrados`, 'success');
+                            refreshChats();
+                        } else {
+                            showNotification('Escaneo completado: no se encontraron nuevos chats', 'info');
+                        }
+                    } else {
+                        // Update progress
+                        const progress = Math.round(response.progress_percent || 0);
+                        document.getElementById('scanProgress').textContent = `${progress}% completado`;
+                    }
+                    
+                } catch (error) {
+                    clearInterval(interval);
+                    discoveryState.isScanning = false;
+                    updateScanStatusUI();
+                }
+            }, 2000);
+        }
+
+        function renderChats() {
+            const container = document.getElementById('chatsContainer');
+            const chats = discoveryState.filteredChats;
+            
+            if (chats.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fas fa-search"></i></div>
+                        <h3>No se encontraron chats</h3>
+                        <p>Intenta ajustar los filtros o realizar un nuevo escaneo</p>
+                        <button class="btn btn-primary" onclick="triggerScan()">
+                            <i class="fas fa-refresh"></i> Escanear Chats
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = chats.map(chat => createChatCard(chat)).join('');
+            document.getElementById('chatsCount').textContent = chats.length;
+        }
+
+        function createChatCard(chat) {
+            const isSelected = discoveryState.selectedChats.has(chat.id);
+            const participantsText = chat.participants_count ? 
+                `${chat.participants_count.toLocaleString()} miembros` : 'Desconocido';
+            
+            const lastActivity = chat.last_activity ? 
+                new Date(chat.last_activity).toLocaleDateString() : 'Nunca';
+            
+            return `
+                <div class="chat-card ${isSelected ? 'selected' : ''}" data-chat-id="${chat.id}" onclick="toggleChatSelection(${chat.id})">
+                    <div class="chat-header">
+                        <div>
+                            <div class="chat-title">${escapeHtml(chat.title)}</div>
+                            ${chat.username ? `<div style="color: var(--text-muted); font-size: 0.8rem;">@${chat.username}</div>` : ''}
+                        </div>
+                        <div class="chat-type ${chat.type}">${chat.type}</div>
+                    </div>
+                    
+                    <div class="chat-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-users meta-icon"></i>
+                            <span>${participantsText}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock meta-icon"></i>
+                            <span>${lastActivity}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-${chat.is_verified ? 'check-circle' : 'circle'} meta-icon"></i>
+                            <span>${chat.is_verified ? 'Verificado' : 'No verificado'}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-${chat.is_private ? 'lock' : 'globe'} meta-icon"></i>
+                            <span>${chat.is_private ? 'Privado' : 'Público'}</span>
+                        </div>
+                    </div>
+                    
+                    ${chat.description ? `<div style="color: var(--text-muted); font-size: 0.85rem; margin: 0.5rem 0; line-height: 1.4;">${escapeHtml(chat.description.substring(0, 100))}${chat.description.length > 100 ? '...' : ''}</div>` : ''}
+                    
+                    <div class="chat-actions">
+                        <button class="action-btn primary" onclick="event.stopPropagation(); configureSingleChat(${chat.id}, '${escapeHtml(chat.title)}')">
+                            <i class="fas fa-cog"></i> Configurar
+                        </button>
+                        <button class="action-btn secondary" onclick="event.stopPropagation(); viewChatDetail(${chat.id})">
+                            <i class="fas fa-eye"></i> Ver Detalle
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============= FILTERS & SEARCH =============
+        function applyFilters() {
+            const filters = discoveryState.filters;
+            filters.type = document.getElementById('filterType').value;
+            filters.search = document.getElementById('searchTerm').value.toLowerCase();
+            filters.minParticipants = document.getElementById('minParticipants').value;
+            filters.status = document.getElementById('statusFilter').value;
+            
+            discoveryState.filteredChats = discoveryState.chats.filter(chat => {
+                // Type filter
+                if (filters.type && chat.type !== filters.type) return false;
+                
+                // Search filter
+                if (filters.search) {
+                    const searchIn = `${chat.title} ${chat.description || ''} ${chat.username || ''}`.toLowerCase();
+                    if (!searchIn.includes(filters.search)) return false;
+                }
+                
+                // Participants filter
+                if (filters.minParticipants) {
+                    const minCount = parseInt(filters.minParticipants);
+                    if (!chat.participants_count || chat.participants_count < minCount) return false;
+                }
+                
+                // Status filter
+                if (filters.status === 'active' && !chat.is_active) return false;
+                if (filters.status === 'inactive' && chat.is_active) return false;
+                
+                return true;
+            });
+            
+            renderChats();
+        }
+
+        function clearFilters() {
+            document.getElementById('filterType').value = '';
+            document.getElementById('searchTerm').value = '';
+            document.getElementById('minParticipants').value = '';
+            document.getElementById('statusFilter').value = '';
+            
+            discoveryState.filters = {
+                type: '',
+                search: '',
+                minParticipants: '',
+                status: ''
+            };
+            
+            applyFilters();
+        }
+
+        async function refreshChats() {
+            showNotification('Actualizando lista de chats...', 'info');
+            await loadChats();
+            showNotification('Lista actualizada correctamente', 'success');
+        }
+
+        // ============= CHAT SELECTION =============
+        function toggleChatSelection(chatId) {
+            if (discoveryState.selectedChats.has(chatId)) {
+                discoveryState.selectedChats.delete(chatId);
+            } else {
+                discoveryState.selectedChats.add(chatId);
+            }
+            
+            updateSelectionUI();
+            renderChats();
+        }
+
+        function selectAll() {
+            discoveryState.filteredChats.forEach(chat => {
+                discoveryState.selectedChats.add(chat.id);
+            });
+            updateSelectionUI();
+            renderChats();
+        }
+
+        function clearSelection() {
+            discoveryState.selectedChats.clear();
+            updateSelectionUI();
+            renderChats();
+        }
+
+        function updateSelectionUI() {
+            const count = discoveryState.selectedChats.size;
+            const bulkActions = document.getElementById('bulkActions');
+            const selectedCount = document.getElementById('selectedCount');
+            
+            if (count > 0) {
+                bulkActions.classList.add('active');
+                selectedCount.textContent = `${count} seleccionado${count !== 1 ? 's' : ''}`;
+            } else {
+                bulkActions.classList.remove('active');
+            }
+        }
+
+        // ============= CHAT CONFIGURATION =============
+        async function configureSingleChat(chatId, chatTitle) {
+            const modal = document.getElementById('configModal');
+            const form = document.getElementById('configForm');
+            
+            form.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">Chat: ${escapeHtml(chatTitle)}</label>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">ID: ${chatId}</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Estado</label>
+                    <select class="form-select" id="configEnabled">
+                        <option value="true">Habilitado</option>
+                        <option value="false">Deshabilitado</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Webhook de Destino</label>
+                    <input type="url" class="form-input" id="configWebhook" placeholder="https://discord.com/api/webhooks/...">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Filtros (JSON opcional)</label>
+                    <textarea class="form-input" id="configFilters" rows="3" placeholder='{"keywords": ["importante"], "exclude_bots": true}'></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Transformaciones (JSON opcional)</label>
+                    <textarea class="form-input" id="configTransformations" rows="3" placeholder='{"add_prefix": "[Canal] ", "watermark": true}'></textarea>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="saveChatConfiguration(${chatId}, '${escapeHtml(chatTitle)}')">
+                        <i class="fas fa-save"></i> Guardar Configuración
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeModal('configModal')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        async function saveChatConfiguration(chatId, chatTitle) {
+            try {
+                const enabled = document.getElementById('configEnabled').value === 'true';
+                const webhook = document.getElementById('configWebhook').value;
+                const filtersText = document.getElementById('configFilters').value;
+                const transformationsText = document.getElementById('configTransformations').value;
+                
+                let filters = {};
+                let transformations = {};
+                
+                if (filtersText.trim()) {
+                    try {
+                        filters = JSON.parse(filtersText);
+                    } catch (e) {
+                        showNotification('Error en formato JSON de filtros', 'error');
+                        return;
+                    }
+                }
+                
+                if (transformationsText.trim()) {
+                    try {
+                        transformations = JSON.parse(transformationsText);
+                    } catch (e) {
+                        showNotification('Error en formato JSON de transformaciones', 'error');
+                        return;
+                    }
+                }
+                
+                const config = {
+                    chat_id: chatId,
+                    chat_title: chatTitle,
+                    enabled: enabled,
+                    destination_webhook: webhook || null,
+                    filters: filters,
+                    transformations: transformations
+                };
+                
+                const result = await apiCall('/api/discovery/configure', {
+                    method: 'POST',
+                    body: JSON.stringify(config)
+                });
+                
+                if (result.success) {
+                    showNotification('Configuración guardada correctamente', 'success');
+                    closeModal('configModal');
+                    // Update configured count
+                    updateConfiguredCount();
+                } else {
+                    showNotification('Error al guardar: ' + (result.error || 'Error desconocido'), 'error');
+                }
+                
+            } catch (error) {
+                showNotification('Error al guardar configuración: ' + error.message, 'error');
+            }
+        }
+
+        async function bulkConfigure() {
+            if (discoveryState.selectedChats.size === 0) {
+                showNotification('Selecciona al menos un chat', 'warning');
+                return;
+            }
+            
+            const modal = document.getElementById('configModal');
+            const form = document.getElementById('configForm');
+            
+            form.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">Configuración Bulk para ${discoveryState.selectedChats.size} chats</label>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Esta configuración se aplicará a todos los chats seleccionados</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Operación</label>
+                    <select class="form-select" id="bulkOperation">
+                        <option value="enable">Habilitar todos</option>
+                        <option value="disable">Deshabilitar todos</option>
+                        <option value="configure">Configurar todos</option>
+                    </select>
+                </div>
+                
+                <div id="bulkConfigSection" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Webhook de Destino (opcional)</label>
+                        <input type="url" class="form-input" id="bulkWebhook" placeholder="https://discord.com/api/webhooks/...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Configuración Base (JSON)</label>
+                        <textarea class="form-input" id="bulkConfig" rows="4" placeholder='{"filters": {}, "transformations": {}}'></textarea>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="executeBulkConfiguration()">
+                        <i class="fas fa-cogs"></i> Ejecutar
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeModal('configModal')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            `;
+            
+            // Show/hide config section based on operation
+            document.getElementById('bulkOperation').addEventListener('change', function() {
+                const configSection = document.getElementById('bulkConfigSection');
+                configSection.style.display = this.value === 'configure' ? 'block' : 'none';
+            });
+            
+            modal.classList.add('active');
+        }
+
+        async function executeBulkConfiguration() {
+            try {
+                const operation = document.getElementById('bulkOperation').value;
+                const chatIds = Array.from(discoveryState.selectedChats);
+                
+                let config = {};
+                
+                if (operation === 'configure') {
+                    const webhook = document.getElementById('bulkWebhook').value;
+                    const configText = document.getElementById('bulkConfig').value;
+                    
+                    if (webhook) {
+                        config.destination_webhook = webhook;
+                    }
+                    
+                    if (configText.trim()) {
+                        try {
+                            const parsed = JSON.parse(configText);
+                            config = { ...config, ...parsed };
+                        } catch (e) {
+                            showNotification('Error en formato JSON de configuración', 'error');
+                            return;
+                        }
+                    }
+                }
+                
+                const bulkRequest = {
+                    chat_ids: chatIds,
+                    operation: operation,
+                    config: config
+                };
+                
+                showNotification('Ejecutando operación bulk...', 'info');
+                
+                const result = await apiCall('/api/discovery/bulk_configure', {
+                    method: 'POST',
+                    body: JSON.stringify(bulkRequest)
+                });
+                
+                const successCount = result.successful || 0;
+                const failCount = result.failed || 0;
+                
+                if (successCount > 0) {
+                    showNotification(`✅ ${successCount} chats configurados correctamente${failCount > 0 ? `, ${failCount} fallaron` : ''}`, 'success');
+                } else {
+                    showNotification(`❌ Error: ${failCount} operaciones fallaron`, 'error');
+                }
+                
+                closeModal('configModal');
+                clearSelection();
+                updateConfiguredCount();
+                
+            } catch (error) {
+                showNotification('Error en operación bulk: ' + error.message, 'error');
+            }
+        }
+
+        async function bulkEnable() {
+            if (discoveryState.selectedChats.size === 0) return;
+            
+            try {
+                const result = await apiCall('/api/discovery/bulk_configure', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        chat_ids: Array.from(discoveryState.selectedChats),
+                        operation: 'enable'
+                    })
+                });
+                
+                showNotification(`${result.successful || 0} chats habilitados`, 'success');
+                clearSelection();
+                
+            } catch (error) {
+                showNotification('Error al habilitar chats: ' + error.message, 'error');
+            }
+        }
+
+        async function bulkDisable() {
+            if (discoveryState.selectedChats.size === 0) return;
+            
+            try {
+                const result = await apiCall('/api/discovery/bulk_configure', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        chat_ids: Array.from(discoveryState.selectedChats),
+                        operation: 'disable'
+                    })
+                });
+                
+                showNotification(`${result.successful || 0} chats deshabilitados`, 'success');
+                clearSelection();
+                
+            } catch (error) {
+                showNotification('Error al deshabilitar chats: ' + error.message, 'error');
+            }
+        }
+
+        // ============= UTILITY FUNCTIONS =============
+        function setViewMode(mode) {
+            discoveryState.viewMode = mode;
+            
+            // Update toggle buttons
+            document.querySelectorAll('.view-toggle').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-view="${mode}"]`).classList.add('active');
+            
+            // Update grid class
+            const container = document.getElementById('chatsContainer');
+            container.className = `chats-${mode}`;
+            
+            renderChats();
+        }
+
+        function goBack() {
+            window.location.href = '/dashboard';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewChatDetail(chatId) {
+            const chat = discoveryState.chats.find(c => c.id === chatId);
+            if (!chat) return;
+            
+            const modal = document.getElementById('configModal');
+            const form = document.getElementById('configForm');
+            
+            form.innerHTML = `
+                <h4>Detalle del Chat</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                    <div><strong>ID:</strong> ${chat.id}</div>
+                    <div><strong>Tipo:</strong> ${chat.type}</div>
+                    <div><strong>Título:</strong> ${escapeHtml(chat.title)}</div>
+                    <div><strong>Username:</strong> ${chat.username || 'N/A'}</div>
+                    <div><strong>Participantes:</strong> ${chat.participants_count || 'Desconocido'}</div>
+                    <div><strong>Verificado:</strong> ${chat.is_verified ? 'Sí' : 'No'}</div>
+                    <div><strong>Privado:</strong> ${chat.is_private ? 'Sí' : 'No'}</div>
+                    <div><strong>Broadcast:</strong> ${chat.is_broadcast ? 'Sí' : 'No'}</div>
+                    <div><strong>Megagrupo:</strong> ${chat.is_megagroup ? 'Sí' : 'No'}</div>
+                    <div><strong>Creado:</strong> ${chat.date_created ? new Date(chat.date_created).toLocaleDateString() : 'Desconocido'}</div>
+                    <div><strong>Última actividad:</strong> ${chat.last_activity ? new Date(chat.last_activity).toLocaleDateString() : 'Nunca'}</div>
+                    <div><strong>Escaneos:</strong> ${chat.scan_count || 0}</div>
+                </div>
+                
+                ${chat.description ? `
+                    <div style="margin-top: 1rem;">
+                        <strong>Descripción:</strong>
+                        <p style="margin-top: 0.5rem; color: var(--text-muted);">${escapeHtml(chat.description)}</p>
+                    </div>
+                ` : ''}
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="configureSingleChat(${chat.id}, '${escapeHtml(chat.title)}')">
+                        <i class="fas fa-cog"></i> Configurar
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeModal('configModal')">
+                        <i class="fas fa-times"></i> Cerrar
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        async function exportChats() {
+            try {
+                const data = {
+                    timestamp: new Date().toISOString(),
+                    total_chats: discoveryState.filteredChats.length,
+                    chats: discoveryState.filteredChats
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `discovered_chats_${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                
+                URL.revokeObjectURL(url);
+                showNotification('Archivo exportado correctamente', 'success');
+                
+            } catch (error) {
+                showNotification('Error al exportar: ' + error.message, 'error');
+            }
+        }
+
+        async function updateConfiguredCount() {
+            // This would typically call an API to get the actual count
+            // For now, we'll just increment the display
+            const currentCount = parseInt(document.getElementById('configuredChats').textContent);
+            document.getElementById('configuredChats').textContent = currentCount + 1;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showNotification(message, type = 'info') {
+            // Simple notification system
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 9999;
+                max-width: 400px;
+                box-shadow: var(--shadow-lg);
+                backdrop-filter: blur(10px);
+            `;
+            
+            switch (type) {
+                case 'success':
+                    notification.style.background = 'var(--success-gradient)';
+                    break;
+                case 'error':
+                    notification.style.background = 'var(--secondary-gradient)';
+                    break;
+                case 'warning':
+                    notification.style.background = 'var(--warning-gradient)';
+                    break;
+                default:
+                    notification.style.background = 'var(--primary-gradient)';
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

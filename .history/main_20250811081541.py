@@ -255,24 +255,6 @@ class EnhancedServiceRegistry:
         
         return results
     
-    async def get_discovery_status(self) -> Dict[str, Any]:
-        """🔧 FIX: Obtener estado del Discovery Service"""
-        try:
-            discovery_health = await self.check_service_health("discovery")
-            discovery_stats = await self.get_service_stats("discovery")
-            
-            return {
-                "available": discovery_health.get("status") == "healthy",
-                "health": discovery_health,
-                "stats": discovery_stats
-            }
-        except Exception as e:
-            return {
-                "available": False,
-                "health": {"status": "error", "error": str(e)},
-                "stats": {}
-            }
-    
     async def get_dashboard_data(self) -> Dict[str, Any]:
         """Obtener datos completos para dashboard con Discovery integration"""
         dashboard_data = {
@@ -483,8 +465,14 @@ async def bulk_configure_chats(bulk_config: BulkConfigRequest):
 @app.get("/api/discovery/status")
 async def get_discovery_status():
     """Estado del Discovery Service"""
-    discovery_status = await service_registry.get_discovery_status()
-    return discovery_status
+    discovery_health = await service_registry.check_service_health("discovery")
+    discovery_stats = await service_registry.get_service_stats("discovery")
+    
+    return {
+        "available": discovery_health.get("status") == "healthy",
+        "health": discovery_health,
+        "stats": discovery_stats
+    }
 
 # ============= UI ENDPOINTS =============
 
@@ -492,11 +480,7 @@ async def get_discovery_status():
 async def dashboard(request: Request):
     """Dashboard principal con Discovery integration"""
     if not templates:
-        return HTMLResponse("""
-        <h1>🎭 Enterprise Dashboard</h1>
-        <p>Dashboard not available - templates not loaded</p>
-        <p><a href="/health">Health Check</a> | <a href="/docs">API Docs</a></p>
-        """)
+        return HTMLResponse("<h1>Dashboard not available - templates not loaded</h1>")
     
     dashboard_data = await service_registry.get_dashboard_data()
     orchestrator_stats["requests_handled"] += 1
@@ -509,35 +493,23 @@ async def dashboard(request: Request):
 
 @app.get("/discovery", response_class=HTMLResponse)
 async def discovery_ui(request: Request):
-    """🔧 FIX: UI principal del Discovery System"""
+    """UI principal del Discovery System"""
     if not templates:
-        return HTMLResponse("""
-        <h1>🔍 Discovery System</h1>
-        <p>Discovery UI not available - templates not loaded</p>
-        <p><a href="/dashboard">← Back to Dashboard</a></p>
-        """)
+        return HTMLResponse("<h1>Discovery UI not available - templates not loaded</h1>")
     
-    # Datos básicos para Discovery UI
+    # Obtener datos para Discovery UI
+    discovery_status = await service_registry.get_discovery_status()
+    recent_chats = await service_registry.get_discovered_chats({"limit": 20})
+    
     discovery_data = {
-        "status": {"available": False, "stats": {}},
-        "chats": [],
+        "status": discovery_status,
+        "chats": recent_chats,
         "ui_config": {
             "view_mode": "grid",
             "auto_refresh": True,
             "refresh_interval": 30
         }
     }
-    
-    try:
-        # Intentar obtener estado de discovery
-        discovery_status = await service_registry.get_discovery_status()
-        discovery_data["status"] = discovery_status
-        
-        if discovery_status.get("available"):
-            recent_chats = await service_registry.get_discovered_chats({"limit": 20})
-            discovery_data["chats"] = recent_chats
-    except Exception as e:
-        logger.error(f"Error getting discovery data: {e}")
     
     return templates.TemplateResponse("discovery_dashboard.html", {
         "request": request,
