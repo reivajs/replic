@@ -526,7 +526,7 @@ class TelegramScanner:
         return self.scan_status
     
     async def _extract_chat_info(self, dialog: Dialog) -> Optional[ChatInfo]:
-        """🔧 FIX: Extraer información con list serialization y NULL title handling"""
+        """🔧 FIX: Extraer información con list serialization handling"""
         try:
             entity = dialog.entity
             
@@ -543,24 +543,6 @@ class TelegramScanner:
                 chat_type = "group"
             elif isinstance(entity, User):
                 chat_type = "user"
-            
-            # 🔧 FIX: Manejo seguro de título - NUNCA puede ser NULL
-            title = None
-            if hasattr(entity, 'title') and entity.title:
-                title = str(entity.title)
-            elif hasattr(entity, 'first_name') and entity.first_name:
-                # Para usuarios, usar first_name + last_name
-                last_name = getattr(entity, 'last_name', '') or ''
-                title = f"{entity.first_name} {last_name}".strip()
-            elif hasattr(entity, 'username') and entity.username:
-                title = f"@{entity.username}"
-            else:
-                # Fallback: usar ID del chat
-                title = f"Chat {entity.id}"
-            
-            # 🔧 FIX: Garantizar que title nunca sea None, vacío o solo espacios
-            if not title or not title.strip():
-                title = f"Chat {entity.id}"
             
             # 🔧 FIX: Manejo seguro de datetime fields
             date_created = None
@@ -585,23 +567,13 @@ class TelegramScanner:
             elif restriction_reason:
                 restriction_reason = str(restriction_reason)
             
-            # 🔧 FIX: Manejo seguro de username
-            username = getattr(entity, 'username', None)
-            if username:
-                username = str(username)
-            
-            # 🔧 FIX: Manejo seguro de description
-            description = getattr(entity, 'about', None)
-            if description:
-                description = str(description)
-            
-            # Información básica con todos los fixes aplicados
+            # Información básica con datetime handling y list serialization
             chat_info = ChatInfo(
                 id=entity.id,
-                title=title,  # 🔧 FIX: Garantizado non-null
+                title=getattr(entity, 'title', None) or getattr(entity, 'first_name', f"Chat {entity.id}"),
                 type=chat_type,
-                username=username,
-                description=description,
+                username=getattr(entity, 'username', None),
+                description=getattr(entity, 'about', None),
                 participants_count=getattr(entity, 'participants_count', None),
                 is_broadcast=getattr(entity, 'broadcast', False),
                 is_megagroup=getattr(entity, 'megagroup', False),

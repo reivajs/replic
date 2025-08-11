@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Smart Discovery - Enterprise SaaS</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ============= ENHANCED ENTERPRISE DESIGN SYSTEM ============= */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-glass-hover: rgba(255, 255, 255, 0.1);
+            --bg-card: rgba(255, 255, 255, 0.08);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        /* ============= SMART HEADER ============= */
+        .smart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .header-left h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .discovery-stats {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* ============= SMART SEARCH BAR ============= */
+        .search-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .view-toggle {
+            display: flex;
+            background: var(--bg-glass);
+            border-radius: 12px;
+            padding: 0.25rem;
+            border: 1px solid var(--border-glass);
+        }
+        
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .view-btn.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: var(--bg-glass-hover);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        
+        .search-clear {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .search-clear.visible {
+            opacity: 1;
+        }
+        
+        /* ============= SMART FILTERS ============= */
+        .filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        
+        .filter-btn:hover {
+            background: var(--bg-glass-hover);
+            border-color: var(--accent-blue);
+        }
+        
+        .filter-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .filter-input {
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            width: 80px;
+        }
+        
+        .filter-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        /* ============= RESULTS SECTION ============= */
+        .results-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-glass);
+        }
+        
+        .results-count {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .results-info {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .sort-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .sort-select {
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        /* ============= CHAT GRID ============= */
+        .chats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .chat-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chat-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+            background: var(--bg-glass-hover);
+        }
+        
+        .chat-card.selected {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .chat-info {
+            flex-grow: 1;
+            min-width: 0;
+        }
+        
+        .chat-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .chat-username {
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .chat-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .chat-type.channel {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .chat-type.group, .chat-type.supergroup {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .chat-type.user {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-orange);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .chat-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .chat-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .chat-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .action-btn:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+        }
+        
+        .action-btn.secondary {
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-glass);
+        }
+        
+        .action-btn.secondary:hover {
+            background: var(--bg-glass-hover);
+            color: var(--text-primary);
+        }
+        
+        /* ============= LOADING & EMPTY STATES ============= */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-glass);
+            border-top: 3px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        /* ============= PAGINATION ============= */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-glass);
+        }
+        
+        .pagination-btn {
+            padding: 0.75rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--bg-glass-hover);
+            color: var(--text-primary);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-info {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        /* ============= RESPONSIVE DESIGN ============= */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .smart-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .discovery-stats {
+                justify-content: center;
+            }
+            
+            .search-section {
+                padding: 1.5rem;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
+            }
+            
+            .chats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+        }
+        
+        /* ============= ANIMATIONS ============= */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Smart Header -->
+        <header class="smart-header fade-in">
+            <div class="header-left">
+                <h1>🔍 Smart Discovery</h1>
+                <div class="discovery-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-database"></i>
+                        <span>Total: <span class="stat-value" id="totalChats">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-search"></i>
+                        <span>Found: <span class="stat-value" id="foundChats">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Last scan: <span class="stat-value" id="lastScan">Never</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh
+                </button>
+                <button class="btn btn-primary" onclick="triggerScan()">
+                    <i class="fas fa-search"></i>
+                    Scan Chats
+                </button>
+            </div>
+        </header>
+        
+        <!-- Smart Search Section -->
+        <section class="search-section fade-in">
+            <div class="search-header">
+                <h2 class="search-title">🎯 Smart Search</h2>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="setViewMode('grid')">
+                        <i class="fas fa-th"></i> Grid
+                    </button>
+                    <button class="view-btn" onclick="setViewMode('list')">
+                        <i class="fas fa-list"></i> List
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search Input -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput"
+                    placeholder="Search chats by name, description, or username..."
+                    oninput="onSearchInput()"
+                >
+                <button class="search-clear" id="searchClear" onclick="clearSearch()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Smart Filters -->
+            <div class="filters-container">
+                <!-- Chat Type Filters -->
+                <div class="filter-group">
+                    <span class="filter-label">Type:</span>
+                    <button class="filter-btn active" data-filter="type" data-value="">All</button>
+                    <button class="filter-btn" data-filter="type" data-value="channel">📺 Channels</button>
+                    <button class="filter-btn" data-filter="type" data-value="group">👥 Groups</button>
+                    <button class="filter-btn" data-filter="type" data-value="supergroup">🏢 Supergroups</button>
+                    <button class="filter-btn" data-filter="type" data-value="user">👤 Private</button>
+                </div>
+                
+                <!-- Size Filters -->
+                <div class="filter-group">
+                    <span class="filter-label">Size:</span>
+                    <button class="filter-btn active" data-filter="size" data-value="">Any</button>
+                    <button class="filter-btn" data-filter="size" data-value="small">&lt; 10</button>
+                    <button class="filter-btn" data-filter="size" data-value="medium">10-100</button>
+                    <button class="filter-btn" data-filter="size" data-value="large">100-1K</button>
+                    <button class="filter-btn" data-filter="size" data-value="xlarge">1K+</button>
+                </div>
+                
+                <!-- Status Filters -->
+                <div class="filter-group">
+                    <span class="filter-label">Status:</span>
+                    <button class="filter-btn active" data-filter="status" data-value="">All</button>
+                    <button class="filter-btn" data-filter="status" data-value="active">🟢 Active</button>
+                    <button class="filter-btn" data-filter="status" data-value="inactive">🔴 Inactive</button>
+                </div>
+                
+                <!-- Custom Range -->
+                <div class="filter-group">
+                    <span class="filter-label">Min Members:</span>
+                    <input type="number" class="filter-input" id="minMembers" placeholder="0" onchange="onFilterChange()">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Results Section -->
+        <section class="results-section fade-in">
+            <div class="results-header">
+                <div>
+                    <div class="results-count" id="resultsCount">Loading chats...</div>
+                    <div class="results-info" id="resultsInfo">Please wait while we fetch your Telegram chats</div>
+                </div>
+                <div class="sort-controls">
+                    <label class="filter-label">Sort by:</label>
+                    <select class="sort-select" id="sortSelect" onchange="onSortChange()">
+                        <option value="discovered_at">Recent</option>
+                        <option value="title">Name A-Z</option>
+                        <option value="participants_count">Size</option>
+                        <option value="last_activity">Activity</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Loading State -->
+            <div class="loading-container" id="loadingContainer">
+                <div class="loading-spinner"></div>
+                <p>Scanning your Telegram chats...</p>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No chats found</h3>
+                <p>Try adjusting your search filters or scan for new chats</p>
+            </div>
+            
+            <!-- Chats Grid -->
+            <div class="chats-grid" id="chatsGrid" style="display: none;">
+                <!-- Chat cards will be dynamically populated -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display: none;">
+                <button class="pagination-btn" id="prevBtn" onclick="changePage(-1)">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <span class="pagination-info" id="paginationInfo">Page 1 of 1</span>
+                <button class="pagination-btn" id="nextBtn" onclick="changePage(1)">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ============= SMART DISCOVERY APPLICATION ============= 
+        
+        class SmartDiscovery {
+            constructor() {
+                this.chats = [];
+                this.filteredChats = [];
+                this.currentPage = 1;
+                this.pageSize = 20;
+                this.searchTerm = '';
+                this.filters = {
+                    type: '',
+                    size: '',
+                    status: '',
+                    minMembers: null
+                };
+                this.sortBy = 'discovered_at';
+                this.viewMode = 'grid';
+                this.selectedChats = new Set();
+                
+                this.init();
+            }
+            
+            async init() {
+                await this.loadChats();
+                this.setupEventListeners();
+                this.updateStats();
+            }
+            
+            setupEventListeners() {
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const filterType = e.target.dataset.filter;
+                        const filterValue = e.target.dataset.value;
+                        
+                        // Update active state
+                        e.target.parentElement.querySelectorAll('.filter-btn').forEach(b => 
+                            b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        
+                        // Update filter
+                        this.filters[filterType] = filterValue;
+                        this.applyFilters();
+                    });
+                });
+                
+                // Real-time search with debouncing
+                let searchTimeout;
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        this.searchTerm = e.target.value;
+                        this.applyFilters();
+                        this.updateSearchClear();
+                    }, 300);
+                });
+            }
+            
+            async loadChats() {
+                try {
+                    const response = await fetch('/api/discovery/chats?limit=1000');
+                    const data = await response.json();
+                    this.chats = data.chats || [];
+                    this.applyFilters();
+                    this.hideLoading();
+                } catch (error) {
+                    console.error('Error loading chats:', error);
+                    this.showError('Failed to load chats');
+                }
+            }
+            
+            applyFilters() {
+                let filtered = [...this.chats];
+                
+                // Search filter
+                if (this.searchTerm) {
+                    const search = this.searchTerm.toLowerCase();
+                    filtered = filtered.filter(chat => 
+                        chat.title?.toLowerCase().includes(search) ||
+                        chat.description?.toLowerCase().includes(search) ||
+                        chat.username?.toLowerCase().includes(search)
+                    );
+                }
+                
+                // Type filter
+                if (this.filters.type) {
+                    filtered = filtered.filter(chat => chat.type === this.filters.type);
+                }
+                
+                // Size filter
+                if (this.filters.size) {
+                    filtered = filtered.filter(chat => {
+                        const count = chat.participants_count || 0;
+                        switch (this.filters.size) {
+                            case 'small': return count < 10;
+                            case 'medium': return count >= 10 && count < 100;
+                            case 'large': return count >= 100 && count < 1000;
+                            case 'xlarge': return count >= 1000;
+                            default: return true;
+                        }
+                    });
+                }
+                
+                // Status filter
+                if (this.filters.status) {
+                    filtered = filtered.filter(chat => {
+                        if (this.filters.status === 'active') return chat.is_active;
+                        if (this.filters.status === 'inactive') return !chat.is_active;
+                        return true;
+                    });
+                }
+                
+                // Min members filter
+                if (this.filters.minMembers) {
+                    filtered = filtered.filter(chat => 
+                        (chat.participants_count || 0) >= this.filters.minMembers
+                    );
+                }
+                
+                // Sort results
+                this.sortChats(filtered);
+                
+                this.filteredChats = filtered;
+                this.currentPage = 1;
+                this.renderChats();
+                this.updateResultsInfo();
+            }
+            
+            sortChats(chats) {
+                chats.sort((a, b) => {
+                    switch (this.sortBy) {
+                        case 'title':
+                            return (a.title || '').localeCompare(b.title || '');
+                        case 'participants_count':
+                            return (b.participants_count || 0) - (a.participants_count || 0);
+                        case 'last_activity':
+                            return new Date(b.last_activity || 0) - new Date(a.last_activity || 0);
+                        case 'discovered_at':
+                        default:
+                            return new Date(b.discovered_at || 0) - new Date(a.discovered_at || 0);
+                    }
+                });
+            }
+            
+            renderChats() {
+                const container = document.getElementById('chatsGrid');
+                const startIndex = (this.currentPage - 1) * this.pageSize;
+                const endIndex = startIndex + this.pageSize;
+                const pageChats = this.filteredChats.slice(startIndex, endIndex);
+                
+                if (pageChats.length === 0) {
+                    this.showEmptyState();
+                    return;
+                }
+                
+                container.innerHTML = pageChats.map(chat => this.createChatCard(chat)).join('');
+                container.style.display = 'grid';
+                document.getElementById('emptyState').style.display = 'none';
+                
+                this.updatePagination();
+            }
+            
+            createChatCard(chat) {
+                const avatar = this.getAvatarText(chat.title || 'Unknown');
+                const memberText = this.formatMemberCount(chat.participants_count);
+                const activityText = this.formatLastActivity(chat.last_activity);
+                const description = chat.description || 'No description available';
+                
+                return `
+                    <div class="chat-card slide-in" onclick="selectChat(${chat.id})" data-chat-id="${chat.id}">
+                        <div class="chat-header">
+                            <div class="chat-avatar">${avatar}</div>
+                            <div class="chat-info">
+                                <div class="chat-title" title="${chat.title || 'Unknown'}">${chat.title || 'Unknown'}</div>
+                                ${chat.username ? `<div class="chat-username">@${chat.username}</div>` : ''}
+                            </div>
+                            <div class="chat-type ${chat.type}">${chat.type}</div>
+                        </div>
+                        
+                        <div class="chat-description" title="${description}">
+                            ${description}
+                        </div>
+                        
+                        <div class="chat-stats">
+                            <div class="chat-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>${memberText}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>${activityText}</span>
+                                </div>
+                                ${chat.is_verified ? '<div class="meta-item"><i class="fas fa-check-circle" style="color: var(--accent-blue);"></i></div>' : ''}
+                            </div>
+                            
+                            <div class="chat-actions">
+                                <button class="action-btn" onclick="configureChat(${chat.id}); event.stopPropagation();">
+                                    <i class="fas fa-cog"></i> Configure
+                                </button>
+                                <button class="action-btn secondary" onclick="previewChat(${chat.id}); event.stopPropagation();">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            getAvatarText(title) {
+                return title.charAt(0).toUpperCase();
+            }
+            
+            formatMemberCount(count) {
+                if (!count) return 'Private';
+                if (count < 1000) return count.toString();
+                if (count < 1000000) return (count / 1000).toFixed(1) + 'K';
+                return (count / 1000000).toFixed(1) + 'M';
+            }
+            
+            formatLastActivity(activity) {
+                if (!activity) return 'Unknown';
+                const date = new Date(activity);
+                const now = new Date();
+                const diff = now - date;
+                
+                const minutes = Math.floor(diff / 60000);
+                const hours = Math.floor(diff / 3600000);
+                const days = Math.floor(diff / 86400000);
+                
+                if (minutes < 60) return `${minutes}m ago`;
+                if (hours < 24) return `${hours}h ago`;
+                if (days < 7) return `${days}d ago`;
+                return date.toLocaleDateString();
+            }
+            
+            updateResultsInfo() {
+                const total = this.filteredChats.length;
+                const showing = Math.min(this.pageSize, total - (this.currentPage - 1) * this.pageSize);
+                
+                document.getElementById('resultsCount').textContent = 
+                    `Found ${total} chat${total !== 1 ? 's' : ''}`;
+                
+                if (total > 0) {
+                    const start = (this.currentPage - 1) * this.pageSize + 1;
+                    const end = start + showing - 1;
+                    document.getElementById('resultsInfo').textContent = 
+                        `Showing ${start}-${end} of ${total} results`;
+                } else {
+                    document.getElementById('resultsInfo').textContent = 
+                        'Try adjusting your filters or search terms';
+                }
+            }
+            
+            updatePagination() {
+                const totalPages = Math.ceil(this.filteredChats.length / this.pageSize);
+                const pagination = document.getElementById('pagination');
+                
+                if (totalPages <= 1) {
+                    pagination.style.display = 'none';
+                    return;
+                }
+                
+                pagination.style.display = 'flex';
+                document.getElementById('prevBtn').disabled = this.currentPage === 1;
+                document.getElementById('nextBtn').disabled = this.currentPage === totalPages;
+                document.getElementById('paginationInfo').textContent = 
+                    `Page ${this.currentPage} of ${totalPages}`;
+            }
+            
+            updateStats() {
+                document.getElementById('totalChats').textContent = this.chats.length;
+                document.getElementById('foundChats').textContent = this.filteredChats.length;
+                
+                // Update last scan time (you might want to get this from an API)
+                document.getElementById('lastScan').textContent = 'Just now';
+            }
+            
+            updateSearchClear() {
+                const clearBtn = document.getElementById('searchClear');
+                if (this.searchTerm) {
+                    clearBtn.classList.add('visible');
+                } else {
+                    clearBtn.classList.remove('visible');
+                }
+            }
+            
+            hideLoading() {
+                document.getElementById('loadingContainer').style.display = 'none';
+            }
+            
+            showEmptyState() {
+                document.getElementById('chatsGrid').style.display = 'none';
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('pagination').style.display = 'none';
+            }
+            
+            showError(message) {
+                // Implement error handling
+                console.error(message);
+            }
+        }
+        
+        // Global instance
+        let discovery;
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            discovery = new SmartDiscovery();
+        });
+        
+        // ============= GLOBAL FUNCTIONS =============
+        
+        function onSearchInput() {
+            // Handled by SmartDiscovery class
+        }
+        
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            discovery.searchTerm = '';
+            discovery.applyFilters();
+            discovery.updateSearchClear();
+        }
+        
+        function onFilterChange() {
+            const minMembers = document.getElementById('minMembers').value;
+            discovery.filters.minMembers = minMembers ? parseInt(minMembers) : null;
+            discovery.applyFilters();
+        }
+        
+        function onSortChange() {
+            discovery.sortBy = document.getElementById('sortSelect').value;
+            discovery.applyFilters();
+        }
+        
+        function setViewMode(mode) {
+            discovery.viewMode = mode;
+            
+            // Update UI
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[onclick="setViewMode('${mode}')"]`).classList.add('active');
+            
+            // Apply view mode changes
+            const grid = document.getElementById('chatsGrid');
+            if (mode === 'list') {
+                grid.style.gridTemplateColumns = '1fr';
+            } else {
+                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
+            }
+        }
+        
+        function changePage(direction) {
+            const totalPages = Math.ceil(discovery.filteredChats.length / discovery.pageSize);
+            const newPage = discovery.currentPage + direction;
+            
+            if (newPage >= 1 && newPage <= totalPages) {
+                discovery.currentPage = newPage;
+                discovery.renderChats();
+            }
+        }
+        
+        function selectChat(chatId) {
+            const card = document.querySelector(`[data-chat-id="${chatId}"]`);
+            
+            if (discovery.selectedChats.has(chatId)) {
+                discovery.selectedChats.delete(chatId);
+                card.classList.remove('selected');
+            } else {
+                discovery.selectedChats.add(chatId);
+                card.classList.add('selected');
+            }
+            
+            // Update bulk actions if any chats are selected
+            updateBulkActions();
+        }
+        
+        function configureChat(chatId) {
+            const chat = discovery.chats.find(c => c.id === chatId);
+            if (chat) {
+                // Open configuration modal (to be implemented in Phase 2)
+                alert(`Configure replication for: ${chat.title}`);
+                console.log('Configure chat:', chat);
+            }
+        }
+        
+        function previewChat(chatId) {
+            const chat = discovery.chats.find(c => c.id === chatId);
+            if (chat) {
+                // Open preview modal
+                alert(`Preview chat: ${chat.title}`);
+                console.log('Preview chat:', chat);
+            }
+        }
+        
+        function updateBulkActions() {
+            // Update bulk action buttons based on selected chats
+            // To be implemented
+        }
+        
+        async function refreshData() {
+            const btn = document.querySelector('[onclick="refreshData()"]');
+            const icon = btn.querySelector('i');
+            
+            // Add loading state
+            icon.className = 'fas fa-spinner fa-spin';
+            btn.disabled = true;
+            
+            try {
+                await discovery.loadChats();
+                discovery.updateStats();
+            } catch (error) {
+                console.error('Error refreshing data:', error);
+            } finally {
+                // Restore button state
+                icon.className = 'fas fa-sync-alt';
+                btn.disabled = false;
+            }
+        }
+        
+        async function triggerScan() {
+            const btn = document.querySelector('[onclick="triggerScan()"]');
+            const icon = btn.querySelector('i');
+            
+            // Add loading state
+            icon.className = 'fas fa-spinner fa-spin';
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch('/api/discovery/scan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ force_refresh: true })
+                });
+                
+                if (response.ok) {
+                    // Refresh data after scan
+                    setTimeout(() => {
+                        refreshData();
+                    }, 2000);
+                } else {
+                    throw new Error('Failed to start scan');
+                }
+            } catch (error) {
+                console.error('Error triggering scan:', error);
+                alert('Failed to start scan. Please try again.');
+            } finally {
+                // Restore button state after delay
+                setTimeout(() => {
+                    icon.className = 'fas fa-search';
+                    btn.disabled = false;
+                }, 3000);
+            }
+        }
+        
+        // ============= REAL-TIME UPDATES ============= 
+        
+        // WebSocket connection for real-time updates
+        function initWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws`;
+            
+            try {
+                const ws = new WebSocket(wsUrl);
+                
+                ws.onopen = () => {
+                    console.log('🔗 WebSocket connected');
+                };
+                
+                ws.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    handleWebSocketMessage(data);
+                };
+                
+                ws.onclose = () => {
+                    console.log('📪 WebSocket disconnected');
+                    // Attempt to reconnect after 5 seconds
+                    setTimeout(initWebSocket, 5000);
+                };
+                
+                ws.onerror = (error) => {
+                    console.error('🚨 WebSocket error:', error);
+                };
+                
+                return ws;
+            } catch (error) {
+                console.error('Failed to initialize WebSocket:', error);
+            }
+        }
+        
+        function handleWebSocketMessage(data) {
+            switch (data.type) {
+                case 'scan_status':
+                    updateScanProgress(data.status);
+                    break;
+                case 'scan_completed':
+                    refreshData();
+                    break;
+                case 'new_chats':
+                    showNotification(`🎉 ${data.count} new chats discovered!`);
+                    break;
+                case 'connection_established':
+                    console.log('✅ WebSocket connection established');
+                    break;
+            }
+        }
+        
+        function updateScanProgress(status) {
+            if (status.is_scanning) {
+                // Show progress indicator
+                console.log(`📊 Scan progress: ${status.progress_percent}%`);
+            }
+        }
+        
+        function showNotification(message) {
+            // Create a simple notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--success-gradient);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: var(--shadow-xl);
+                z-index: 1000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 4000);
+        }
+        
+        // Initialize WebSocket when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(initWebSocket, 1000); // Delay to ensure discovery is initialized
+        });
+        
+        // ============= KEYBOARD SHORTCUTS =============
+        
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + K for search focus
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+            
+            // Escape to clear search
+            if (e.key === 'Escape') {
+                clearSearch();
+                document.getElementById('searchInput').blur();
+            }
+        });
+    </script>
+</body>
+</html>

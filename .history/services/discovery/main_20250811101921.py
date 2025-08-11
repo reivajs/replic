@@ -526,7 +526,7 @@ class TelegramScanner:
         return self.scan_status
     
     async def _extract_chat_info(self, dialog: Dialog) -> Optional[ChatInfo]:
-        """🔧 FIX: Extraer información con list serialization y NULL title handling"""
+        """🔧 FIX: Extraer información con datetime handling"""
         try:
             entity = dialog.entity
             
@@ -544,24 +544,6 @@ class TelegramScanner:
             elif isinstance(entity, User):
                 chat_type = "user"
             
-            # 🔧 FIX: Manejo seguro de título - NUNCA puede ser NULL
-            title = None
-            if hasattr(entity, 'title') and entity.title:
-                title = str(entity.title)
-            elif hasattr(entity, 'first_name') and entity.first_name:
-                # Para usuarios, usar first_name + last_name
-                last_name = getattr(entity, 'last_name', '') or ''
-                title = f"{entity.first_name} {last_name}".strip()
-            elif hasattr(entity, 'username') and entity.username:
-                title = f"@{entity.username}"
-            else:
-                # Fallback: usar ID del chat
-                title = f"Chat {entity.id}"
-            
-            # 🔧 FIX: Garantizar que title nunca sea None, vacío o solo espacios
-            if not title or not title.strip():
-                title = f"Chat {entity.id}"
-            
             # 🔧 FIX: Manejo seguro de datetime fields
             date_created = None
             if hasattr(entity, 'date') and entity.date:
@@ -571,37 +553,13 @@ class TelegramScanner:
             if hasattr(dialog, 'date') and dialog.date:
                 last_message_date = dialog.date
             
-            # 🔧 FIX: Manejo de restriction_reason como lista
-            restriction_reason = getattr(entity, 'restriction_reason', None)
-            if isinstance(restriction_reason, list):
-                # Convertir lista a string JSON o texto plano
-                if restriction_reason:
-                    try:
-                        restriction_reason = json.dumps([str(r) for r in restriction_reason])
-                    except:
-                        restriction_reason = str(restriction_reason)
-                else:
-                    restriction_reason = None
-            elif restriction_reason:
-                restriction_reason = str(restriction_reason)
-            
-            # 🔧 FIX: Manejo seguro de username
-            username = getattr(entity, 'username', None)
-            if username:
-                username = str(username)
-            
-            # 🔧 FIX: Manejo seguro de description
-            description = getattr(entity, 'about', None)
-            if description:
-                description = str(description)
-            
-            # Información básica con todos los fixes aplicados
+            # Información básica con datetime handling
             chat_info = ChatInfo(
                 id=entity.id,
-                title=title,  # 🔧 FIX: Garantizado non-null
+                title=getattr(entity, 'title', None) or getattr(entity, 'first_name', f"Chat {entity.id}"),
                 type=chat_type,
-                username=username,
-                description=description,
+                username=getattr(entity, 'username', None),
+                description=getattr(entity, 'about', None),
                 participants_count=getattr(entity, 'participants_count', None),
                 is_broadcast=getattr(entity, 'broadcast', False),
                 is_megagroup=getattr(entity, 'megagroup', False),
@@ -611,7 +569,7 @@ class TelegramScanner:
                 has_geo=getattr(entity, 'has_geo', False),
                 is_scam=getattr(entity, 'scam', False),
                 is_verified=getattr(entity, 'verified', False),
-                restriction_reason=restriction_reason,  # 🔧 FIX: Serialized properly
+                restriction_reason=getattr(entity, 'restriction_reason', None),
                 discovered_at=datetime.now(),  # 🔧 FIX: Set current time
                 scan_count=1,
                 is_active=True,
@@ -728,11 +686,8 @@ class DiscoveryService:
         return status
     
     async def get_service_stats(self) -> Dict[str, Any]:
-        """🔧 FIX: Obtener estadísticas con Path object correction"""
+        """🔧 FIX: Obtener estadísticas con safe serialization"""
         total_chats = len(await self.database.get_chats(limit=10000))
-        
-        # 🔧 FIX: Convertir db_path string a Path object para .stat()
-        db_path_obj = Path(self.config.db_path)
         
         return {
             'service': 'discovery',
@@ -743,7 +698,7 @@ class DiscoveryService:
             'database_stats': {
                 'total_chats': total_chats,
                 'db_path': str(self.config.db_path),
-                'db_size_mb': db_path_obj.stat().st_size / 1024 / 1024 if db_path_obj.exists() else 0  # 🔧 FIX
+                'db_size_mb': self.config.db_path.stat().st_size / 1024 / 1024 if Path(self.config.db_path).exists() else 0
             },
             'config': {
                 'scan_interval': self.config.scan_interval,
@@ -900,7 +855,7 @@ async def get_chats(
         return {
             "chats": chats_data,
             "total": len(chats_data),
-            "filters_applied": filters.model_dump(exclude_none=True),  # 🔧 FIX: .dict() -> .model_dump()
+            "filters_applied": filters.dict(exclude_none=True),
             "pagination": {
                 "limit": limit,
                 "offset": offset
