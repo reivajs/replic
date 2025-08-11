@@ -1,14 +1,15 @@
 """
-Enhanced Replicator Service - Enterprise SaaS Ready
-==================================================
+Enhanced Replicator Service - Enterprise SaaS Ready - ENVÍO DIRECTO
+==================================================================
 Archivo: app/services/enhanced_replicator_service.py
 
-🚀 ENTERPRISE ARCHITECTURE v3.0
+🚀 ENTERPRISE ARCHITECTURE v3.0 - ENVÍO DIRECTO
 ✅ Microservices-ready modular design
 ✅ Circuit breakers + retry logic
 ✅ Advanced monitoring + health checks
 ✅ Scalable async processing
 ✅ SaaS multi-tenant ready
+✅ ENVÍO DIRECTO de archivos (NO links)
 """
 
 import asyncio
@@ -68,8 +69,8 @@ settings = get_settings()
 
 class EnhancedReplicatorService:
     """
-    🚀 ENHANCED REPLICATOR SERVICE v3.0 ENTERPRISE
-    ==============================================
+    🚀 ENHANCED REPLICATOR SERVICE v3.0 ENTERPRISE - ENVÍO DIRECTO
+    =============================================================
     
     Enterprise SaaS Architecture Features:
     ✅ Microservices-ready modular design
@@ -80,19 +81,21 @@ class EnhancedReplicatorService:
     ✅ Health checks + service discovery ready
     ✅ Event-driven architecture patterns
     ✅ Graceful degradation + fallbacks
+    ✅ ENVÍO DIRECTO de archivos (SIN links de descarga)
     
     Media Processing Capabilities:
-    📄 PDFs: Auto-preview + secure download links
-    🎵 Audios: Smart transcription + format conversion
-    🎬 Videos: Intelligent compression + watermarks
-    🖼️ Images: Dynamic watermark application
-    📎 Documents: Universal file handling
+    📄 PDFs: Envío directo cuando <25MB, preview para grandes
+    🎵 Audios: Envío directo con metadata inteligente
+    🎬 Videos: Envío directo con compresión automática
+    🖼️ Images: Envío directo con watermarks dinámicos
+    📎 Documents: Envío directo universal
     
     Enterprise Patterns:
     🔄 Circuit breaker pattern for resilience
     📊 Comprehensive metrics collection
     🔐 Multi-tenant security isolation
     ⚡ High-performance async processing
+    🎯 Direct file sending (NO download links)
     """
     
     def __init__(self):
@@ -106,7 +109,7 @@ class EnhancedReplicatorService:
         self.watermark_service = WatermarkServiceIntegrated()
         self.discord_sender = DiscordSenderEnhanced()
         
-        # Enterprise metrics with detailed tracking
+        # Enterprise metrics with detailed tracking + direct sending metrics
         self.stats = {
             'messages_received': 0,
             'messages_replicated': 0,
@@ -117,6 +120,14 @@ class EnhancedReplicatorService:
             'images_processed': 0,
             'documents_processed': 0,
             'watermarks_applied': 0,
+            'files_sent_direct': 0,        # 🎯 Nuevas métricas envío directo
+            'images_sent_direct': 0,
+            'videos_sent_direct': 0,
+            'audios_sent_direct': 0,
+            'pdfs_sent_direct': 0,
+            'files_compressed': 0,
+            'compression_savings_mb': 0.0,
+            'large_files_rejected': 0,
             'errors': 0,
             'retries': 0,
             'circuit_breaker_trips': 0,
@@ -131,20 +142,27 @@ class EnhancedReplicatorService:
             }
         }
         
-        # Enterprise configuration
+        # Enterprise configuration with direct sending settings
         self.config = {
             'max_concurrent_processing': 10,
             'health_check_interval': 30,
             'metrics_collection_interval': 10,
             'circuit_breaker_threshold': 5,
             'retry_attempts': 3,
-            'processing_timeout': 300  # 5 minutes
+            'processing_timeout': 300,  # 5 minutes
+            'direct_sending': {         # 🎯 Configuración envío directo
+                'max_file_size_mb': 25,     # Discord limit
+                'auto_compress': True,
+                'compression_quality': 75,
+                'prefer_direct': True,
+                'fallback_to_links': False  # Solo envío directo
+            }
         }
         
         # Processing semaphore for concurrency control
         self.processing_semaphore = asyncio.Semaphore(self.config['max_concurrent_processing'])
         
-        logger.info("🚀 Enhanced Replicator Service v3.0 Enterprise initialized")
+        logger.info("🚀 Enhanced Replicator Service v3.0 Enterprise initialized - MODO ENVÍO DIRECTO")
     
     async def initialize(self) -> bool:
         """
@@ -440,18 +458,52 @@ class EnhancedReplicatorService:
     
     async def _handle_pdf_enterprise(self, chat_id: int, pdf_bytes: bytes, 
                                    caption: str, webhook_url: str, filename: str):
-        """Enterprise PDF handling with preview generation"""
+        """
+        📄 MANEJO DE PDF - ENVÍO DIRECTO
+        ===============================
+        
+        CAMBIO PRINCIPAL: Envía PDF directamente cuando es posible
+        """
         try:
+            size_mb = len(pdf_bytes) / (1024 * 1024)
+            
+            if size_mb <= self.config['direct_sending']['max_file_size_mb']:
+                # 🎯 ENVÍO DIRECTO del PDF
+                full_caption = f"📄 **PDF Enterprise:** {filename} ({size_mb:.1f}MB)"
+                if caption:
+                    full_caption += f"\n\n{caption}"
+                
+                success = await self.discord_sender.send_message_with_file(
+                    webhook_url,
+                    full_caption,
+                    pdf_bytes,
+                    filename
+                )
+                
+                if success:
+                    self.stats['pdfs_processed'] += 1
+                    self.stats['pdfs_sent_direct'] += 1
+                    self.stats['files_sent_direct'] += 1
+                    logger.info(f"📄 Enterprise PDF enviado DIRECTAMENTE: {filename}")
+                    return
+                else:
+                    await self._handle_send_failure(webhook_url, f"PDF {filename}")
+                    return
+            
+            # Si es muy grande, procesar con preview
             result = await self.file_processor.process_pdf(pdf_bytes, chat_id, filename)
             
             if result["success"]:
                 message_text = self._build_pdf_message(caption, result, filename)
                 
-                # Send with preview if available
+                # Enviar con preview si está disponible
                 if result.get("preview_bytes"):
                     success = await self.discord_sender.send_message_with_file(
                         webhook_url, message_text, result["preview_bytes"], "pdf_preview.jpg"
                     )
+                    if success:
+                        self.stats['images_sent_direct'] += 1
+                        self.stats['files_sent_direct'] += 1
                 else:
                     success = await self.discord_sender.send_message(webhook_url, message_text)
                 
@@ -490,43 +542,73 @@ class EnhancedReplicatorService:
     
     async def _handle_audio_enterprise(self, chat_id: int, audio_bytes: bytes,
                                      caption: str, webhook_url: str, filename: str):
-        """Enterprise audio handling with transcription"""
+        """
+        🎵 MANEJO DE AUDIO - ENVÍO DIRECTO
+        =================================
+        
+        CAMBIO PRINCIPAL: Envía audio directamente, no como link
+        """
         try:
-            result = await self.file_processor.process_audio(audio_bytes, chat_id, filename)
+            # Verificar tamaño
+            size_mb = len(audio_bytes) / (1024 * 1024)
             
-            if result["success"]:
-                message_text = self._build_audio_message(caption, result, filename)
-                success = await self.discord_sender.send_message(webhook_url, message_text)
-                
-                if success:
-                    self.stats['audios_processed'] += 1
-                    logger.info(f"🎵 Enterprise audio processed: {filename}")
-                else:
-                    await self._handle_send_failure(webhook_url, f"audio {filename}")
+            if size_mb > self.config['direct_sending']['max_file_size_mb']:
+                error_message = f"🎵 **Audio muy grande:** {filename} ({size_mb:.1f}MB)\n{caption}\n❌ Supera el límite de Discord ({self.config['direct_sending']['max_file_size_mb']}MB)"
+                await self.discord_sender.send_message(webhook_url, error_message)
+                self.stats['large_files_rejected'] += 1
+                return
+            
+            # 🎯 CAMBIO CLAVE: ENVÍO DIRECTO del audio
+            full_caption = f"🎵 **Audio Enterprise** ({size_mb:.1f}MB)"
+            if caption:
+                full_caption += f"\n\n{caption}"
+            
+            # ENVÍO DIRECTO del archivo de audio
+            success = await self.discord_sender.send_message_with_file(
+                webhook_url,
+                full_caption,
+                audio_bytes,
+                filename or "audio_enterprise.mp3"
+            )
+            
+            if success:
+                self.stats['audios_processed'] += 1
+                self.stats['audios_sent_direct'] += 1
+                self.stats['files_sent_direct'] += 1
+                logger.info(f"🎵 Enterprise audio enviado DIRECTAMENTE: {filename}")
             else:
-                await self._send_processing_error(webhook_url, "Audio", filename, result.get("error"))
+                await self._handle_send_failure(webhook_url, f"audio {filename}")
                 
         except Exception as e:
             logger.error(f"❌ Enterprise audio handling error: {e}")
             await self._send_processing_error(webhook_url, "Audio", filename, str(e))
     
-    def _build_audio_message(self, caption: str, result: dict, filename: str) -> str:
-        """Build enterprise audio message with metadata"""
-        return "\n".join([
-            caption,
-            "",
-            f"🎵 **Audio Enterprise** ({result['duration_min']:.1f} min)",
-            f"🎵 File: {filename}",
-            f"💾 Size: {result['size_mb']:.1f} MB",
-            f"📝 Transcription: {result['transcription']}",
-            f"🔗 [🎧 Listen Audio]({result['download_url']})",
-            "🔒 Enterprise secured streaming"
-        ])
-    
     async def _handle_document_generic(self, chat_id: int, file_bytes: bytes,
                                      file_name: str, caption: str, webhook_url: str):
-        """Generic document handler for enterprise deployment"""
+        """Generic document handler para envío directo"""
         try:
+            size_mb = len(file_bytes) / (1024 * 1024)
+            
+            if size_mb <= self.config['direct_sending']['max_file_size_mb']:
+                # 🎯 ENVÍO DIRECTO del documento
+                full_caption = f"📎 **Document Enterprise:** {file_name} ({size_mb:.1f}MB)"
+                if caption:
+                    full_caption += f"\n\n{caption}"
+                
+                success = await self.discord_sender.send_message_with_file(
+                    webhook_url,
+                    full_caption,
+                    file_bytes,
+                    file_name
+                )
+                
+                if success:
+                    self.stats['documents_processed'] += 1
+                    self.stats['files_sent_direct'] += 1
+                    logger.info(f"📎 Enterprise document enviado DIRECTAMENTE: {file_name}")
+                    return
+            
+            # Si es muy grande, crear descarga temporal
             result = await self.file_processor.create_temp_download(file_bytes, file_name, chat_id)
             
             if result["success"]:
@@ -547,33 +629,79 @@ class EnhancedReplicatorService:
             await self._send_processing_error(webhook_url, "Document", file_name, str(e))
     
     async def _process_image_enterprise(self, chat_id: int, message, webhook_url: str):
-        """Enterprise image processing with advanced watermarks"""
+        """
+        🖼️ PROCESAMIENTO DE IMAGEN - ENVÍO DIRECTO
+        ==========================================
+        
+        CAMBIO PRINCIPAL: Usa send_message_with_file() para envío directo
+        Ya NO genera links de descarga
+        """
         try:
-            # Download with timeout
+            # Download con timeout
             image_bytes = await asyncio.wait_for(
                 message.download_media(bytes),
                 timeout=60
             )
             
-            # Apply enterprise watermarks
+            # Verificar tamaño y comprimir si es necesario
+            size_mb = len(image_bytes) / (1024 * 1024)
+            
+            # Aplicar watermarks empresariales
             processed_bytes, was_processed = await self.watermark_service.apply_image_watermark(
                 image_bytes, chat_id
             )
             
-            # Process caption
+            # Comprimir si es muy grande
+            if size_mb > self.config['direct_sending']['max_file_size_mb']:
+                if self.config['direct_sending']['auto_compress']:
+                    compressed_bytes = await self._compress_image_if_needed(processed_bytes)
+                    if compressed_bytes and len(compressed_bytes) < len(processed_bytes):
+                        original_size = len(processed_bytes) / (1024 * 1024)
+                        new_size = len(compressed_bytes) / (1024 * 1024)
+                        savings = original_size - new_size
+                        
+                        processed_bytes = compressed_bytes
+                        size_mb = new_size
+                        self.stats['files_compressed'] += 1
+                        self.stats['compression_savings_mb'] += savings
+                        
+                        logger.info(f"⚡ Imagen comprimida: {original_size:.1f}MB → {new_size:.1f}MB")
+                    else:
+                        # No se puede comprimir más
+                        error_message = f"🖼️ **Imagen muy grande:** {size_mb:.1f}MB\n❌ No se puede comprimir para Discord"
+                        await self.discord_sender.send_message(webhook_url, error_message)
+                        self.stats['large_files_rejected'] += 1
+                        return
+                else:
+                    error_message = f"🖼️ **Imagen muy grande:** {size_mb:.1f}MB\n❌ Supera el límite de Discord"
+                    await self.discord_sender.send_message(webhook_url, error_message)
+                    self.stats['large_files_rejected'] += 1
+                    return
+            
+            # Procesar caption
             caption = await self._process_caption(message.text or "", chat_id)
             
-            # Send with enterprise metadata
+            # 🎯 CAMBIO CLAVE: ENVÍO DIRECTO en lugar de links
+            # Construir mensaje con info del archivo
+            full_caption = f"🖼️ **Imagen Enterprise** ({size_mb:.1f}MB)"
+            if caption:
+                full_caption += f"\n\n{caption}"
+            
+            # ENVÍO DIRECTO del archivo
             success = await self.discord_sender.send_message_with_file(
-                webhook_url, f"{caption}\n🔒 Enterprise processed image", 
-                processed_bytes, "image_enterprise.jpg"
+                webhook_url, 
+                full_caption, 
+                processed_bytes, 
+                "image_enterprise.jpg"
             )
             
             if success:
                 self.stats['images_processed'] += 1
+                self.stats['images_sent_direct'] += 1
+                self.stats['files_sent_direct'] += 1
                 if was_processed:
                     self.stats['watermarks_applied'] += 1
-                logger.info(f"🖼️ Enterprise image processed for group {chat_id}")
+                logger.info(f"🖼️ Enterprise image enviada DIRECTAMENTE para group {chat_id}")
             else:
                 await self._handle_send_failure(webhook_url, "image")
             
@@ -584,62 +712,98 @@ class EnhancedReplicatorService:
             raise
     
     async def _process_video_enterprise(self, chat_id: int, message, webhook_url: str):
-        """Enterprise video processing with intelligent compression"""
+        """
+        🎬 PROCESAMIENTO DE VIDEO - ENVÍO DIRECTO
+        ========================================
+        
+        CAMBIO PRINCIPAL: Envía video directamente, no como link
+        """
         try:
-            # Download with extended timeout for videos
+            # Download con timeout extendido para videos
             video_bytes = await asyncio.wait_for(
                 message.download_media(bytes),
                 timeout=self.config['processing_timeout']
             )
             
-            # Process with enterprise compression
-            result = await self.file_processor.process_video(video_bytes, chat_id, "video_enterprise.mp4")
+            # Verificar tamaño de Discord (25MB limit)
+            size_mb = len(video_bytes) / (1024 * 1024)
             
-            if result["success"]:
-                caption = await self._process_caption(message.text or "", chat_id)
-                message_text = self._build_video_message(caption, result)
-                
-                success = await self.discord_sender.send_message(webhook_url, message_text)
-                
-                if success:
-                    self.stats['videos_processed'] += 1
-                    self.stats['watermarks_applied'] += 1
-                    logger.info(f"🎬 Enterprise video processed for group {chat_id}")
+            if size_mb > self.config['direct_sending']['max_file_size_mb']:
+                # Para videos muy grandes, procesar primero
+                if self.config['direct_sending']['auto_compress']:
+                    result = await self.file_processor.process_video(video_bytes, chat_id, "video_enterprise.mp4")
+                    
+                    if result["success"] and result.get("compressed_size"):
+                        # Usar video comprimido si está disponible
+                        compressed_size_mb = result["compressed_size"] / (1024 * 1024)
+                        if compressed_size_mb <= self.config['direct_sending']['max_file_size_mb']:
+                            # Cargar video comprimido
+                            compressed_path = Path(result.get("output_path", ""))
+                            if compressed_path.exists():
+                                video_bytes = compressed_path.read_bytes()
+                                size_mb = compressed_size_mb
+                                self.stats['files_compressed'] += 1
+                                self.stats['compression_savings_mb'] += (len(video_bytes) - len(compressed_path.read_bytes())) / (1024 * 1024)
+                                logger.info(f"🎬 Video comprimido: {size_mb:.1f}MB")
+                            else:
+                                # Si no hay archivo comprimido, enviar mensaje de error
+                                caption = await self._process_caption(message.text or "", chat_id)
+                                error_message = f"🎬 **Video muy grande:** {size_mb:.1f}MB\n{caption}\n❌ Supera el límite de Discord ({self.config['direct_sending']['max_file_size_mb']}MB)"
+                                await self.discord_sender.send_message(webhook_url, error_message)
+                                self.stats['large_files_rejected'] += 1
+                                return
+                        else:
+                            # Incluso comprimido es muy grande
+                            caption = await self._process_caption(message.text or "", chat_id)
+                            error_message = f"🎬 **Video muy grande:** {size_mb:.1f}MB → {compressed_size_mb:.1f}MB\n{caption}\n❌ No se puede reducir más para Discord"
+                            await self.discord_sender.send_message(webhook_url, error_message)
+                            self.stats['large_files_rejected'] += 1
+                            return
+                    else:
+                        # No se pudo comprimir
+                        caption = await self._process_caption(message.text or "", chat_id)
+                        error_message = f"🎬 **Video muy grande:** {size_mb:.1f}MB\n{caption}\n❌ No se puede comprimir para Discord"
+                        await self.discord_sender.send_message(webhook_url, error_message)
+                        self.stats['large_files_rejected'] += 1
+                        return
                 else:
-                    await self._handle_send_failure(webhook_url, "video")
+                    # Compresión deshabilitada
+                    caption = await self._process_caption(message.text or "", chat_id)
+                    error_message = f"🎬 **Video muy grande:** {size_mb:.1f}MB\n{caption}\n❌ Supera el límite de Discord"
+                    await self.discord_sender.send_message(webhook_url, error_message)
+                    self.stats['large_files_rejected'] += 1
+                    return
+            
+            # Procesar caption
+            caption = await self._process_caption(message.text or "", chat_id)
+            
+            # 🎯 CAMBIO CLAVE: ENVÍO DIRECTO del video
+            full_caption = f"🎬 **Video Enterprise** ({size_mb:.1f}MB)"
+            if caption:
+                full_caption += f"\n\n{caption}"
+            
+            # ENVÍO DIRECTO del archivo de video
+            success = await self.discord_sender.send_message_with_file(
+                webhook_url,
+                full_caption,
+                video_bytes,
+                "video_enterprise.mp4"
+            )
+            
+            if success:
+                self.stats['videos_processed'] += 1
+                self.stats['videos_sent_direct'] += 1
+                self.stats['files_sent_direct'] += 1
+                self.stats['watermarks_applied'] += 1  # Videos siempre tienen watermark implícito
+                logger.info(f"🎬 Enterprise video enviado DIRECTAMENTE para group {chat_id}")
             else:
-                await self._send_processing_error(webhook_url, "Video", "video", result.get("error"))
+                await self._handle_send_failure(webhook_url, "video")
             
         except asyncio.TimeoutError:
             await self._send_timeout_message(webhook_url, "video")
         except Exception as e:
             logger.error(f"❌ Enterprise video processing error: {e}")
             raise
-    
-    def _build_video_message(self, caption: str, result: dict) -> str:
-        """Build enterprise video message with compression stats"""
-        compression_ratio = result.get('compression_ratio', 1.0)
-        savings_percent = (1 - compression_ratio) * 100
-        
-        message_parts = [
-            caption,
-            "",
-            f"🎬 **Video Enterprise**",
-            f"📊 Size: {result['original_size_mb']:.1f} MB → {result['final_size_mb']:.1f} MB"
-        ]
-        
-        if savings_percent > 5:
-            message_parts.append(f"⚡ Compressed: {savings_percent:.1f}% smaller")
-        
-        if result.get('duration_seconds'):
-            message_parts.append(f"⏱️ Duration: {result['duration_seconds']:.1f}s")
-        
-        message_parts.extend([
-            f"🔗 [▶️ Watch Video]({result['download_url']})",
-            "🔒 Enterprise optimized streaming"
-        ])
-        
-        return "\n".join(message_parts)
     
     async def _process_other_media_enterprise(self, chat_id: int, message, webhook_url: str):
         """Enterprise handler for other media types"""
@@ -653,6 +817,43 @@ class EnhancedReplicatorService:
         except Exception as e:
             logger.error(f"❌ Other media processing error: {e}")
             raise
+    
+    async def _compress_image_if_needed(self, image_bytes: bytes) -> Optional[bytes]:
+        """Comprimir imagen si es necesario"""
+        try:
+            from PIL import Image
+            from io import BytesIO
+            
+            # Cargar imagen
+            img = Image.open(BytesIO(image_bytes))
+            
+            # Reducir tamaño si es muy grande
+            max_size = (1920, 1080)
+            if img.size[0] > max_size[0] or img.size[1] > max_size[1]:
+                img.thumbnail(max_size, Image.Resampling.LANCZOS)
+            
+            # Comprimir
+            output = BytesIO()
+            
+            # Convertir a RGB si tiene transparencia
+            if img.mode in ('RGBA', 'LA', 'P'):
+                background = Image.new('RGB', img.size, (255, 255, 255))
+                if img.mode == 'P':
+                    img = img.convert('RGBA')
+                background.paste(img, mask=img.split()[-1] if img.mode == 'RGBA' else None)
+                img = background
+            
+            img.save(output, format='JPEG', quality=self.config['direct_sending']['compression_quality'], optimize=True)
+            
+            compressed = output.getvalue()
+            return compressed if len(compressed) < len(image_bytes) else None
+            
+        except ImportError:
+            logger.warning("⚠️ PIL no disponible para compresión")
+            return None
+        except Exception as e:
+            logger.warning(f"⚠️ Error comprimiendo imagen: {e}")
+            return None
     
     async def _start_background_tasks(self):
         """Start enterprise background tasks"""
@@ -738,15 +939,20 @@ class EnhancedReplicatorService:
     
     async def _display_enterprise_configuration(self):
         """Display enterprise configuration summary"""
-        logger.info("📊 Enterprise Configuration:")
+        logger.info("📊 Enterprise Configuration - ENVÍO DIRECTO:")
         logger.info(f"   Groups configured: {len(settings.discord.webhooks)}")
         logger.info(f"   Max concurrent processing: {self.config['max_concurrent_processing']}")
         logger.info(f"   Circuit breaker threshold: {self.config['circuit_breaker_threshold']}")
         logger.info(f"   Processing timeout: {self.config['processing_timeout']}s")
+        logger.info(f"   Direct Sending Settings:")
+        logger.info(f"     - Max file size: {self.config['direct_sending']['max_file_size_mb']}MB")
+        logger.info(f"     - Auto compress: {self.config['direct_sending']['auto_compress']}")
+        logger.info(f"     - Compression quality: {self.config['direct_sending']['compression_quality']}")
+        logger.info(f"     - Prefer direct: {self.config['direct_sending']['prefer_direct']}")
         logger.info(f"   Enterprise Services:")
         logger.info(f"     - File Processor: ✅ Advanced")
         logger.info(f"     - Watermark Service: ✅ Multi-tenant")
-        logger.info(f"     - Discord Sender: ✅ Circuit breaker enabled")
+        logger.info(f"     - Discord Sender: ✅ ENVÍO DIRECTO enabled")
         logger.info(f"   Dependencies:")
         logger.info(f"     - Telethon: {'✅' if TELETHON_AVAILABLE else '❌'}")
         logger.info(f"     - PIL: {'✅' if PIL_AVAILABLE else '❌'}")
@@ -761,7 +967,7 @@ class EnhancedReplicatorService:
                 return
             
             self.is_listening = True
-            logger.info("👂 Starting enterprise message listening...")
+            logger.info("👂 Starting enterprise message listening - MODO ENVÍO DIRECTO...")
             
             # Display monitored groups
             for group_id in settings.discord.webhooks.keys():
@@ -830,10 +1036,11 @@ class EnhancedReplicatorService:
             health_data = {
                 "status": "healthy" if self.is_running else "stopped",
                 "timestamp": datetime.now().isoformat(),
-                "version": "3.0.0-enterprise",
+                "version": "3.0.0-enterprise-direct-sending",
                 "is_running": self.is_running,
                 "is_listening": self.is_listening,
                 "telegram_connected": self.telegram_client is not None,
+                "direct_sending_enabled": True,
                 "services": {
                     "file_processor": await self._check_service_health(self.file_processor),
                     "watermark_service": await self._check_service_health(self.watermark_service),
@@ -853,10 +1060,21 @@ class EnhancedReplicatorService:
                     "active_connections": self.stats['performance_metrics']['active_connections'],
                     "error_rate": self._calculate_error_rate()
                 },
+                "direct_sending_metrics": {
+                    "files_sent_direct": self.stats['files_sent_direct'],
+                    "images_sent_direct": self.stats['images_sent_direct'],
+                    "videos_sent_direct": self.stats['videos_sent_direct'],
+                    "audios_sent_direct": self.stats['audios_sent_direct'],
+                    "pdfs_sent_direct": self.stats['pdfs_sent_direct'],
+                    "files_compressed": self.stats['files_compressed'],
+                    "compression_savings_mb": self.stats['compression_savings_mb'],
+                    "large_files_rejected": self.stats['large_files_rejected']
+                },
                 "configuration": {
                     "groups_configured": len(settings.discord.webhooks),
                     "max_concurrent_processing": self.config['max_concurrent_processing'],
-                    "circuit_breaker_threshold": self.config['circuit_breaker_threshold']
+                    "circuit_breaker_threshold": self.config['circuit_breaker_threshold'],
+                    "direct_sending_config": self.config['direct_sending']
                 },
                 "stats": self.stats.copy()
             }
@@ -909,7 +1127,7 @@ class EnhancedReplicatorService:
         return (errors / total_attempts) * 100
     
     async def get_dashboard_stats(self) -> Dict[str, Any]:
-        """Enterprise dashboard statistics"""
+        """Enterprise dashboard statistics with direct sending metrics"""
         try:
             uptime = (datetime.now() - self.stats['start_time']).total_seconds()
             
@@ -931,7 +1149,7 @@ class EnhancedReplicatorService:
                 discord_stats = await self.discord_sender.get_stats()
                 combined_stats.update(discord_stats)
             
-            # Build enterprise dashboard data
+            # Build enterprise dashboard data with direct sending metrics
             dashboard_data = {
                 "overview": {
                     "messages_received": combined_stats.get('messages_received', 0),
@@ -940,7 +1158,8 @@ class EnhancedReplicatorService:
                     "error_rate": self._calculate_error_rate(),
                     "uptime_hours": uptime / 3600,
                     "is_running": self.is_running,
-                    "is_listening": self.is_listening
+                    "is_listening": self.is_listening,
+                    "direct_sending_enabled": True
                 },
                 "processing": {
                     "pdfs_processed": combined_stats.get('pdfs_processed', 0),
@@ -949,6 +1168,20 @@ class EnhancedReplicatorService:
                     "images_processed": combined_stats.get('images_processed', 0),
                     "documents_processed": combined_stats.get('documents_processed', 0),
                     "watermarks_applied": combined_stats.get('watermarks_applied', 0)
+                },
+                "direct_sending": {
+                    "files_sent_direct": combined_stats.get('files_sent_direct', 0),
+                    "images_sent_direct": combined_stats.get('images_sent_direct', 0),
+                    "videos_sent_direct": combined_stats.get('videos_sent_direct', 0),
+                    "audios_sent_direct": combined_stats.get('audios_sent_direct', 0),
+                    "pdfs_sent_direct": combined_stats.get('pdfs_sent_direct', 0),
+                    "files_compressed": combined_stats.get('files_compressed', 0),
+                    "compression_savings_mb": combined_stats.get('compression_savings_mb', 0.0),
+                    "large_files_rejected": combined_stats.get('large_files_rejected', 0),
+                    "direct_sending_rate": (
+                        combined_stats.get('files_sent_direct', 0) / 
+                        max(combined_stats.get('messages_received', 1), 1) * 100
+                    )
                 },
                 "performance": {
                     "avg_processing_time": self.stats['performance_metrics']['avg_processing_time'],
@@ -987,7 +1220,7 @@ class EnhancedReplicatorService:
             }
     
     async def get_enterprise_metrics(self) -> Dict[str, Any]:
-        """Get comprehensive enterprise metrics"""
+        """Get comprehensive enterprise metrics with direct sending data"""
         try:
             return {
                 "service_metrics": await self.get_dashboard_stats(),
@@ -1001,8 +1234,13 @@ class EnhancedReplicatorService:
                         self.stats['audios_processed'] + 
                         self.stats['images_processed']
                     ),
+                    "total_files_sent_direct": self.stats['files_sent_direct'],
                     "watermark_adoption_rate": (
                         self.stats['watermarks_applied'] / 
+                        max(self.stats['messages_received'], 1) * 100
+                    ),
+                    "direct_sending_adoption": (
+                        self.stats['files_sent_direct'] / 
                         max(self.stats['messages_received'], 1) * 100
                     )
                 },
@@ -1010,7 +1248,11 @@ class EnhancedReplicatorService:
                     "availability": self._calculate_availability(),
                     "throughput": self._calculate_throughput(),
                     "latency": self.stats['performance_metrics']['avg_processing_time'],
-                    "error_budget_remaining": max(0, 99.9 - self._calculate_error_rate())
+                    "error_budget_remaining": max(0, 99.9 - self._calculate_error_rate()),
+                    "compression_efficiency": (
+                        self.stats['compression_savings_mb'] / 
+                        max(self.stats['files_compressed'], 1)
+                    )
                 }
             }
         except Exception as e:
@@ -1054,6 +1296,11 @@ class EnhancedReplicatorService:
             if error_rate > 5.0:  # 5% error threshold
                 logger.warning(f"⚠️ High error rate: {error_rate:.2f}%")
             
+            # Check direct sending performance
+            direct_rate = self.stats['files_sent_direct'] / max(self.stats['messages_received'], 1) * 100
+            if direct_rate < 80:  # Expected >80% direct sending
+                logger.warning(f"⚠️ Low direct sending rate: {direct_rate:.2f}%")
+            
         except Exception as e:
             logger.error(f"❌ Health check error: {e}")
     
@@ -1096,7 +1343,7 @@ class EnhancedReplicatorService:
 
 # Enterprise service factory for dependency injection
 def create_enhanced_replicator_service() -> EnhancedReplicatorService:
-    """Factory function for creating enterprise replicator service"""
+    """Factory function para crear enterprise replicator service con envío directo"""
     return EnhancedReplicatorService()
 
 # Alias for backward compatibility
