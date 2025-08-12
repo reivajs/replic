@@ -28,6 +28,8 @@ import uvicorn
 from telethon import TelegramClient, events
 from telethon.tl.types import Channel, Chat, User, Dialog
 from telethon.errors import SessionPasswordNeededError, FloodWaitError
+import os
+from dotenv import load_dotenv
 
 # Cache & Storage  
 import sqlite3
@@ -84,9 +86,6 @@ def safe_json_dumps(obj: Any) -> str:
     return json.dumps(datetime_serializer(obj), default=str, ensure_ascii=False)
 
 # ============= CONFIGURATION =============
-import os
-from dotenv import load_dotenv
-
 load_dotenv()  # Añadir esta línea
 
 @dataclass  
