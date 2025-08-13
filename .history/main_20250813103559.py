@@ -12,8 +12,6 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 from pathlib import Path
-from fastapi import Query
-
 
 from fastapi import FastAPI, Request, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
@@ -505,32 +503,45 @@ async def trigger_discovery_scan_endpoint(force_refresh: bool = False):
 
 @app.get("/api/discovery/chats")
 async def get_discovered_chats_endpoint(
-    chat_type: Optional[str] = Query(None),
-    search_term: Optional[str] = Query(None), 
-    min_participants: Optional[int] = Query(None),
-    limit: int = Query(100),
-    offset: int = Query(0),
-    is_private: Optional[bool] = Query(None)
+    chat_type: Optional[str] = Query(None, description="Filter by type"),
+    search_term: Optional[str] = Query(None, description="Search term"),
+    min_participants: Optional[int] = Query(None, description="Min participants"),
+    max_participants: Optional[int] = Query(None, description="Max participants"),
+    has_username: Optional[bool] = Query(None, description="Has username"),
+    is_verified: Optional[bool] = Query(None, description="Is verified"),
+    limit: int = Query(100, description="Limit results"),
+    offset: int = Query(0, description="Offset results"),
+    is_private: Optional[bool] = Query(None, description="Include private chats")
 ):
-    """🔧 FIX: Endpoint proxy CORREGIDO para Discovery"""
+    """📋 Endpoint CORREGIDO para obtener chats discovered - SIN FILTROS RESTRICTIVOS"""
     try:
-        # 🔧 FIX: Parámetros SIN filtros restrictivos
+        # 🔧 FIX: Construir parámetros de forma más flexible
         params = {"limit": limit, "offset": offset}
         
-        # Solo añadir filtros si son específicos
-        if chat_type and chat_type not in ["group,supergroup,channel,megagroup", ""]:
+        # Solo añadir filtros si son válidos y no restrictivos
+        if chat_type and chat_type != "group,supergroup,channel,megagroup":
+            # Si es un tipo específico
             params["chat_type"] = chat_type
-            
+        
         if search_term and search_term.strip():
             params["search_term"] = search_term.strip()
-            
-        # 🔧 FIX: NO aplicar min_participants automáticamente
-        if min_participants is not None and min_participants <= 0:
+        
+        # 🔧 FIX: Solo aplicar min_participants si es razonable
+        if min_participants is not None and min_participants <= 1:
             params["min_participants"] = min_participants
         
-        logger.info(f"🔍 Solicitud de proxy Discovery con parámetros: {params}")
+        if max_participants is not None:
+            params["max_participants"] = max_participants
+            
+        if has_username is not None:
+            params["has_username"] = has_username
+            
+        if is_verified is not None:
+            params["is_verified"] = is_verified
         
-        # Proxy al Discovery Service
+        logger.info(f"🔍 Requesting Discovery Service with params: {params}")
+        
+        # Conectar con Discovery Service  
         async with httpx.AsyncClient(timeout=15.0) as client:
             discovery_url = "http://localhost:8002/api/discovery/chats"
             response = await client.get(discovery_url, params=params)
@@ -539,11 +550,12 @@ async def get_discovered_chats_endpoint(
                 data = response.json()
                 chats = data.get("chats", [])
                 
-                # 🔧 FIX: Filtrar privados solo si se especifica
+                # 🔧 FIX: Filtrado post-procesamiento más inteligente
                 if is_private is False:
+                    # Solo filtrar privados si se especifica explícitamente
                     chats = [chat for chat in chats if chat.get("type") != "private"]
                 
-                logger.info(f"✅ Chats descubiertos: {len(chats)} desde Discovery Service")
+                logger.info(f"✅ Discovered {len(chats)} chats from Discovery Service")
                 
                 return {
                     "chats": chats,
@@ -553,12 +565,15 @@ async def get_discovered_chats_endpoint(
                     "filters_applied": params
                 }
             else:
-                logger.error(f"❌ Error en el Discovery Service: HTTP {response.status_code}")
-                return {"chats": [], "total": 0, "error": "Error en Discovery Service"}
+                logger.error(f"❌ Discovery Service HTTP {response.status_code}: {response.text}")
+                return {"chats": [], "total": 0, "error": f"Discovery Service error: {response.status_code}"}
                 
+    except httpx.ConnectError as e:
+        logger.error(f"❌ Cannot connect to Discovery Service: {e}")
+        return {"chats": [], "total": 0, "error": "Discovery Service not available"}
     except Exception as e:
-        logger.error(f"❌ Error en el proxy de Discovery: {e}")
-        return {"chats": [], "total": 0, "error": str(e)}
+        logger.error(f"❌ Discovery Service error: {e}")
+        return {"chats": [], "total": 0, "error": str
 
 @app.post("/api/discovery/configure")
 async def configure_discovered_chat_fixed(request: Request):

@@ -12,8 +12,6 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 from pathlib import Path
-from fastapi import Query
-
 
 from fastapi import FastAPI, Request, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware

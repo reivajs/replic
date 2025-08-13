@@ -1,0 +1,176 @@
+2025-08-13 09:23:13,405 - app.services.file_processor - INFO - __init__:383 - 🚀 FileProcessorEnhanced initialized
+2025-08-13 09:23:13,405 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-13 09:23:13,405 - app.services.discord_sender - INFO - __init__:189 - 🚀 Discord Sender Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-13 09:23:13,406 - app.services.enhanced_replicator_service - INFO - __init__:165 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-13 09:23:13,406 - app.services.enhanced_replicator_service - INFO - initialize:175 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-13 09:23:13,406 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:221 - 🔍 Enterprise dependency verification:
+2025-08-13 09:23:13,406 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    telethon: ✅ Available
+2025-08-13 09:23:13,406 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:225 -    telethon_video_support: ❌ Missing
+2025-08-13 09:23:13,406 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    aiohttp: ✅ Available
+2025-08-13 09:23:13,406 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pil: ✅ Available
+2025-08-13 09:23:13,406 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pymupdf: ✅ Available
+2025-08-13 09:23:13,406 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:229 -    📹 Video handling: Using document-based detection
+2025-08-13 09:23:13,407 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:246 - 📱 Connecting to Telegram Enterprise...
+2025-08-13 09:23:14,746 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:273 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-13 09:23:14,747 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-13 09:23:14,747 - app.services.file_processor - INFO - initialize:137 - ✅ V2 Processor Adapter initialized
+2025-08-13 09:23:14,747 - app.services.file_processor - INFO - initialize:395 - ✅ Using V2 processor (microservices architecture)
+2025-08-13 09:23:14,756 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-13 09:23:15,507 - app.services.file_processor - INFO - _check_dependencies:415 - 📦 Dependencies:
+2025-08-13 09:23:15,507 - app.services.file_processor - INFO - _check_dependencies:418 -    ffmpeg: ✅
+2025-08-13 09:23:15,508 - app.services.file_processor - INFO - _check_dependencies:418 -    pymupdf: ✅
+2025-08-13 09:23:15,508 - app.services.file_processor - INFO - _check_dependencies:418 -    pil: ✅
+2025-08-13 09:23:15,508 - app.services.file_processor - INFO - initialize:405 - ✅ FileProcessorEnhanced ready
+2025-08-13 09:23:15,508 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ File Processor Enterprise initialized
+2025-08-13 09:23:15,509 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-13 09:23:15,525 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-13 09:23:15,525 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-13 09:23:15,525 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-13 09:23:15,526 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-13 09:23:15,526 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ Watermark Service Enterprise initialized
+2025-08-13 09:23:15,526 - app.services.discord_sender - INFO - initialize:216 - ✅ Discord Sender Enterprise inicializado
+2025-08-13 09:23:15,526 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ Discord Sender Enterprise initialized
+2025-08-13 09:23:15,526 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:337 - 📡 Enterprise event handlers configured
+2025-08-13 09:23:15,526 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:869 - 🔄 Enterprise background tasks started
+2025-08-13 09:23:15,526 - app.services.enhanced_replicator_service - INFO - initialize:199 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-13 09:23:15,526 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:942 - 📊 Enterprise Configuration - ENVÍO DIRECTO:
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:943 -    Groups configured: 2
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:944 -    Max concurrent processing: 10
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:945 -    Circuit breaker threshold: 5
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:946 -    Processing timeout: 300s
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:947 -    Direct Sending Settings:
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:948 -      - Max file size: 25MB
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:949 -      - Auto compress: True
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:950 -      - Compression quality: 75
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:951 -      - Prefer direct: True
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:952 -    Enterprise Services:
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:953 -      - File Processor: ✅ Advanced
+2025-08-13 09:23:15,527 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:954 -      - Watermark Service: ✅ Multi-tenant
+2025-08-13 09:23:15,528 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:955 -      - Discord Sender: ✅ ENVÍO DIRECTO enabled
+2025-08-13 09:23:15,528 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:956 -    Dependencies:
+2025-08-13 09:23:15,528 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:957 -      - Telethon: ✅
+2025-08-13 09:23:15,528 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:958 -      - PIL: ✅
+2025-08-13 09:23:15,528 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:959 -      - PyMuPDF: ✅
+2025-08-13 09:23:15,528 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:960 -      - aiohttp: ✅
+2025-08-13 09:23:15,528 - app.services.enhanced_replicator_service - INFO - start_listening:970 - 👂 Starting enterprise message listening - MODO ENVÍO DIRECTO...
+2025-08-13 09:23:15,529 - app.services.enhanced_replicator_service - INFO - start_listening:974 -    👥 Monitoring enterprise group: -4989347027
+2025-08-13 09:23:15,529 - app.services.enhanced_replicator_service - INFO - start_listening:974 -    👥 Monitoring enterprise group: -1001697798998
+2025-08-13 09:23:23,180 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:23:33,733 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:23:45,534 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:24:07,335 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:24:15,538 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:24:30,854 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:24:45,539 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:25:06,317 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:25:07,331 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:25:15,543 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:25:36,326 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:25:45,550 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:26:01,086 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:26:07,331 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:26:15,551 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:26:45,553 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:27:07,332 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:27:15,558 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:27:45,565 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:28:07,328 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:28:15,566 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:28:16,769 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:28:40,655 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:28:44,942 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:28:45,567 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:29:15,567 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:29:16,323 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:29:45,567 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:29:46,322 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:30:15,568 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:30:16,320 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:30:45,568 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:30:46,319 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:31:15,569 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:31:45,572 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:32:07,327 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:32:15,575 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:32:45,580 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:33:07,323 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:33:15,579 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:33:45,584 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:34:07,322 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:34:15,585 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:34:45,586 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:35:07,320 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:35:15,589 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:35:21,274 - app.services.file_processor - INFO - __init__:383 - 🚀 FileProcessorEnhanced initialized
+2025-08-13 09:35:21,274 - app.services.watermark_service - INFO - __init__:97 - 🎨 Watermark Service Enterprise inicializado
+2025-08-13 09:35:21,274 - app.services.discord_sender - INFO - __init__:189 - 🚀 Discord Sender Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-13 09:35:21,274 - app.services.enhanced_replicator_service - INFO - __init__:165 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-13 09:35:21,275 - app.services.enhanced_replicator_service - INFO - initialize:175 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-13 09:35:21,275 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:221 - 🔍 Enterprise dependency verification:
+2025-08-13 09:35:21,275 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    telethon: ✅ Available
+2025-08-13 09:35:21,275 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:225 -    telethon_video_support: ❌ Missing
+2025-08-13 09:35:21,275 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    aiohttp: ✅ Available
+2025-08-13 09:35:21,275 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pil: ✅ Available
+2025-08-13 09:35:21,275 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pymupdf: ✅ Available
+2025-08-13 09:35:21,275 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:229 -    📹 Video handling: Using document-based detection
+2025-08-13 09:35:21,275 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:246 - 📱 Connecting to Telegram Enterprise...
+2025-08-13 09:35:22,506 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:273 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-13 09:35:22,506 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-13 09:35:22,506 - app.services.file_processor - INFO - initialize:137 - ✅ V2 Processor Adapter initialized
+2025-08-13 09:35:22,507 - app.services.file_processor - INFO - initialize:395 - ✅ Using V2 processor (microservices architecture)
+2025-08-13 09:35:22,511 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-13 09:35:22,937 - app.services.file_processor - INFO - _check_dependencies:415 - 📦 Dependencies:
+2025-08-13 09:35:22,938 - app.services.file_processor - INFO - _check_dependencies:418 -    ffmpeg: ✅
+2025-08-13 09:35:22,938 - app.services.file_processor - INFO - _check_dependencies:418 -    pymupdf: ✅
+2025-08-13 09:35:22,938 - app.services.file_processor - INFO - _check_dependencies:418 -    pil: ✅
+2025-08-13 09:35:22,938 - app.services.file_processor - INFO - initialize:405 - ✅ FileProcessorEnhanced ready
+2025-08-13 09:35:22,938 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ File Processor Enterprise initialized
+2025-08-13 09:35:22,939 - app.services.watermark_service - INFO - _load_configurations:131 - 📁 Cargadas 1 configuraciones
+2025-08-13 09:35:22,948 - app.services.watermark_service - INFO - _preload_fonts:189 - 🔤 Precargadas 6 fuentes
+2025-08-13 09:35:22,948 - app.services.watermark_service - INFO - initialize:111 - ✅ Watermark Service Enterprise inicializado correctamente
+2025-08-13 09:35:22,948 - app.services.watermark_service - INFO - initialize:112 -    Grupos configurados: 1
+2025-08-13 09:35:22,949 - app.services.watermark_service - INFO - initialize:113 -    PIL disponible: ✅
+2025-08-13 09:35:22,949 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ Watermark Service Enterprise initialized
+2025-08-13 09:35:22,949 - app.services.discord_sender - INFO - initialize:216 - ✅ Discord Sender Enterprise inicializado
+2025-08-13 09:35:22,949 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ Discord Sender Enterprise initialized
+2025-08-13 09:35:22,949 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:337 - 📡 Enterprise event handlers configured
+2025-08-13 09:35:22,949 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:869 - 🔄 Enterprise background tasks started
+2025-08-13 09:35:22,949 - app.services.enhanced_replicator_service - INFO - initialize:199 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-13 09:35:22,949 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:942 - 📊 Enterprise Configuration - ENVÍO DIRECTO:
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:943 -    Groups configured: 2
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:944 -    Max concurrent processing: 10
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:945 -    Circuit breaker threshold: 5
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:946 -    Processing timeout: 300s
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:947 -    Direct Sending Settings:
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:948 -      - Max file size: 25MB
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:949 -      - Auto compress: True
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:950 -      - Compression quality: 75
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:951 -      - Prefer direct: True
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:952 -    Enterprise Services:
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:953 -      - File Processor: ✅ Advanced
+2025-08-13 09:35:22,950 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:954 -      - Watermark Service: ✅ Multi-tenant
+2025-08-13 09:35:22,951 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:955 -      - Discord Sender: ✅ ENVÍO DIRECTO enabled
+2025-08-13 09:35:22,951 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:956 -    Dependencies:
+2025-08-13 09:35:22,951 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:957 -      - Telethon: ✅
+2025-08-13 09:35:22,951 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:958 -      - PIL: ✅
+2025-08-13 09:35:22,951 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:959 -      - PyMuPDF: ✅
+2025-08-13 09:35:22,951 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:960 -      - aiohttp: ✅
+2025-08-13 09:35:22,951 - app.services.enhanced_replicator_service - INFO - start_listening:970 - 👂 Starting enterprise message listening - MODO ENVÍO DIRECTO...
+2025-08-13 09:35:22,951 - app.services.enhanced_replicator_service - INFO - start_listening:974 -    👥 Monitoring enterprise group: -4989347027
+2025-08-13 09:35:22,951 - app.services.enhanced_replicator_service - INFO - start_listening:974 -    👥 Monitoring enterprise group: -1001697798998
+2025-08-13 09:35:22,954 - app.services.enhanced_replicator_service - INFO - stop:989 - 🛑 Stopping Enhanced Replicator Service Enterprise...
+2025-08-13 09:35:22,954 - app.services.discord_sender - INFO - close:624 - ✅ Discord Sender cerrado correctamente
+2025-08-13 09:35:22,954 - app.services.enhanced_replicator_service - INFO - _shutdown_discord_sender:1029 - 📤 Discord sender closed
+2025-08-13 09:35:22,957 - app.services.enhanced_replicator_service - INFO - start_listening:984 - 🛑 Enterprise listening stopped
+2025-08-13 09:35:22,958 - app.services.enhanced_replicator_service - INFO - _shutdown_telegram:1021 - 📱 Telegram client disconnected
+2025-08-13 09:35:22,958 - app.services.enhanced_replicator_service - INFO - stop:1010 - ✅ Enhanced Replicator Service Enterprise stopped
+2025-08-13 09:35:33,168 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:35:40,727 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:35:45,593 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:36:04,698 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:36:15,335 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:36:15,594 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:36:45,339 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
+2025-08-13 09:36:45,598 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:37:15,600 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-13 09:37:16,314 - app.services.enhanced_replicator_service - ERROR - get_dashboard_stats:1216 - ❌ Dashboard stats error: object dict can't be used in 'await' expression
