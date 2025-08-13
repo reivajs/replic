@@ -1,0 +1,8 @@
+Diagnóstico rápido - 2025-08-13 13:47:03.591778
+Score: 2/4
+Errores: 3
+Warnings: 0
+python_environment: FAIL
+env_configuration: PASS
+file_structure: PASS
+discord_webhooks: FAIL
