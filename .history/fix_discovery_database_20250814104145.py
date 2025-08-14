@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-🚨 EMERGENCY DATABASE FIX - DISCOVERY SERVICE
-=============================================
-Solución DEFINITIVA para el error 'duplicate column name: updated_at'
+🚨 EMERGENCY DATABASE FIX - SOLUCIÓN DEFINITIVA
+===============================================
+Arregla DEFINITIVAMENTE el error 'duplicate column name: updated_at'
 """
 
 import sqlite3
@@ -99,7 +99,6 @@ def fix_database_schema():
                 cursor.execute("CREATE INDEX IF NOT EXISTS idx_public_chats ON discovered_chats(is_public)")
                 
                 print("✅ Created fresh table with correct schema")
-                conn.commit()
                 return True
             
             # Fix existing table if needed
@@ -155,11 +154,11 @@ def fix_database_schema():
             conn.commit()
             print("✅ Database schema successfully fixed!")
             
-    except Exception as e:
-        print(f"❌ Error fixing database: {e}")
-        return False
-    
-    return True
+        except Exception as e:
+            print(f"❌ Error fixing database: {e}")
+            return False
+        
+        return True
 
 def test_database_operations():
     """Test complete database operations"""
