@@ -4,8 +4,7 @@
 ==============================================
 Servicio de replicación con integración Groups Hub
 """
-from dotenv import load_dotenv
-load_dotenv()  # Cargar variables .env ANTES de todo
+
 import asyncio
 import json
 import logging

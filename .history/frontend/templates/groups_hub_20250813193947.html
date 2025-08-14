@@ -105,6 +105,777 @@
 </div>
 
 <script>
+// ============= ENHANCED GROUPS HUB APPLICATION =============
+class EnterpriseGroupsHub {
+constructor() {
+this.discoveredChats = [];
+this.configuredGroups = [];
+this.draggedItem = null;
+this.searchTerm = '';
+this.currentFilter = '';
+this.isLoading = false;
+this.systemHealth = {
+    discovery: false,
+    replicator: false,
+    orchestrator: true
+};
+
+// API endpoints
+this.API = {
+    discovery: {
+        chats: '/api/discovery/chats',
+        scan: '/api/discovery/scan',
+        status: '/api/discovery/status'
+    },
+    replicator: {
+        groups: '/api/config/groups',
+        addGroup: '/api/config/add_group',
+        health: 'http://localhost:8001/health'
+    },
+    groups: {
+        all: '/api/groups/all',
+        configure: '/api/groups/configure'
+    }
+};
+
+this.init();
+}
+
+async init() {
+console.log('🎭 Initializing Enterprise Groups Hub...');
+
+try {
+    await this.checkSystemHealth();
+    await this.loadData();
+    this.setupEventListeners();
+    this.setupDragAndDrop();
+    this.updateUI();
+    this.startRealTimeUpdates();
+    
+    console.log('✅ Enterprise Groups Hub ready');
+} catch (error) {
+    console.error('❌ Failed to initialize Groups Hub:', error);
+    this.showNotification('Failed to initialize Groups Hub', 'error');
+}
+}
+
+async checkSystemHealth() {
+console.log('🔍 Checking system health...');
+
+// Check Discovery Service
+try {
+    const discoveryResponse = await fetch('/api/discovery/chats?limit=1');
+    this.systemHealth.discovery = discoveryResponse.ok;
+} catch {
+    this.systemHealth.discovery = false;
+}
+
+// Check Message Replicator
+try {
+    const replicatorResponse = await fetch('http://localhost:8001/health');
+    this.systemHealth.replicator = replicatorResponse.ok;
+} catch {
+    this.systemHealth.replicator = false;
+}
+
+this.updateSystemHealthUI();
+}
+
+updateSystemHealthUI() {
+const discoveryIcon = document.getElementById('discoveryServiceStatus');
+const replicatorIcon = document.getElementById('replicatorServiceStatus');
+const systemIcon = document.getElementById('systemStatus');
+const systemIndicator = document.getElementById('systemStatusIndicator');
+
+// Update discovery service status
+if (this.systemHealth.discovery) {
+    discoveryIcon.className = 'metric-icon';
+} else {
+    discoveryIcon.className = 'metric-icon error';
+}
+
+// Update replicator service status
+if (this.systemHealth.replicator) {
+    replicatorIcon.className = 'metric-icon';
+} else {
+    replicatorIcon.className = 'metric-icon error';
+}
+
+// Update overall system status
+const allHealthy = this.systemHealth.discovery && this.systemHealth.replicator;
+if (allHealthy) {
+    systemIcon.className = 'metric-icon';
+    systemIndicator.className = 'system-status online';
+    systemIndicator.innerHTML = '<i class="fas fa-circle" style="color: #10b981;"></i><span>System Online</span>';
+} else {
+    systemIcon.className = 'metric-icon warning';
+    systemIndicator.className = 'system-status offline';
+    systemIndicator.innerHTML = '<i class="fas fa-circle" style="color: #ef4444;"></i><span>Service Issues</span>';
+}
+}
+
+setupEventListeners() {
+// Enhanced search with debouncing
+let searchTimeout;
+const searchInput = document.getElementById('discoverySearch');
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            this.searchTerm = e.target.value.toLowerCase().trim();
+            this.renderDiscoveredChats();
+        }, 300);
+    });
+}
+
+// Enhanced filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        this.currentFilter = e.target.dataset.filter;
+        this.renderDiscoveredChats();
+    });
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'f') {
+        e.preventDefault();
+        searchInput?.focus();
+    }
+    if (e.ctrlKey && e.key === 'r') {
+        e.preventDefault();
+        this.refreshAllData();
+    }
+});
+}
+
+setupDragAndDrop() {
+const dropZone = document.getElementById('dropZone');
+if (!dropZone) return;
+
+// Enhanced drag start
+document.addEventListener('dragstart', (e) => {
+    if (e.target.closest('.chat-item')) {
+        this.draggedItem = e.target.closest('.chat-item');
+        dropZone.classList.add('active');
+        e.target.closest('.chat-item').classList.add('dragging');
+        
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', e.target.closest('.chat-item').outerHTML);
+    }
+});
+
+document.addEventListener('dragend', (e) => {
+    dropZone.classList.remove('active');
+    document.querySelectorAll('.chat-item').forEach(item => {
+        item.classList.remove('dragging');
+    });
+    this.draggedItem = null;
+});
+
+// Enhanced drop functionality
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+});
+
+dropZone.addEventListener('drop', async (e) => {
+    e.preventDefault();
+    if (this.draggedItem) {
+        const chatId = parseInt(this.draggedItem.dataset.chatId);
+        await this.quickConfigureChat(chatId);
+    }
+});
+}
+
+async loadData() {
+if (this.isLoading) return;
+this.isLoading = true;
+
+try {
+    console.log('📡 Loading data from services...');
+    
+    await Promise.all([
+        this.loadDiscoveredChats(),
+        this.loadConfiguredGroups()
+    ]);
+    
+} catch (error) {
+    console.error('❌ Error loading data:', error);
+    this.showNotification('Failed to load data. Check service connectivity.', 'error');
+} finally {
+    this.isLoading = false;
+}
+}
+
+async loadDiscoveredChats() {
+try {
+    console.log('🔍 Loading discovered chats...');
+    
+    if (!this.systemHealth.discovery) {
+        console.warn('⚠️ Discovery Service not available - using fallback');
+        this.discoveredChats = this.getFallbackChats();
+        return;
+    }
+
+    const params = new URLSearchParams({
+        limit: '100',
+        chat_type: 'group,supergroup,channel',
+        is_private: 'false'
+    });
+    
+    const response = await fetch(`${this.API.discovery.chats}?${params}`);
+    
+    if (response.ok) {
+        const data = await response.json();
+        this.discoveredChats = data.chats || [];
+        
+        // Update UI counters
+        document.getElementById('lastScan').textContent = new Date().toLocaleTimeString();
+        document.getElementById('groupsToday').textContent = this.discoveredChats.length;
+        
+        console.log(`✅ Loaded ${this.discoveredChats.length} discovered chats`);
+    } else {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+} catch (error) {
+    console.error('❌ Failed to load discovered chats:', error);
+    this.discoveredChats = this.getFallbackChats();
+    this.systemHealth.discovery = false;
+    this.updateSystemHealthUI();
+}
+}
+
+getFallbackChats() {
+return [
+    {
+        id: -1001234567890,
+        title: "Tech Community",
+        type: "supergroup",
+        username: "techcomm",
+        participants_count: 1250,
+        is_public: true,
+        discovered_at: new Date().toISOString()
+    },
+    {
+        id: -1001234567891,
+        title: "News Channel",
+        type: "channel",
+        username: "newschannel",
+        participants_count: 5480,
+        is_public: true,
+        discovered_at: new Date().toISOString()
+    }
+];
+}
+
+async loadConfiguredGroups() {
+try {
+    console.log('⚙️ Loading configured groups...');
+    
+    if (!this.systemHealth.replicator) {
+        console.warn('⚠️ Message Replicator not available');
+        this.configuredGroups = [];
+        return;
+    }
+
+    const response = await fetch(this.API.replicator.groups);
+    
+    if (response.ok) {
+        const data = await response.json();
+        
+        if (data.success && data.groups) {
+            // Convert from object to array format
+            this.configuredGroups = Object.entries(data.groups).map(([id, config]) => ({
+                id: parseInt(id),
+                title: config.group_name,
+                type: "configured",
+                is_configured: true,
+                is_active: config.enabled,
+                webhook_url: config.webhook_url,
+                message_count: config.message_count || 0,
+                last_activity: config.updated_at,
+                filters: config.filters || {},
+                transformations: config.transformations || {}
+            }));
+        } else {
+            this.configuredGroups = [];
+        }
+        
+        console.log(`✅ Loaded ${this.configuredGroups.length} configured groups`);
+    } else {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+} catch (error) {
+    console.error('❌ Failed to load configured groups:', error);
+    this.configuredGroups = [];
+    this.systemHealth.replicator = false;
+    this.updateSystemHealthUI();
+}
+}
+
+renderDiscoveredChats() {
+const container = document.getElementById('discoveredChats');
+if (!container) return;
+
+let chats = [...this.discoveredChats];
+
+// Apply search filter
+if (this.searchTerm) {
+    chats = chats.filter(chat => 
+        chat.title?.toLowerCase().includes(this.searchTerm) ||
+        chat.username?.toLowerCase().includes(this.searchTerm)
+    );
+}
+
+// Apply type filter
+if (this.currentFilter) {
+    chats = chats.filter(chat => chat.type === this.currentFilter);
+}
+
+// Filter out already configured chats
+const configuredIds = new Set(this.configuredGroups.map(g => g.id));
+chats = chats.filter(chat => !configuredIds.has(chat.id));
+
+// Update count
+document.getElementById('discoveredPanelCount').textContent = chats.length;
+
+if (chats.length === 0) {
+    container.innerHTML = this.getEmptyStateHTML('discovery');
+    return;
+}
+
+// Render chats
+container.innerHTML = chats.map(chat => this.createDiscoveredChatHTML(chat)).join('');
+
+// Add animation
+container.querySelectorAll('.chat-item').forEach((item, index) => {
+    item.style.animationDelay = `${index * 50}ms`;
+    item.classList.add('slide-in');
+});
+}
+
+createDiscoveredChatHTML(chat) {
+const avatar = this.getChatAvatar(chat);
+const memberCount = this.formatMemberCount(chat.participants_count);
+const chatType = this.formatChatType(chat.type);
+
+return `
+    <div class="chat-item" draggable="true" data-chat-id="${chat.id}">
+        <div class="chat-avatar" style="${this.getChatAvatarStyle(chat)}">${avatar}</div>
+        <div class="chat-info">
+            <div class="chat-title" title="${chat.title || 'Unknown Chat'}">${chat.title || 'Unknown Chat'}</div>
+            <div class="chat-meta">
+                <div class="chat-meta-item">
+                    <i class="fas fa-users"></i>
+                    <span>${memberCount}</span>
+                </div>
+                <span class="chat-type ${chat.type}">${chatType}</span>
+                ${chat.username ? `<div class="chat-meta-item"><i class="fas fa-at"></i><span>${chat.username}</span></div>` : ''}
+            </div>
+        </div>
+        <div class="chat-actions">
+            <button class="action-btn success" onclick="groupsHub.quickConfigureChat(${chat.id})" title="Quick Configure">
+                <i class="fas fa-plus"></i>
+            </button>
+            <button class="action-btn" onclick="groupsHub.previewChat(${chat.id})" title="Preview">
+                <i class="fas fa-eye"></i>
+            </button>
+        </div>
+    </div>
+`;
+}
+
+renderConfiguredGroups() {
+const container = document.getElementById('configuredChats');
+if (!container) return;
+
+// Update count
+document.getElementById('configuredPanelCount').textContent = this.configuredGroups.length;
+
+if (this.configuredGroups.length === 0) {
+    container.innerHTML = this.getEmptyStateHTML('configured');
+    return;
+}
+
+container.innerHTML = this.configuredGroups.map(group => this.createConfiguredGroupHTML(group)).join('');
+}
+
+createConfiguredGroupHTML(group) {
+const avatar = (group.title || 'Unknown').charAt(0).toUpperCase();
+const statusClass = group.is_active ? 'active' : 'paused';
+
+return `
+    <div class="configured-item ${statusClass}">
+        <div class="status-indicator ${group.is_active ? '' : 'paused'}"></div>
+        <div class="chat-avatar">${avatar}</div>
+        <div class="chat-info">
+            <div class="chat-title">${group.title || 'Unknown Group'}</div>
+            <div class="chat-meta">
+                <div class="chat-meta-item">
+                    <i class="fas fa-${group.is_active ? 'play' : 'pause'}"></i>
+                    <span>${group.is_active ? 'Active' : 'Paused'}</span>
+                </div>
+                <div class="chat-meta-item">
+                    <i class="fas fa-message"></i>
+                    <span>${group.message_count || 0} msgs</span>
+                </div>
+                <div class="chat-meta-item">
+                    <i class="fas fa-link"></i>
+                    <span>Discord</span>
+                </div>
+            </div>
+        </div>
+        <div class="configured-actions">
+            <button class="action-btn" onclick="groupsHub.editGroup(${group.id})" title="Edit Configuration">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button class="action-btn" onclick="groupsHub.toggleGroup(${group.id})" title="${group.is_active ? 'Pause' : 'Resume'}">
+                <i class="fas fa-${group.is_active ? 'pause' : 'play'}"></i>
+            </button>
+            <button class="action-btn danger" onclick="groupsHub.removeGroup(${group.id})" title="Remove">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </div>
+`;
+}
+
+getChatAvatar(chat) {
+if (chat.title) {
+    return chat.title.charAt(0).toUpperCase();
+}
+
+const typeIcons = {
+    'channel': '📢',
+    'supergroup': '👥',
+    'group': '💬'
+};
+
+return typeIcons[chat.type] || '❓';
+}
+
+getChatAvatarStyle(chat) {
+const gradients = {
+    'channel': 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+    'supergroup': 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+    'group': 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'
+};
+
+return `background: ${gradients[chat.type] || 'var(--primary-gradient)'}`;
+}
+
+formatMemberCount(count) {
+if (!count || count <= 1) return 'Unknown';
+if (count < 1000) return count.toString();
+if (count < 1000000) return (count / 1000).toFixed(1) + 'K';
+return (count / 1000000).toFixed(1) + 'M';
+}
+
+formatChatType(type) {
+if (!type) return 'Unknown';
+const typeMap = {
+    'group': 'Group',
+    'supergroup': 'Supergroup', 
+    'channel': 'Channel'
+};
+return typeMap[type.toLowerCase()] || type;
+}
+
+getEmptyStateHTML(type) {
+if (type === 'discovery') {
+    if (!this.systemHealth.discovery) {
+        return `
+            <div class="empty-state">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Discovery Service Unavailable</h3>
+                <p>The Discovery Service is not running. Please start it to discover groups automatically.</p>
+            </div>
+        `;
+    }
+    return `
+        <div class="empty-state">
+            <i class="fas fa-search"></i>
+            <h3>No groups found</h3>
+            <p>Try running a discovery scan or adjusting your filters</p>
+        </div>
+    `;
+} else {
+    return `
+        <div class="empty-state">
+            <i class="fas fa-plus-circle"></i>
+            <h3>No groups configured yet</h3>
+            <p>Drag groups from the left panel or use the quick configure button</p>
+        </div>
+    `;
+}
+}
+
+updateUI() {
+this.renderDiscoveredChats();
+this.renderConfiguredGroups();
+this.updateStats();
+}
+
+updateStats() {
+document.getElementById('discoveredCount').textContent = this.discoveredChats.length;
+document.getElementById('configuredCount').textContent = this.configuredGroups.length;
+document.getElementById('activeCount').textContent = this.configuredGroups.filter(g => g.is_active).length;
+}
+
+// ============= ACTION METHODS =============
+
+async quickConfigureChat(chatId) {
+const chat = this.discoveredChats.find(c => c.id === chatId);
+if (!chat) {
+    this.showNotification('Chat not found', 'error');
+    return;
+}
+
+if (!this.systemHealth.replicator) {
+    this.showNotification('Message Replicator service is not available', 'error');
+    return;
+}
+
+try {
+    this.showNotification(`⚙️ Configuring ${chat.title}...`, 'info');
+    
+    // Get available webhook (for now, use environment webhook)
+    const webhook_url = "https://discord.com/api/webhooks/1399873931695100005/FByKlMB9JI_eUR-WXaRiFiP8pYdZbS7dCrpyPO66gK09DBnCeAvYBRv4--knBZU5HCBM";
+    
+    const config = {
+        group_id: chatId,
+        group_name: chat.title,
+        webhook_url: webhook_url,
+        enabled: true,
+        filters: {
+            exclude_bots: true,
+            include_media: true,
+            min_length: 1
+        },
+        transformations: {
+            add_prefix: `[${chat.title}] `,
+            watermark: false
+        }
+    };
+    
+    const response = await fetch(this.API.replicator.addGroup, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(config)
+    });
+    
+    if (response.ok) {
+        const result = await response.json();
+        
+        if (result.success) {
+            // Add to configured groups immediately for instant feedback
+            this.configuredGroups.push({
+                id: chatId,
+                title: chat.title,
+                type: "configured",
+                is_configured: true,
+                is_active: true,
+                webhook_url: webhook_url,
+                message_count: 0,
+                last_activity: new Date().toISOString()
+            });
+            
+            this.updateUI();
+            this.showNotification(`✅ ${chat.title} configured successfully!`, 'success');
+            this.animateItemMove(chatId);
+        } else {
+            throw new Error(result.message || 'Configuration failed');
+        }
+    } else {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || `HTTP ${response.status}`);
+    }
+} catch (error) {
+    console.error('Quick configure error:', error);
+    this.showNotification(`❌ Failed to configure ${chat.title}: ${error.message}`, 'error');
+}
+}
+
+async toggleGroup(groupId) {
+const group = this.configuredGroups.find(g => g.id === groupId);
+if (!group) return;
+
+try {
+    const action = group.is_active ? 'disable' : 'enable';
+    const response = await fetch(`http://localhost:8001/api/config/groups/${groupId}/${action}`, {
+        method: 'POST'
+    });
+    
+    if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+            group.is_active = !group.is_active;
+            this.updateUI();
+            this.showNotification(`✅ ${group.title} ${action}d successfully`, 'success');
+        }
+    } else {
+        throw new Error(`Failed to ${action} group`);
+    }
+} catch (error) {
+    console.error('Toggle group error:', error);
+    this.showNotification(`❌ Failed to toggle ${group.title}`, 'error');
+}
+}
+
+async removeGroup(groupId) {
+const group = this.configuredGroups.find(g => g.id === groupId);
+if (!group) return;
+
+if (!confirm(`Are you sure you want to remove "${group.title}" from configuration?`)) {
+    return;
+}
+
+try {
+    const response = await fetch(`http://localhost:8001/api/config/groups/${groupId}`, {
+        method: 'DELETE'
+    });
+    
+    if (response.ok) {
+        this.configuredGroups = this.configuredGroups.filter(g => g.id !== groupId);
+        this.updateUI();
+        this.showNotification(`✅ ${group.title} removed successfully`, 'success');
+    } else {
+        throw new Error('Remove failed');
+    }
+} catch (error) {
+    console.error('Remove group error:', error);
+    this.showNotification(`❌ Failed to remove ${group.title}`, 'error');
+}
+}
+
+editGroup(groupId) {
+this.showNotification('Edit configuration feature coming soon!', 'info');
+}
+
+previewChat(chatId) {
+this.showNotification('Chat preview feature coming soon!', 'info');
+}
+
+animateItemMove(chatId) {
+const sourceItem = document.querySelector(`[data-chat-id="${chatId}"]`);
+if (sourceItem) {
+    sourceItem.style.transform = 'translateX(100%) scale(0.8)';
+    sourceItem.style.opacity = '0';
+    
+    setTimeout(() => {
+        this.updateUI();
+    }, 300);
+}
+}
+
+async startDiscoveryScan() {
+if (!this.systemHealth.discovery) {
+    this.showNotification('Discovery Service is not available', 'error');
+    return;
+}
+
+try {
+    this.showNotification('🔄 Starting discovery scan...', 'info');
+    
+    const response = await fetch(this.API.discovery.scan, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ force_refresh: true, max_chats: 500 })
+    });
+    
+    if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+            this.showNotification('✅ Discovery scan started successfully', 'success');
+            
+            // Refresh data after a delay
+            setTimeout(async () => {
+                await this.loadData();
+                this.updateUI();
+                this.showNotification('🎉 Discovery data refreshed', 'success');
+            }, 5000);
+        } else {
+            throw new Error(result.message || 'Scan failed');
+        }
+    } else {
+        throw new Error(`HTTP ${response.status}`);
+    }
+} catch (error) {
+    console.error('Discovery scan error:', error);
+    this.showNotification(`❌ Failed to start discovery scan: ${error.message}`, 'error');
+}
+}
+
+async refreshAllData() {
+this.showNotification('🔄 Refreshing all data...', 'info');
+
+try {
+    await this.checkSystemHealth();
+    await this.loadData();
+    this.updateUI();
+    this.showNotification('✅ Data refreshed successfully', 'success');
+} catch (error) {
+    console.error('Refresh error:', error);
+    this.showNotification('❌ Failed to refresh data', 'error');
+}
+}
+
+startRealTimeUpdates() {
+// Check system health periodically
+setInterval(() => {
+    this.checkSystemHealth();
+}, 30000);
+
+// Refresh data periodically if services are healthy
+setInterval(async () => {
+    if (this.systemHealth.discovery || this.systemHealth.replicator) {
+        await this.loadData();
+        this.updateUI();
+    }
+}, 60000);
+}
+
+showNotification(message, type = 'info') {
+// Remove existing notifications
+document.querySelectorAll('.notification').forEach(n => n.remove());
+
+const notification = document.createElement('div');
+notification.className = `notification ${type}`;
+
+const iconMap = {
+    'success': 'fas fa-check-circle',
+    'error': 'fas fa-exclamation-circle',
+    'warning': 'fas fa-exclamation-triangle',
+    'info': 'fas fa-info-circle'
+};
+
+notification.innerHTML = `
+    <i class="${iconMap[type] || iconMap.info}"></i>
+    <span>${message}</span>
+    <button class="notification-close" onclick="this.parentElement.remove()">×</button>
+`;
+
+document.body.appendChild(notification);
+
+// Auto-remove after 5 seconds
+setTimeout(() => {
+    if (document.body.contains(notification)) {
+        notification.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }
+}, 5000);
+}
+}
+
 // ============= GLOBAL FUNCTIONS =============
 
 function startDiscoveryScan() {
