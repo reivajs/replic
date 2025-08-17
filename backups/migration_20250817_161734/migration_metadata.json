@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-08-17T16:17:39.884056",
+  "migration_version": "2.0.0",
+  "project_root": "/Users/macbookpro/Desktop/replic",
+  "backed_up_files": [
+    "app/services/watermark_service.py",
+    "app/services/enhanced_replicator_service.py"
+  ]
+}
