@@ -586,7 +586,7 @@ class EnhancedReplicatorService:
                 return
             
             # 🎯 CAMBIO CLAVE: ENVÍO DIRECTO del audio
-            full_caption = f"🎵 **Audio Enterprise:** {filename if filename and filename != 'unknown_document' else 'Audio File'} ({size_mb:.1f}MB)"
+            full_caption = f"🎵 **Audio Enterprise:** {self._get_audio_display_name(filename)} ({size_mb:.1f}MB)"
             if caption:
                 full_caption += f"\n\n{caption}"
             
@@ -595,7 +595,7 @@ class EnhancedReplicatorService:
                 webhook_url,
                 full_caption,
                 audio_bytes,
-                filename if filename and filename != "unknown_document" else f"audio_{datetime.now().strftime('%Y%m%d_%H%M%S')}.mp3"
+                self._get_smart_audio_filename(filename, audio_bytes)
             )
             
             if success:

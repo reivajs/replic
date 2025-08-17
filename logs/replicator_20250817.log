@@ -36,3 +36,11 @@
 2025-08-17 18:12:33,885 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
 2025-08-17 18:15:14,764 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
 2025-08-17 18:15:14,771 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-17 18:41:33,380 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-17 18:41:33,387 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-17 18:45:56,354 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-17 18:45:56,362 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-17 18:54:06,173 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-17 18:54:06,228 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-17 19:02:03,240 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-17 19:02:03,248 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started

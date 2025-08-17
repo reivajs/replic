@@ -1,6 +1,6 @@
 """
-Application Main Module - MICROSERVICES PURE ARCHITECTURE
-=========================================================
+Application Main Module - WITH DASHBOARD
+=========================================
 """
 
 from fastapi import FastAPI, Request
@@ -25,40 +25,18 @@ if templates_dir.exists():
 else:
     templates = None
 
-# 🎯 MICROSERVICES INSTANCES - DIRECT INJECTION
-replicator_service = None
-watermark_service = None
-discord_service = None
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Application lifespan manager - MICROSERVICES PURE"""
-    global replicator_service, watermark_service, discord_service
-    
+    """Application lifespan manager"""
     # Startup
     logger.info(f"🚀 Starting {settings.APP_NAME} v{settings.VERSION}")
     
-    # Initialize microservices directly
+    # Initialize services
     try:
-        from app.services.enhanced_replicator_service import EnhancedReplicatorService
-        from app.services.watermark_service import WatermarkServiceIntegrated
-        from app.services.discord_sender import DiscordSenderEnhanced
-        
-        # Direct instantiation - NO ADAPTERS
-        replicator_service = EnhancedReplicatorService()
-        watermark_service = WatermarkServiceIntegrated()
-        discord_service = DiscordSenderEnhanced()
-        
-        # Initialize each service
-        await replicator_service.initialize()
-        await watermark_service.initialize()
-        await discord_service.initialize()
-        
-        # Start replicator listening
-        import asyncio
-        asyncio.create_task(replicator_service.start_listening())
-        
-        logger.info("✅ Microservices initialized - PURE ARCHITECTURE")
+        from app.services.registry import service_registry
+        await service_registry.initialize()
+        await service_registry.start_services()
+        logger.info("✅ Services initialized")
     except Exception as e:
         logger.error(f"⚠️ Service initialization error: {e}")
     
@@ -66,11 +44,9 @@ async def lifespan(app: FastAPI):
     
     # Shutdown
     try:
-        if replicator_service:
-            await replicator_service.stop()
-        if discord_service:
-            await discord_service.close()
-        logger.info("✅ Microservices stopped cleanly")
+        from app.services.registry import service_registry
+        await service_registry.stop_services()
+        await service_registry.cleanup()
     except Exception as e:
         logger.error(f"Error during shutdown: {e}")
     
@@ -114,8 +90,7 @@ def create_app() -> FastAPI:
             "version": settings.VERSION,
             "status": "running",
             "dashboard": "/dashboard",
-            "docs": "/docs",
-            "architecture": "microservices_pure"
+            "docs": "/docs"
         }
     
     # Dashboard endpoint
@@ -130,39 +105,18 @@ def create_app() -> FastAPI:
             <p><a href="/docs">Go to API Docs</a></p>
             """)
     
-    # Health endpoint direct
-    @app.get("/api/v1/health")
-    async def health_check():
-        """Direct health check - NO ADAPTER"""
-        try:
-            health_data = {
-                "status": "healthy",
-                "timestamp": datetime.now().isoformat(),
-                "services": {}
-            }
-            
-            if replicator_service:
-                health_data["services"]["replicator"] = await replicator_service.get_health()
-            if watermark_service:
-                health_data["services"]["watermark"] = watermark_service.get_stats()
-            if discord_service:
-                health_data["services"]["discord"] = await discord_service.get_health() if hasattr(discord_service, 'get_health') else {"status": "running"}
-            
-            return health_data
-        except Exception as e:
-            return {"status": "unhealthy", "error": str(e)}
-    
     # Include routers
     try:
-        from app.api.v1 import discovery, groups, config, websocket, dashboard as dashboard_api
+        from app.api.v1 import health, discovery, groups, config, websocket, dashboard as dashboard_api
         
+        app.include_router(health.router, prefix="/api/v1", tags=["health"])
         app.include_router(discovery.router, prefix="/api/v1/discovery", tags=["discovery"])
         app.include_router(groups.router, prefix="/api/v1/groups", tags=["groups"])
         app.include_router(config.router, prefix="/api/v1/config", tags=["config"])
         app.include_router(websocket.router, prefix="/ws", tags=["websocket"])
         app.include_router(dashboard_api.router, prefix="/api/v1/dashboard", tags=["dashboard"])
         
-        logger.info("✅ All API routes registered - MICROSERVICES PURE")
+        logger.info("✅ All API routes registered including dashboard")
     except Exception as e:
         logger.warning(f"Could not register all routes: {e}")
     
@@ -170,13 +124,3 @@ def create_app() -> FastAPI:
 
 # Create application instance
 app = create_app()
-
-# Export services for other modules
-def get_replicator_service():
-    return replicator_service
-
-def get_watermark_service():
-    return watermark_service
-
-def get_discord_service():
-    return discord_service
