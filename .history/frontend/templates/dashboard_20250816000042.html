@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Smart Discovery - Enterprise SaaS</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ============= ENHANCED ENTERPRISE DESIGN SYSTEM ============= */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-glass-hover: rgba(255, 255, 255, 0.1);
+            --bg-card: rgba(255, 255, 255, 0.08);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        /* ============= SMART HEADER ============= */
+        .smart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .header-left h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .discovery-stats {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* ============= SMART SEARCH BAR ============= */
+        .search-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .view-toggle {
+            display: flex;
+            background: var(--bg-glass);
+            border-radius: 12px;
+            padding: 0.25rem;
+            border: 1px solid var(--border-glass);
+        }
+        
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .view-btn.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: var(--bg-glass-hover);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        
+        .search-clear {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .search-clear.visible {
+            opacity: 1;
+        }
+        
+        /* ============= SMART FILTERS ============= */
+        .filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        
+        .filter-btn:hover {
+            background: var(--bg-glass-hover);
+            border-color: var(--accent-blue);
+        }
+        
+        .filter-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .filter-input {
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            width: 80px;
+        }
+        
+        .filter-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        /* ============= RESULTS SECTION ============= */
+        .results-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-glass);
+        }
+        
+        .results-count {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .results-info {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .sort-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .sort-select {
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        /* ============= CHAT GRID ============= */
+        .chats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .chat-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chat-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+            background: var(--bg-glass-hover);
+        }
+        
+        .chat-card.selected {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .chat-info {
+            flex-grow: 1;
+            min-width: 0;
+        }
+        
+        .chat-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .chat-username {
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .chat-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .chat-type.channel {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .chat-type.group, .chat-type.supergroup {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .chat-type.user {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-orange);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .chat-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .chat-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .chat-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .action-btn:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+        }
+        
+        .action-btn.secondary {
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-glass);
+        }
+        
+        .action-btn.secondary:hover {
+            background: var(--bg-glass-hover);
+            color: var(--text-primary);
+        }
+        
+        /* ============= LOADING & EMPTY STATES ============= */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-glass);
+            border-top: 3px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        /* ============= PAGINATION ============= */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-glass);
+        }
+        
+        .pagination-btn {
+            padding: 0.75rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--bg-glass-hover);
+            color: var(--text-primary);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-info {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        /* ============= RESPONSIVE DESIGN ============= */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .smart-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .discovery-stats {
+                justify-content: center;
+            }
+            
+            .search-section {
+                padding: 1.5rem;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
+            }
+            
+            .chats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+        }
+        
+        /* ============= ANIMATIONS ============= */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Smart Header -->
+        <header class="smart-header fade-in">
+            <div class="header-left">
+                <h1>🔍 Smart Discovery</h1>
+                <div class="discovery-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-database"></i>
+                        <span>Total: <span class="stat-value" id="totalChats">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-search"></i>
+                        <span>Found: <span class="stat-value" id="foundChats">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Last scan: <span class="stat-value" id="lastScan">Never</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh
+                </button>
+                <button class="btn btn-primary" onclick="triggerScan()">
+                    <i class="fas fa-search"></i>
+                    Scan Chats
+                </button>
+            </div>
+        </header>
+        
+        <!-- Smart Search Section -->
+        <section class="search-section fade-in">
+            <div class="search-header">
+                <h2 class="search-title">🎯 Smart Search</h2>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="setViewMode('grid')">
+                        <i class="fas fa-th"></i> Grid
+                    </button>
+                    <button class="view-btn" onclick="setViewMode('list')">
+                        <i class="fas fa-list"></i> List
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search Input -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput"
+                    placeholder="Search chats by name, description, or username..."
+                    oninput="onSearchInput()"
+                >
+                <button class="search-clear" id="searchClear" onclick="clearSearch()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Smart Filters -->
+            <div class="filters-container">
+                <!-- Chat Type Filters -->
+                <div class="filter-group">
+                    <span class="filter-label">Type:</span>
+                    <button class="filter-btn active" data-filter="type" data-value="">All</button>
+                    <button class="filter-btn" data-filter="type" data-value="channel">📺 Channels</button>
+                    <button class="filter-btn" data-filter="type" data-value="group">👥 Groups</button>
+                    <button class="filter-btn" data-filter="type" data-value="supergroup">🏢 Supergroups</button>
+                    <button class="filter-btn" data-filter="type" data-value="user">👤 Private</button>
+                </div>
+                
+                <!-- Size Filters -->
+                <div class="filter-group">
+                    <span class="filter-label">Size:</span>
+                    <button class="filter-btn active" data-filter="size" data-value="">Any</button>
+                    <button class="filter-btn" data-filter="size" data-value="small">&lt; 10</button>
+                    <button class="filter-btn" data-filter="size" data-value="medium">10-100</button>
+                    <button class="filter-btn" data-filter="size" data-value="large">100-1K</button>
+                    <button class="filter-btn" data-filter="size" data-value="xlarge">1K+</button>
+                </div>
+                
+                <!-- Status Filters -->
+                <div class="filter-group">
+                    <span class="filter-label">Status:</span>
+                    <button class="filter-btn active" data-filter="status" data-value="">All</button>
+                    <button class="filter-btn" data-filter="status" data-value="active">🟢 Active</button>
+                    <button class="filter-btn" data-filter="status" data-value="inactive">🔴 Inactive</button>
+                </div>
+                
+                <!-- Custom Range -->
+                <div class="filter-group">
+                    <span class="filter-label">Min Members:</span>
+                    <input type="number" class="filter-input" id="minMembers" placeholder="0" onchange="onFilterChange()">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Results Section -->
+        <section class="results-section fade-in">
+            <div class="results-header">
+                <div>
+                    <div class="results-count" id="resultsCount">Loading chats...</div>
+                    <div class="results-info" id="resultsInfo">Please wait while we fetch your Telegram chats</div>
+                </div>
+                <div class="sort-controls">
+                    <label class="filter-label">Sort by:</label>
+                    <select class="sort-select" id="sortSelect" onchange="onSortChange()">
+                        <option value="discovered_at">Recent</option>
+                        <option value="title">Name A-Z</option>
+                        <option value="participants_count">Size</option>
+                        <option value="last_activity">Activity</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Loading State -->
+            <div class="loading-container" id="loadingContainer">
+                <div class="loading-spinner"></div>
+                <p>Scanning your Telegram chats...</p>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No chats found</h3>
+                <p>Try adjusting your search filters or scan for new chats</p>
+            </div>
+            
+            <!-- Chats Grid -->
+            <div class="chats-grid" id="chatsGrid" style="display: none;">
+                <!-- Chat cards will be dynamically populated -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display: none;">
+                <button class="pagination-btn" id="prevBtn" onclick="changePage(-1)">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <span class="pagination-info" id="paginationInfo">Page 1 of 1</span>
+                <button class="pagination-btn" id="nextBtn" onclick="changePage(1)">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ============= SMART DISCOVERY APPLICATION ============= 
+        
+        class SmartDiscovery {
+            constructor() {
+                this.chats = [];
+                this.filteredChats = [];
+                this.currentPage = 1;
+                this.pageSize = 20;
+                this.searchTerm = '';
+                this.filters = {
+                    type: '',
+                    size: '',
+                    status: '',
+                    minMembers: null
+                };
+                this.sortBy = 'discovered_at';
+                this.viewMode = 'grid';
+                this.selectedChats = new Set();
+                
+                this.init();
+            }
+            
+            async init() {
+                await this.loadChats();
+                this.setupEventListeners();
+                this.updateStats();
+            }
+            
+            setupEventListeners() {
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const filterType = e.target.dataset.filter;
+                        const filterValue = e.target.dataset.value;
+                        
+                        // Update active state
+                        e.target.parentElement.querySelectorAll('.filter-btn').forEach(b => 
+                            b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        
+                        // Update filter
+                        this.filters[filterType] = filterValue;
+                        this.applyFilters();
+                    });
+                });
+                
+                // Real-time search with debouncing
+                let searchTimeout;
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        this.searchTerm = e.target.value;
+                        this.applyFilters();
+                        this.updateSearchClear();
+                    }, 300);
+                });
+            }
+            
+            async loadChats() {
+                try {
+                    const response = await fetch('/api/discovery/chats?limit=1000');
+                    const data = await response.json();
+                    this.chats = data.chats || [];
+                    this.applyFilters();
+                    this.hideLoading();
+                } catch (error) {
+                    console.error('Error loading chats:', error);
+                    this.showError('Failed to load chats');
+                }
+            }
+            
+            applyFilters() {
+                let filtered = [...this.chats];
+                
+                // Search filter
+                if (this.searchTerm) {
+                    const search = this.searchTerm.toLowerCase();
+                    filtered = filtered.filter(chat => 
+                        chat.title?.toLowerCase().includes(search) ||
+                        chat.description?.toLowerCase().includes(search) ||
+                        chat.username?.toLowerCase().includes(search)
+                    );
+                }
+                
+                // Type filter
+                if (this.filters.type) {
+                    filtered = filtered.filter(chat => chat.type === this.filters.type);
+                }
+                
+                // Size filter
+                if (this.filters.size) {
+                    filtered = filtered.filter(chat => {
+                        const count = chat.participants_count || 0;
+                        switch (this.filters.size) {
+                            case 'small': return count < 10;
+                            case 'medium': return count >= 10 && count < 100;
+                            case 'large': return count >= 100 && count < 1000;
+                            case 'xlarge': return count >= 1000;
+                            default: return true;
+                        }
+                    });
+                }
+                
+                // Status filter
+                if (this.filters.status) {
+                    filtered = filtered.filter(chat => {
+                        if (this.filters.status === 'active') return chat.is_active;
+                        if (this.filters.status === 'inactive') return !chat.is_active;
+                        return true;
+                    });
+                }
+                
+                // Min members filter
+                if (this.filters.minMembers) {
+                    filtered = filtered.filter(chat => 
+                        (chat.participants_count || 0) >= this.filters.minMembers
+                    );
+                }
+                
+                // Sort results
+                this.sortChats(filtered);
+                
+                this.filteredChats = filtered;
+                this.currentPage = 1;
+                this.renderChats();
+                this.updateResultsInfo();
+            }
+            
+            sortChats(chats) {
+                chats.sort((a, b) => {
+                    switch (this.sortBy) {
+                        case 'title':
+                            return (a.title || '').localeCompare(b.title || '');
+                        case 'participants_count':
+                            return (b.participants_count || 0) - (a.participants_count || 0);
+                        case 'last_activity':
+                            return new Date(b.last_activity || 0) - new Date(a.last_activity || 0);
+                        case 'discovered_at':
+                        default:
+                            return new Date(b.discovered_at || 0) - new Date(a.discovered_at || 0);
+                    }
+                });
+            }
+            
+            renderChats() {
+                const container = document.getElementById('chatsGrid');
+                const startIndex = (this.currentPage - 1) * this.pageSize;
+                const endIndex = startIndex + this.pageSize;
+                const pageChats = this.filteredChats.slice(startIndex, endIndex);
+                
+                if (pageChats.length === 0) {
+                    this.showEmptyState();
+                    return;
+                }
+                
+                container.innerHTML = pageChats.map(chat => this.createChatCard(chat)).join('');
+                container.style.display = 'grid';
+                document.getElementById('emptyState').style.display = 'none';
+                
+                this.updatePagination();
+            }
+            
+            createChatCard(chat) {
+                const avatar = this.getAvatarText(chat.title || 'Unknown');
+                const memberText = this.formatMemberCount(chat.participants_count);
+                const activityText = this.formatLastActivity(chat.last_activity);
+                const description = chat.description || 'No description available';
+                
+                return `
+                    <div class="chat-card slide-in" onclick="selectChat(${chat.id})" data-chat-id="${chat.id}">
+                        <div class="chat-header">
+                            <div class="chat-avatar">${avatar}</div>
+                            <div class="chat-info">
+                                <div class="chat-title" title="${chat.title || 'Unknown'}">${chat.title || 'Unknown'}</div>
+                                ${chat.username ? `<div class="chat-username">@${chat.username}</div>` : ''}
+                            </div>
+                            <div class="chat-type ${chat.type}">${chat.type}</div>
+                        </div>
+                        
+                        <div class="chat-description" title="${description}">
+                            ${description}
+                        </div>
+                        
+                        <div class="chat-stats">
+                            <div class="chat-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>${memberText}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>${activityText}</span>
+                                </div>
+                                ${chat.is_verified ? '<div class="meta-item"><i class="fas fa-check-circle" style="color: var(--accent-blue);"></i></div>' : ''}
+                            </div>
+                            
+                            <div class="chat-actions">
+                                <button class="action-btn" onclick="configureChat(${chat.id}); event.stopPropagation();">
+                                    <i class="fas fa-cog"></i> Configure
+                                </button>
+                                <button class="action-btn secondary" onclick="previewChat(${chat.id}); event.stopPropagation();">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            getAvatarText(title) {
+                return title.charAt(0).toUpperCase();
+            }
+            
+            formatMemberCount(count) {
+                if (!count) return 'Private';
+                if (count < 1000) return count.toString();
+                if (count < 1000000) return (count / 1000).toFixed(1) + 'K';
+                return (count / 1000000).toFixed(1) + 'M';
+            }
+            
+            formatLastActivity(activity) {
+                if (!activity) return 'Unknown';
+                const date = new Date(activity);
+                const now = new Date();
+                const diff = now - date;
+                
+                const minutes = Math.floor(diff / 60000);
+                const hours = Math.floor(diff / 3600000);
+                const days = Math.floor(diff / 86400000);
+                
+                if (minutes < 60) return `${minutes}m ago`;
+                if (hours < 24) return `${hours}h ago`;
+                if (days < 7) return `${days}d ago`;
+                return date.toLocaleDateString();
+            }
+            
+            updateResultsInfo() {
+                const total = this.filteredChats.length;
+                const showing = Math.min(this.pageSize, total - (this.currentPage - 1) * this.pageSize);
+                
+                document.getElementById('resultsCount').textContent = 
+                    `Found ${total} chat${total !== 1 ? 's' : ''}`;
+                
+                if (total > 0) {
+                    const start = (this.currentPage - 1) * this.pageSize + 1;
+                    const end = start + showing - 1;
+                    document.getElementById('resultsInfo').textContent = 
+                        `Showing ${start}-${end} of ${total} results`;
+                } else {
+                    document.getElementById('resultsInfo').textContent = 
+                        'Try adjusting your filters or search terms';
+                }
+            }
+            
+            updatePagination() {
+                const totalPages = Math.ceil(this.filteredChats.length / this.pageSize);
+                const pagination = document.getElementById('pagination');
+                
+                if (totalPages <= 1) {
+                    pagination.style.display = 'none';
+                    return;
+                }
+                
+                pagination.style.display = 'flex';
+                document.getElementById('prevBtn').disabled = this.currentPage === 1;
+                document.getElementById('nextBtn').disabled = this.currentPage === totalPages;
+                document.getElementById('paginationInfo').textContent = 
+                    `Page ${this.currentPage} of ${totalPages}`;
+            }
+            
+            updateStats() {
+                document.getElementById('totalChats').textContent = this.chats.length;
+                document.getElementById('foundChats').textContent = this.filteredChats.length;
+                
+                // Update last scan time (you might want to get this from an API)
+                document.getElementById('lastScan').textContent = 'Just now';
+            }
+            
+            updateSearchClear() {
+                const clearBtn = document.getElementById('searchClear');
+                if (this.searchTerm) {
+                    clearBtn.classList.add('visible');
+                } else {
+                    clearBtn.classList.remove('visible');
+                }
+            }
+            
+            hideLoading() {
+                document.getElementById('loadingContainer').style.display = 'none';
+            }
+            
+            showEmptyState() {
+                document.getElementById('chatsGrid').style.display = 'none';
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('pagination').style.display = 'none';
+            }
+            
+            showError(message) {
+                // Implement error handling
+                console.error(message);
+            }
+        }
+        
+        // Global instance
+        let discovery;
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            discovery = new SmartDiscovery();
+        });
+        
+        // ============= GLOBAL FUNCTIONS =============
+        
+        function onSearchInput() {
+            // Handled by SmartDiscovery class
+        }
+        
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            discovery.searchTerm = '';
+            discovery.applyFilters();
+            discovery.updateSearchClear();
+        }
+        
+        function onFilterChange() {
+            const minMembers = document.getElementById('minMembers').value;
+            discovery.filters.minMembers = minMembers ? parseInt(minMembers) : null;
+            discovery.applyFilters();
+        }
+        
+        function onSortChange() {
+            discovery.sortBy = document.getElementById('sortSelect').value;
+            discovery.applyFilters();
+        }
+        
+        function setViewMode(mode) {
+            discovery.viewMode = mode;
+            
+            // Update UI
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[onclick="setViewMode('${mode}')"]`).classList.add('active');
+            
+            // Apply view mode changes
+            const grid = document.getElementById('chatsGrid');
+            if (mode === 'list') {
+                grid.style.gridTemplateColumns = '1fr';
+            } else {
+                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
+            }
+        }
+        
+        function changePage(direction) {
+            const totalPages = Math.ceil(discovery.filteredChats.length / discovery.pageSize);
+            const newPage = discovery.currentPage + direction;
+            
+            if (newPage >= 1 && newPage <= totalPages) {
+                discovery.currentPage = newPage;
+                discovery.renderChats();
+            }
+        }
+        
+        function selectChat(chatId) {
+            const card = document.querySelector(`[data-chat-id="${chatId}"]`);
+            
+            if (discovery.selectedChats.has(chatId)) {
+                discovery.selectedChats.delete(chatId);
+                card.classList.remove('selected');
+            } else {
+                discovery.selectedChats.add(chatId);
+                card.classList.add('selected');
+            }
+            
+            // Update bulk actions if any chats are selected
+            updateBulkActions();
+        }
+        
+        function configureChat(chatId) {
+            const chat = discovery.chats.find(c => c.id === chatId);
+            if (chat) {
+                // Open configuration modal (to be implemented in Phase 2)
+                alert(`Configure replication for: ${chat.title}`);
+                console.log('Configure chat:', chat);
+            }
+        }
+        
+        function previewChat(chatId) {
+            const chat = discovery.chats.find(c => c.id === chatId);
+            if (chat) {
+                // Open preview modal
+                alert(`Preview chat: ${chat.title}`);
+                console.log('Preview chat:', chat);
+            }
+        }
+        
+        function updateBulkActions() {
+            // Update bulk action buttons based on selected chats
+            // To be implemented
+        }
+        
+        async function refreshData() {
+            const btn = document.querySelector('[onclick="refreshData()"]');
+            const icon = btn.querySelector('i');
+            
+            // Add loading state
+            icon.className = 'fas fa-spinner fa-spin';
+            btn.disabled = true;
+            
+            try {
+                await discovery.loadChats();
+                discovery.updateStats();
+            } catch (error) {
+                console.error('Error refreshing data:', error);
+            } finally {
+                // Restore button state
+                icon.className = 'fas fa-sync-alt';
+                btn.disabled = false;
+            }
+        }
+        
+        async function triggerScan() {
+            const btn = document.querySelector('[onclick="triggerScan()"]');
+            const icon = btn.querySelector('i');
+            
+            // Add loading state
+            icon.className = 'fas fa-spinner fa-spin';
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch('/api/discovery/scan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ force_refresh: true })
+                });
+                
+                if (response.ok) {
+                    // Refresh data after scan
+                    setTimeout(() => {
+                        refreshData();
+                    }, 2000);
+                } else {
+                    throw new Error('Failed to start scan');
+                }
+            } catch (error) {
+                console.error('Error triggering scan:', error);
+                alert('Failed to start scan. Please try again.');
+            } finally {
+                // Restore button state after delay
+                setTimeout(() => {
+                    icon.className = 'fas fa-search';
+                    btn.disabled = false;
+                }, 3000);
+            }
+        }
+        
+        // ============= REAL-TIME UPDATES ============= 
+        
+        // WebSocket connection for real-time updates
+        function initWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws`;
+            
+            try {
+                const ws = new WebSocket(wsUrl);
+                
+                ws.onopen = () => {
+                    console.log('🔗 WebSocket connected');
+                };
+                
+                ws.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    handleWebSocketMessage(data);
+                };
+                
+                ws.onclose = () => {
+                    console.log('📪 WebSocket disconnected');
+                    // Attempt to reconnect after 5 seconds
+                    setTimeout(initWebSocket, 5000);
+                };
+                
+                ws.onerror = (error) => {
+                    console.error('🚨 WebSocket error:', error);
+                };
+                
+                return ws;
+            } catch (error) {
+                console.error('Failed to initialize WebSocket:', error);
+            }
+        }
+        
+        function handleWebSocketMessage(data) {
+            switch (data.type) {
+                case 'scan_status':
+                    updateScanProgress(data.status);
+                    break;
+                case 'scan_completed':
+                    refreshData();
+                    break;
+                case 'new_chats':
+                    showNotification(`🎉 ${data.count} new chats discovered!`);
+                    break;
+                case 'connection_established':
+                    console.log('✅ WebSocket connection established');
+                    break;
+            }
+        }
+        
+        function updateScanProgress(status) {
+            if (status.is_scanning) {
+                // Show progress indicator
+                console.log(`📊 Scan progress: ${status.progress_percent}%`);
+            }
+        }
+        
+        function showNotification(message) {
+            // Create a simple notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--success-gradient);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: var(--shadow-xl);
+                z-index: 1000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 4000);
+        }
+        
+        // Initialize WebSocket when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(initWebSocket, 1000); // Delay to ensure discovery is initialized
+        });
+        
+        // ============= KEYBOARD SHORTCUTS =============
+        
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + K for search focus
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+            
+            // Escape to clear search
+            if (e.key === 'Escape') {
+                clearSearch();
+                document.getElementById('searchInput').blur();
+            }
+        });
+    </script>
+    <style>
+        /* ============= CONFIGURATION MODAL STYLES ============= */
+        
+        .config-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .config-modal-overlay.show {
+            display: flex;
+        }
+        
+        .config-modal {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--shadow-xl);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .config-modal-header {
+            padding: 2rem 2rem 1rem 2rem;
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .config-modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .config-modal-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .config-modal-close {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-secondary);
+        }
+        
+        .config-modal-close:hover {
+            background: var(--bg-glass-hover);
+            color: var(--text-primary);
+        }
+        
+        .config-modal-body {
+            padding: 2rem;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .config-section {
+            margin-bottom: 2rem;
+        }
+        
+        .config-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .chat-preview {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chat-preview-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .chat-preview-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .chat-preview-info h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .chat-preview-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .chat-preview-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .chat-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: var(--bg-glass-hover);
+        }
+        
+        .form-input.success {
+            border-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .form-input.error {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .input-validation {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+        }
+        
+        .input-validation.validating {
+            color: var(--accent-orange);
+            animation: spin 1s linear infinite;
+        }
+        
+        .input-validation.success {
+            color: var(--accent-green);
+        }
+        
+        .input-validation.error {
+            color: #ef4444;
+        }
+        
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+        
+        .form-hint.success {
+            color: var(--accent-green);
+        }
+        
+        .form-hint.error {
+            color: #ef4444;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-glass);
+            border-radius: 6px;
+            background: var(--bg-glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .custom-checkbox.checked {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+        
+        .checkbox-label {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .transformation-option {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+        
+        .transformation-option.active {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .transformation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .transformation-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .transformation-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .discord-preview {
+            background: #36393f;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        .discord-message {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .discord-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .discord-content {
+            flex: 1;
+        }
+        
+        .discord-username {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .discord-text {
+            color: #dcddde;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .discord-embed {
+            background: #2f3136;
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 4px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .config-modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .footer-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .footer-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-modal {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-modal.secondary {
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-glass);
+        }
+        
+        .btn-modal.secondary:hover {
+            background: var(--bg-glass-hover);
+            color: var(--text-primary);
+        }
+        
+        .btn-modal.primary {
+            background: var(--accent-blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-modal.primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+        
+        .btn-modal.primary:disabled {
+            background: var(--bg-glass);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-modal.success {
+            background: var(--accent-green);
+            color: white;
+        }
+        
+        .loading-spinner-inline {
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-indicator.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+        
+        .status-indicator.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .status-indicator.warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-orange);
+        }
+        
+        /* ============= RESPONSIVE DESIGN ============= */
+        @media (max-width: 768px) {
+            .config-modal {
+                width: 95%;
+                margin: 1rem;
+            }
+            
+            .config-modal-header,
+            .config-modal-body,
+            .config-modal-footer {
+                padding: 1.5rem;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .config-modal-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .footer-actions {
+                flex-direction: column;
+            }
+        }
+        </style>
+        
+        <!-- Configuration Modal HTML -->
+        <div class="config-modal-overlay" id="configModal">
+            <div class="config-modal">
+                <!-- Header -->
+                <div class="config-modal-header">
+                    <div>
+                        <h2 class="config-modal-title">⚙️ Configure Replication</h2>
+                        <p class="config-modal-subtitle">Set up message replication to Discord</p>
+                    </div>
+                    <button class="config-modal-close" onclick="closeConfigModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <!-- Body -->
+                <div class="config-modal-body">
+                    <!-- Chat Preview Section -->
+                    <div class="config-section">
+                        <h3 class="config-section-title">
+                            <i class="fas fa-info-circle"></i>
+                            Chat Information
+                        </h3>
+                        
+                        <div class="chat-preview" id="chatPreview">
+                            <div class="chat-preview-header">
+                                <div class="chat-preview-avatar" id="chatAvatar">C</div>
+                                <div class="chat-preview-info">
+                                    <h3 id="chatTitle">Loading...</h3>
+                                    <p id="chatDescription">Loading chat information...</p>
+                                </div>
+                            </div>
+                            <div class="chat-preview-stats">
+                                <div class="chat-stat">
+                                    <i class="fas fa-users"></i>
+                                    <span id="chatMembers">-</span>
+                                </div>
+                                <div class="chat-stat">
+                                    <i class="fas fa-calendar"></i>
+                                    <span id="chatActivity">-</span>
+                                </div>
+                                <div class="chat-stat">
+                                    <i class="fas fa-tag"></i>
+                                    <span id="chatType">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Discord Configuration -->
+                    <div class="config-section">
+                        <h3 class="config-section-title">
+                            <i class="fab fa-discord"></i>
+                            Discord Configuration
+                        </h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="webhookUrl">Discord Webhook URL</label>
+                            <div class="input-group">
+                                <input 
+                                    type="url" 
+                                    class="form-input" 
+                                    id="webhookUrl" 
+                                    placeholder="https://discord.com/api/webhooks/..."
+                                    oninput="validateWebhook()"
+                                >
+                                <div class="input-validation" id="webhookValidation">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                            </div>
+                            <div class="form-hint" id="webhookHint">
+                                Enter your Discord webhook URL to receive messages
+                            </div>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <div class="custom-checkbox" id="enabledCheckbox" onclick="toggleCheckbox('enabled')">
+                                <i class="fas fa-check" style="display: none;"></i>
+                            </div>
+                            <label class="checkbox-label" onclick="toggleCheckbox('enabled')">
+                                Enable replication for this chat
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Filters Section -->
+                    <div class="config-section">
+                        <h3 class="config-section-title">
+                            <i class="fas fa-filter"></i>
+                            Message Filters
+                        </h3>
+                        
+                        <div class="filters-grid">
+                            <div class="checkbox-group">
+                                <div class="custom-checkbox" id="excludeBotsCheckbox" onclick="toggleCheckbox('excludeBots')">
+                                    <i class="fas fa-check" style="display: none;"></i>
+                                </div>
+                                <label class="checkbox-label" onclick="toggleCheckbox('excludeBots')">
+                                    Skip bot messages
+                                </label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <div class="custom-checkbox" id="includeMediaCheckbox" onclick="toggleCheckbox('includeMedia')">
+                                    <i class="fas fa-check" style="display: none;"></i>
+                                </div>
+                                <label class="checkbox-label" onclick="toggleCheckbox('includeMedia')">
+                                    Include media files
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="minLength">Minimum message length</label>
+                            <input 
+                                type="number" 
+                                class="form-input" 
+                                id="minLength" 
+                                placeholder="0"
+                                min="0"
+                                oninput="updatePreview()"
+                            >
+                        </div>
+                    </div>
+                    
+                    <!-- Transformations Section -->
+                    <div class="config-section">
+                        <h3 class="config-section-title">
+                            <i class="fas fa-magic"></i>
+                            Message Transformations
+                        </h3>
+                        
+                        <div class="transformation-option" id="prefixTransform" onclick="toggleTransformation('prefix')">
+                            <div class="transformation-header">
+                                <span class="transformation-title">Add Prefix</span>
+                                <div class="custom-checkbox">
+                                    <i class="fas fa-check" style="display: none;"></i>
+                                </div>
+                            </div>
+                            <p class="transformation-description">Add text before each message</p>
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                id="prefixText" 
+                                placeholder="[Channel] "
+                                style="margin-top: 0.5rem; display: none;"
+                                oninput="updatePreview()"
+                            >
+                        </div>
+                        
+                        <div class="transformation-option" id="watermarkTransform" onclick="toggleTransformation('watermark')">
+                            <div class="transformation-header">
+                                <span class="transformation-title">Watermarks</span>
+                                <div class="custom-checkbox">
+                                    <i class="fas fa-check" style="display: none;"></i>
+                                </div>
+                            </div>
+                            <p class="transformation-description">Add watermarks to media files</p>
+                        </div>
+                        
+                        <div class="transformation-option" id="embedTransform" onclick="toggleTransformation('embed')">
+                            <div class="transformation-header">
+                                <span class="transformation-title">Rich Embeds</span>
+                                <div class="custom-checkbox">
+                                    <i class="fas fa-check" style="display: none;"></i>
+                                </div>
+                            </div>
+                            <p class="transformation-description">Use Discord embeds for better formatting</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Discord Preview -->
+                    <div class="config-section">
+                        <h3 class="config-section-title">
+                            <i class="fas fa-eye"></i>
+                            Discord Preview
+                        </h3>
+                        
+                        <div class="discord-preview">
+                            <div class="discord-message">
+                                <div class="discord-avatar">R</div>
+                                <div class="discord-content">
+                                    <div class="discord-username" id="discordUsername">Telegram → Unknown Chat</div>
+                                    <div class="discord-text" id="discordText">This is how your messages will appear in Discord</div>
+                                    <div class="discord-embed" id="discordEmbed" style="display: none;">
+                                        <div style="color: #ffffff; font-weight: 600; margin-bottom: 0.5rem;">📱 Chat Name</div>
+                                        <div style="color: #dcddde;">Sample message content</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer -->
+                <div class="config-modal-footer">
+                    <div class="footer-info">
+                        <div class="status-indicator" id="configStatus" style="display: none;">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Ready to configure</span>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-actions">
+                        <button class="btn-modal secondary" onclick="closeConfigModal()">
+                            Cancel
+                        </button>
+                        <button class="btn-modal primary" id="testConfigBtn" onclick="testConfiguration()" disabled>
+                            <i class="fas fa-flask"></i>
+                            Test Configuration
+                        </button>
+                        <button class="btn-modal success" id="saveConfigBtn" onclick="saveConfiguration()" disabled>
+                            <i class="fas fa-save"></i>
+                            Save Configuration
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+        // ============= CONFIGURATION MODAL JAVASCRIPT =============
+        
+        class ConfigurationModal {
+            constructor() {
+                this.currentChat = null;
+                this.webhookValid = false;
+                this.isValidating = false;
+                this.config = {
+                    enabled: true,
+                    filters: {
+                        excludeBots: false,
+                        includeMedia: true,
+                        minLength: 0
+                    },
+                    transformations: {
+                        prefix: false,
+                        prefixText: '',
+                        watermark: false,
+                        embed: false
+                    }
+                };
+                
+                // Initialize checkboxes
+                this.updateCheckbox('enabled', true);
+                this.updateCheckbox('includeMedia', true);
+            }
+            
+            open(chatData) {
+                this.currentChat = chatData;
+                this.populateChatInfo(chatData);
+                this.resetForm();
+                this.updatePreview();
+                
+                document.getElementById('configModal').classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            close() {
+                document.getElementById('configModal').classList.remove('show');
+                document.body.style.overflow = '';
+                this.currentChat = null;
+            }
+            
+            populateChatInfo(chat) {
+                // Chat avatar
+                const avatar = document.getElementById('chatAvatar');
+                avatar.textContent = (chat.title || 'Unknown').charAt(0).toUpperCase();
+                
+                // Chat info
+                document.getElementById('chatTitle').textContent = chat.title || 'Unknown Chat';
+                document.getElementById('chatDescription').textContent = 
+                    chat.description || 'No description available';
+                
+                // Chat stats
+                document.getElementById('chatMembers').textContent = 
+                    this.formatMemberCount(chat.participants_count);
+                document.getElementById('chatActivity').textContent = 
+                    this.formatLastActivity(chat.last_activity);
+                document.getElementById('chatType').textContent = 
+                    (chat.type || 'unknown').toUpperCase();
+                
+                // Update Discord preview username
+                document.getElementById('discordUsername').textContent = 
+                    `Telegram → ${chat.title || 'Unknown Chat'}`;
+            }
+            
+            formatMemberCount(count) {
+                if (!count) return 'Private';
+                if (count < 1000) return count.toString();
+                if (count < 1000000) return (count / 1000).toFixed(1) + 'K';
+                return (count / 1000000).toFixed(1) + 'M';
+            }
+            
+            formatLastActivity(activity) {
+                if (!activity) return 'Unknown';
+                const date = new Date(activity);
+                const now = new Date();
+                const diff = now - date;
+                
+                const minutes = Math.floor(diff / 60000);
+                const hours = Math.floor(diff / 3600000);
+                const days = Math.floor(diff / 86400000);
+                
+                if (minutes < 60) return `${minutes}m ago`;
+                if (hours < 24) return `${hours}h ago`;
+                if (days < 7) return `${days}d ago`;
+                return date.toLocaleDateString();
+            }
+            
+            resetForm() {
+                // Reset webhook
+                document.getElementById('webhookUrl').value = '';
+                this.updateWebhookValidation('idle');
+                
+                // Reset all configurations
+                this.config = {
+                    enabled: true,
+                    filters: {
+                        excludeBots: false,
+                        includeMedia: true,
+                        minLength: 0
+                    },
+                    transformations: {
+                        prefix: false,
+                        prefixText: '',
+                        watermark: false,
+                        embed: false
+                    }
+                };
+                
+                // Update UI
+                this.updateCheckbox('enabled', true);
+                this.updateCheckbox('excludeBots', false);
+                this.updateCheckbox('includeMedia', true);
+                document.getElementById('minLength').value = '';
+                
+                // Reset transformations
+                this.updateTransformation('prefix', false);
+                this.updateTransformation('watermark', false);
+                this.updateTransformation('embed', false);
+                
+                this.updateButtons();
+            }
+            
+            updateCheckbox(id, checked) {
+                const checkbox = document.getElementById(`${id}Checkbox`);
+                const icon = checkbox.querySelector('i');
+                
+                if (checked) {
+                    checkbox.classList.add('checked');
+                    icon.style.display = 'block';
+                } else {
+                    checkbox.classList.remove('checked');
+                    icon.style.display = 'none';
+                }
+                
+                // Update config
+                if (id === 'enabled') this.config.enabled = checked;
+                else if (id === 'excludeBots') this.config.filters.excludeBots = checked;
+                else if (id === 'includeMedia') this.config.filters.includeMedia = checked;
+                
+                this.updatePreview();
+                this.updateButtons();
+            }
+            
+            updateTransformation(type, active) {
+                const element = document.getElementById(`${type}Transform`);
+                const checkbox = element.querySelector('.custom-checkbox');
+                const icon = checkbox.querySelector('i');
+                const input = element.querySelector('input');
+                
+                if (active) {
+                    element.classList.add('active');
+                    checkbox.classList.add('checked');
+                    icon.style.display = 'block';
+                    if (input) input.style.display = 'block';
+                } else {
+                    element.classList.remove('active');
+                    checkbox.classList.remove('checked');
+                    icon.style.display = 'none';
+                    if (input) input.style.display = 'none';
+                }
+                
+                this.config.transformations[type] = active;
+                this.updatePreview();
+            }
+            
+            async validateWebhook() {
+                const webhookUrl = document.getElementById('webhookUrl').value.trim();
+                
+                if (!webhookUrl) {
+                    this.updateWebhookValidation('idle');
+                    return;
+                }
+                
+                if (!webhookUrl.startsWith('https://discord.com/api/webhooks/')) {
+                    this.updateWebhookValidation('error', 'Invalid Discord webhook URL');
+                    return;
+                }
+                
+                if (this.isValidating) return;
+                this.isValidating = true;
+                this.updateWebhookValidation('validating');
+                
+                try {
+                    const response = await fetch('/api/discovery/validate_webhook', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            webhook_url: webhookUrl
+                        })
+                    });
+                    
+                    // Try message replicator service if discovery doesn't have the endpoint
+                    if (!response.ok) {
+                        const replicatorResponse = await fetch('http://localhost:8001/api/config/validate_webhook', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                webhook_url: webhookUrl
+                            })
+                        });
+                        
+                        if (replicatorResponse.ok) {
+                            const data = await replicatorResponse.json();
+                            if (data.validation && data.validation.valid) {
+                                this.updateWebhookValidation('success', 'Webhook validated successfully!');
+                            } else {
+                                this.updateWebhookValidation('error', data.validation?.message || 'Webhook validation failed');
+                            }
+                        } else {
+                            this.updateWebhookValidation('error', 'Unable to validate webhook');
+                        }
+                    } else {
+                        const data = await response.json();
+                        if (data.validation && data.validation.valid) {
+                            this.updateWebhookValidation('success', 'Webhook validated successfully!');
+                        } else {
+                            this.updateWebhookValidation('error', data.validation?.message || 'Webhook validation failed');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Webhook validation error:', error);
+                    this.updateWebhookValidation('error', 'Network error during validation');
+        } finally {
+            this.isValidating = false;
+        }
+    }
+    
+    updateWebhookValidation(state, message = '') {
+        const input = document.getElementById('webhookUrl');
+        const validation = document.getElementById('webhookValidation');
+        const hint = document.getElementById('webhookHint');
+        
+        // Reset classes
+        input.classList.remove('success', 'error');
+        validation.classList.remove('validating', 'success', 'error');
+        hint.classList.remove('success', 'error');
+        
+        switch (state) {
+            case 'idle':
+                validation.innerHTML = '<i class="fas fa-question-circle"></i>';
+                hint.textContent = 'Enter your Discord webhook URL to receive messages';
+                this.webhookValid = false;
+                break;
+                
+            case 'validating':
+                validation.classList.add('validating');
+                validation.innerHTML = '<i class="fas fa-spinner"></i>';
+                hint.textContent = 'Validating webhook...';
+                this.webhookValid = false;
+                break;
+                
+            case 'success':
+                input.classList.add('success');
+                validation.classList.add('success');
+                validation.innerHTML = '<i class="fas fa-check-circle"></i>';
+                hint.classList.add('success');
+                hint.textContent = message || 'Webhook is valid and ready to use';
+                this.webhookValid = true;
+                break;
+                
+            case 'error':
+                input.classList.add('error');
+                validation.classList.add('error');
+                validation.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+                hint.classList.add('error');
+                hint.textContent = message || 'Invalid webhook URL';
+                this.webhookValid = false;
+                break;
+        }
+        
+        this.updateButtons();
+    }
+    
+    updatePreview() {
+        const sampleMessage = "This is how your messages will appear in Discord";
+        let processedMessage = sampleMessage;
+        
+        // Apply transformations
+        if (this.config.transformations.prefix && this.config.transformations.prefixText) {
+            processedMessage = this.config.transformations.prefixText + processedMessage;
+        }
+        
+        // Update Discord preview
+        const discordText = document.getElementById('discordText');
+        const discordEmbed = document.getElementById('discordEmbed');
+        
+        if (this.config.transformations.embed) {
+            discordText.style.display = 'none';
+            discordEmbed.style.display = 'block';
+            discordEmbed.querySelector('div:first-child').textContent = 
+                `📱 ${this.currentChat?.title || 'Chat Name'}`;
+            discordEmbed.querySelector('div:last-child').textContent = processedMessage;
+        } else {
+            discordText.style.display = 'block';
+            discordEmbed.style.display = 'none';
+            discordText.textContent = processedMessage;
+        }
+    }
+    
+    updateButtons() {
+        const testBtn = document.getElementById('testConfigBtn');
+        const saveBtn = document.getElementById('saveConfigBtn');
+        
+        const canTest = this.webhookValid && this.currentChat;
+        const canSave = this.webhookValid && this.currentChat && this.config.enabled;
+        
+        testBtn.disabled = !canTest;
+        saveBtn.disabled = !canSave;
+        
+        // Update status indicator
+        const status = document.getElementById('configStatus');
+        if (canSave) {
+            status.style.display = 'flex';
+            status.className = 'status-indicator success';
+            status.innerHTML = '<i class="fas fa-check-circle"></i><span>Ready to save</span>';
+        } else if (canTest) {
+            status.style.display = 'flex';
+            status.className = 'status-indicator warning';
+            status.innerHTML = '<i class="fas fa-clock"></i><span>Ready to test</span>';
+        } else {
+            status.style.display = 'none';
+        }
+    }
+    
+    async testConfiguration() {
+        if (!this.currentChat || !this.webhookValid) return;
+        
+        const testBtn = document.getElementById('testConfigBtn');
+        const originalContent = testBtn.innerHTML;
+        
+        testBtn.disabled = true;
+        testBtn.innerHTML = '<div class="loading-spinner-inline"></div> Testing...';
+        
+        try {
+            const webhookUrl = document.getElementById('webhookUrl').value;
+            const testPayload = {
+                content: "🧪 **Configuration Test** - This webhook is working correctly!",
+                username: `Telegram → ${this.currentChat.title}`,
+                embeds: this.config.transformations.embed ? [{
+                    title: `📱 ${this.currentChat.title}`,
+                    description: "Test message from Configuration Wizard",
+                    color: 0x00ff00,
+                    timestamp: new Date().toISOString(),
+                    footer: {
+                        text: "Message Replicator Service"
+                    }
+                }] : undefined
+            };
+            
+            const webhookResponse = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(testPayload)
+            });
+            
+            if (webhookResponse.ok) {
+                this.showNotification('✅ Test message sent successfully! Check your Discord channel.', 'success');
+            } else {
+                this.showNotification('❌ Failed to send test message to Discord', 'error');
+            }
+            
+        } catch (error) {
+            console.error('Test configuration error:', error);
+            this.showNotification('❌ Error testing configuration', 'error');
+        } finally {
+            testBtn.disabled = false;
+            testBtn.innerHTML = originalContent;
+            this.updateButtons();
+        }
+    }
+    
+    async saveConfiguration() {
+        if (!this.currentChat || !this.webhookValid) return;
+        
+        const saveBtn = document.getElementById('saveConfigBtn');
+        const originalContent = saveBtn.innerHTML;
+        
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<div class="loading-spinner-inline"></div> Saving...';
+        
+        try {
+            const configData = {
+                group_id: this.currentChat.id,
+                group_name: this.currentChat.title || 'Unknown Chat',
+                webhook_url: document.getElementById('webhookUrl').value,
+                enabled: this.config.enabled,
+                filters: {
+                    exclude_bots: this.config.filters.excludeBots,
+                    include_media: this.config.filters.includeMedia,
+                    min_length: parseInt(document.getElementById('minLength').value) || 0
+                },
+                transformations: {
+                    add_prefix: this.config.transformations.prefixText || '',
+                    watermark: this.config.transformations.watermark,
+                    use_embeds: this.config.transformations.embed
+                }
+            };
+            
+            // Try orchestrator endpoint first (preferred)
+            let response = await fetch('/api/discovery/configure', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: configData.group_id,
+                    chat_title: configData.group_name,
+                    enabled: configData.enabled,
+                    destination_webhook: configData.webhook_url,
+                    filters: configData.filters,
+                    transformations: configData.transformations
+                })
+            });
+            
+            // Fallback to direct message replicator if orchestrator fails
+            if (!response.ok) {
+                response = await fetch('http://localhost:8001/api/config/add_group', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(configData)
+                });
+            }
+            
+            if (response.ok) {
+                const data = await response.json();
+                
+                if (data.success) {
+                    this.showNotification('✅ Configuration saved successfully!', 'success');
+                    
+                    // Update button to show success
+                    saveBtn.classList.remove('primary');
+                    saveBtn.classList.add('success');
+                    saveBtn.innerHTML = '<i class="fas fa-check"></i> Configured!';
+                    
+                    // Auto-close modal after success
+                    setTimeout(() => {
+                        this.close();
+                        
+                        // Refresh the chats list to show updated status
+                        if (window.discovery) {
+                            window.discovery.loadChats();
+                        }
+                    }, 2000);
+                    
+                } else {
+                    this.showNotification(`❌ Configuration failed: ${data.error || 'Unknown error'}`, 'error');
+                }
+            } else {
+                const errorData = await response.json().catch(() => ({}));
+                this.showNotification(`❌ Failed to save configuration: ${errorData.detail || 'Network error'}`, 'error');
+            }
+            
+        } catch (error) {
+            console.error('Save configuration error:', error);
+            this.showNotification('❌ Error saving configuration', 'error');
+        } finally {
+            if (!saveBtn.classList.contains('success')) {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = originalContent;
+            }
+        }
+    }
+    
+    showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            z-index: 1001;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            animation: slideInRight 0.3s ease-out;
+        `;
+        
+        // Set background based on type
+        switch (type) {
+            case 'success':
+                notification.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                break;
+            case 'error':
+                notification.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                break;
+            case 'warning':
+                notification.style.background = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
+                break;
+            default:
+                notification.style.background = 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+        }
+        
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease-out';
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 5000);
+    }
+}
+
+// Global instance
+let configModal;
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    configModal = new ConfigurationModal();
+    
+    // Add CSS animations for notifications
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+});
+
+// ============= GLOBAL FUNCTIONS FOR MODAL INTERACTION =============
+
+function openConfigModal(chatData) {
+    if (configModal) {
+        configModal.open(chatData);
+    }
+}
+
+function closeConfigModal() {
+    if (configModal) {
+        configModal.close();
+    }
+}
+
+function toggleCheckbox(type) {
+    if (!configModal) return;
+    
+    const currentValue = type === 'enabled' ? configModal.config.enabled :
+                       type === 'excludeBots' ? configModal.config.filters.excludeBots :
+                       type === 'includeMedia' ? configModal.config.filters.includeMedia : false;
+    
+    configModal.updateCheckbox(type, !currentValue);
+}
+
+function toggleTransformation(type) {
+    if (!configModal) return;
+    
+    const currentValue = configModal.config.transformations[type];
+    configModal.updateTransformation(type, !currentValue);
+    
+    // Special handling for prefix transformation
+    if (type === 'prefix' && !currentValue) {
+        setTimeout(() => {
+            document.getElementById('prefixText').focus();
+        }, 100);
+    }
+}
+
+function validateWebhook() {
+    if (configModal) {
+        configModal.validateWebhook();
+    }
+}
+
+function updatePreview() {
+    if (configModal) {
+        // Update min length config
+        const minLength = parseInt(document.getElementById('minLength').value) || 0;
+        configModal.config.filters.minLength = minLength;
+        
+        // Update prefix text
+        const prefixText = document.getElementById('prefixText').value;
+        configModal.config.transformations.prefixText = prefixText;
+        
+        configModal.updatePreview();
+    }
+}
+
+function testConfiguration() {
+    if (configModal) {
+        configModal.testConfiguration();
+    }
+}
+
+function saveConfiguration() {
+    if (configModal) {
+        configModal.saveConfiguration();
+    }
+}
+
+// ============= INTEGRATION WITH EXISTING SMART DISCOVERY =============
+
+// Override the existing configureChat function
+window.configureChat = function(chatId) {
+    const chat = window.discovery ? window.discovery.chats.find(c => c.id === chatId) : null;
+    if (chat) {
+        openConfigModal(chat);
+    } else {
+        console.error('Chat not found:', chatId);
+        // Fallback to simple alert
+        alert(`Configure replication for chat ID: ${chatId}`);
+    }
+};
+
+// Add ESC key handler for modal
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('configModal').classList.contains('show')) {
+        closeConfigModal();
+    }
+});
+
+</script>
+</body>
+</html>

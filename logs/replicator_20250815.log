@@ -1,0 +1,141 @@
+2025-08-15 23:45:18,467 - app.services.file_processor - INFO - __init__:383 - 🚀 FileProcessorEnhanced initialized
+2025-08-15 23:45:18,468 - app.services.discord_sender - INFO - __init__:189 - 🚀 Discord Sender Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-15 23:45:18,468 - app.services.enhanced_replicator_service - INFO - __init__:165 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-15 23:45:18,468 - app.services.enhanced_replicator_service - INFO - initialize:175 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-15 23:45:18,468 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:221 - 🔍 Enterprise dependency verification:
+2025-08-15 23:45:18,468 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    telethon: ✅ Available
+2025-08-15 23:45:18,468 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:225 -    telethon_video_support: ❌ Missing
+2025-08-15 23:45:18,468 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    aiohttp: ✅ Available
+2025-08-15 23:45:18,469 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pil: ✅ Available
+2025-08-15 23:45:18,469 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pymupdf: ✅ Available
+2025-08-15 23:45:18,469 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:229 -    📹 Video handling: Using document-based detection
+2025-08-15 23:45:18,469 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:246 - 📱 Connecting to Telegram Enterprise...
+2025-08-15 23:45:19,148 - app.services.enhanced_replicator_service - ERROR - _initialize_telegram:281 - ❌ Telegram connection failed: The api_id/api_hash combination is invalid (caused by SendCodeRequest)
+2025-08-15 23:45:19,148 - app.services.enhanced_replicator_service - WARNING - initialize:184 - ⚠️ Telegram initialization failed - continuing in degraded mode
+2025-08-15 23:45:19,148 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-15 23:45:19,149 - app.services.file_processor - INFO - initialize:137 - ✅ V2 Processor Adapter initialized
+2025-08-15 23:45:19,149 - app.services.file_processor - INFO - initialize:395 - ✅ Using V2 processor (microservices architecture)
+2025-08-15 23:45:19,158 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-15 23:45:19,954 - app.services.file_processor - INFO - _check_dependencies:415 - 📦 Dependencies:
+2025-08-15 23:45:19,954 - app.services.file_processor - INFO - _check_dependencies:418 -    ffmpeg: ✅
+2025-08-15 23:45:19,955 - app.services.file_processor - INFO - _check_dependencies:418 -    pymupdf: ✅
+2025-08-15 23:45:19,955 - app.services.file_processor - INFO - _check_dependencies:418 -    pil: ✅
+2025-08-15 23:45:19,955 - app.services.file_processor - INFO - initialize:405 - ✅ FileProcessorEnhanced ready
+2025-08-15 23:45:19,955 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ File Processor Enterprise initialized
+2025-08-15 23:45:19,955 - app.services.enhanced_replicator_service - ERROR - _initialize_enterprise_services:297 - ❌ Watermark Service initialization failed: 'WatermarkServiceIntegrated' object has no attribute 'initialize'
+2025-08-15 23:45:19,955 - app.services.discord_sender - INFO - initialize:216 - ✅ Discord Sender Enterprise inicializado
+2025-08-15 23:45:19,956 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ Discord Sender Enterprise initialized
+2025-08-15 23:45:19,956 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:337 - 📡 Enterprise event handlers configured
+2025-08-15 23:45:19,956 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:869 - 🔄 Enterprise background tasks started
+2025-08-15 23:45:19,956 - app.services.enhanced_replicator_service - INFO - initialize:199 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-15 23:45:19,956 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:942 - 📊 Enterprise Configuration - ENVÍO DIRECTO:
+2025-08-15 23:45:19,957 - app.services.enhanced_replicator_service - ERROR - initialize:207 - ❌ Critical error initializing enterprise service: 'DiscordSettings' object has no attribute 'webhooks'
+2025-08-15 23:45:19,957 - app.services.enhanced_replicator_service - CRITICAL - _handle_initialization_failure:937 - 💥 Enterprise initialization failed: 'DiscordSettings' object has no attribute 'webhooks'
+2025-08-15 23:45:19,957 - app.services.enhanced_replicator_service - INFO - start_listening:970 - 👂 Starting enterprise message listening - MODO ENVÍO DIRECTO...
+2025-08-15 23:45:19,958 - app.services.enhanced_replicator_service - ERROR - start_listening:980 - ❌ Enterprise listening error: 'DiscordSettings' object has no attribute 'webhooks'
+2025-08-15 23:45:19,958 - app.services.enhanced_replicator_service - INFO - start_listening:984 - 🛑 Enterprise listening stopped
+2025-08-15 23:45:19,959 - app.services.enhanced_replicator_service - INFO - stop:989 - 🛑 Stopping Enhanced Replicator Service Enterprise...
+2025-08-15 23:45:19,959 - app.services.discord_sender - INFO - close:624 - ✅ Discord Sender cerrado correctamente
+2025-08-15 23:45:19,960 - app.services.enhanced_replicator_service - INFO - _shutdown_discord_sender:1029 - 📤 Discord sender closed
+2025-08-15 23:45:19,963 - app.services.enhanced_replicator_service - INFO - _shutdown_telegram:1021 - 📱 Telegram client disconnected
+2025-08-15 23:45:19,963 - app.services.enhanced_replicator_service - INFO - stop:1010 - ✅ Enhanced Replicator Service Enterprise stopped
+2025-08-15 23:45:19,963 - app.services.enhanced_replicator_service - INFO - stop:989 - 🛑 Stopping Enhanced Replicator Service Enterprise...
+2025-08-15 23:45:19,964 - app.services.discord_sender - INFO - close:624 - ✅ Discord Sender cerrado correctamente
+2025-08-15 23:45:19,964 - app.services.enhanced_replicator_service - INFO - _shutdown_discord_sender:1029 - 📤 Discord sender closed
+2025-08-15 23:45:19,970 - app.services.enhanced_replicator_service - INFO - _shutdown_telegram:1021 - 📱 Telegram client disconnected
+2025-08-15 23:45:19,971 - app.services.enhanced_replicator_service - INFO - stop:1010 - ✅ Enhanced Replicator Service Enterprise stopped
+2025-08-15 23:51:15,886 - app.services.file_processor - INFO - __init__:383 - 🚀 FileProcessorEnhanced initialized
+2025-08-15 23:51:15,886 - app.services.discord_sender - INFO - __init__:189 - 🚀 Discord Sender Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-15 23:51:15,887 - app.services.enhanced_replicator_service - INFO - __init__:165 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-15 23:51:15,887 - app.services.enhanced_replicator_service - INFO - initialize:175 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-15 23:51:15,887 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:221 - 🔍 Enterprise dependency verification:
+2025-08-15 23:51:15,887 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    telethon: ✅ Available
+2025-08-15 23:51:15,888 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:225 -    telethon_video_support: ❌ Missing
+2025-08-15 23:51:15,888 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    aiohttp: ✅ Available
+2025-08-15 23:51:15,888 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pil: ✅ Available
+2025-08-15 23:51:15,888 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:225 -    pymupdf: ✅ Available
+2025-08-15 23:51:15,888 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:229 -    📹 Video handling: Using document-based detection
+2025-08-15 23:51:15,889 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:246 - 📱 Connecting to Telegram Enterprise...
+2025-08-15 23:51:46,378 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:273 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-15 23:51:46,379 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-15 23:51:46,379 - app.services.file_processor - INFO - initialize:137 - ✅ V2 Processor Adapter initialized
+2025-08-15 23:51:46,379 - app.services.file_processor - INFO - initialize:395 - ✅ Using V2 processor (microservices architecture)
+2025-08-15 23:51:46,386 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-15 23:51:46,442 - app.services.file_processor - INFO - _check_dependencies:415 - 📦 Dependencies:
+2025-08-15 23:51:46,443 - app.services.file_processor - INFO - _check_dependencies:418 -    ffmpeg: ✅
+2025-08-15 23:51:46,443 - app.services.file_processor - INFO - _check_dependencies:418 -    pymupdf: ✅
+2025-08-15 23:51:46,443 - app.services.file_processor - INFO - _check_dependencies:418 -    pil: ✅
+2025-08-15 23:51:46,443 - app.services.file_processor - INFO - initialize:405 - ✅ FileProcessorEnhanced ready
+2025-08-15 23:51:46,444 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ File Processor Enterprise initialized
+2025-08-15 23:51:46,444 - app.services.enhanced_replicator_service - ERROR - _initialize_enterprise_services:297 - ❌ Watermark Service initialization failed: 'WatermarkServiceIntegrated' object has no attribute 'initialize'
+2025-08-15 23:51:46,444 - app.services.discord_sender - INFO - initialize:216 - ✅ Discord Sender Enterprise inicializado
+2025-08-15 23:51:46,445 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:295 - ✅ Discord Sender Enterprise initialized
+2025-08-15 23:51:46,445 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:337 - 📡 Enterprise event handlers configured
+2025-08-15 23:51:46,445 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:869 - 🔄 Enterprise background tasks started
+2025-08-15 23:51:46,446 - app.services.enhanced_replicator_service - INFO - initialize:199 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-15 23:51:46,446 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:942 - 📊 Enterprise Configuration - ENVÍO DIRECTO:
+2025-08-15 23:51:46,446 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:943 -    Groups configured: 2
+2025-08-15 23:51:46,446 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:944 -    Max concurrent processing: 10
+2025-08-15 23:51:46,446 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:945 -    Circuit breaker threshold: 5
+2025-08-15 23:51:46,446 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:946 -    Processing timeout: 300s
+2025-08-15 23:51:46,447 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:947 -    Direct Sending Settings:
+2025-08-15 23:51:46,447 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:948 -      - Max file size: 25MB
+2025-08-15 23:51:46,447 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:949 -      - Auto compress: True
+2025-08-15 23:51:46,447 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:950 -      - Compression quality: 75
+2025-08-15 23:51:46,447 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:951 -      - Prefer direct: True
+2025-08-15 23:51:46,447 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:952 -    Enterprise Services:
+2025-08-15 23:51:46,447 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:953 -      - File Processor: ✅ Advanced
+2025-08-15 23:51:46,448 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:954 -      - Watermark Service: ✅ Multi-tenant
+2025-08-15 23:51:46,448 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:955 -      - Discord Sender: ✅ ENVÍO DIRECTO enabled
+2025-08-15 23:51:46,448 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:956 -    Dependencies:
+2025-08-15 23:51:46,448 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:957 -      - Telethon: ✅
+2025-08-15 23:51:46,448 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:958 -      - PIL: ✅
+2025-08-15 23:51:46,448 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:959 -      - PyMuPDF: ✅
+2025-08-15 23:51:46,448 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:960 -      - aiohttp: ✅
+2025-08-15 23:51:46,449 - app.services.enhanced_replicator_service - INFO - start_listening:970 - 👂 Starting enterprise message listening - MODO ENVÍO DIRECTO...
+2025-08-15 23:51:46,450 - app.services.enhanced_replicator_service - INFO - start_listening:974 -    👥 Monitoring enterprise group: -4989347027
+2025-08-15 23:51:46,450 - app.services.enhanced_replicator_service - INFO - start_listening:974 -    👥 Monitoring enterprise group: -1001697798998
+2025-08-15 23:52:16,452 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:52:46,454 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:53:16,454 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:53:46,456 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:54:16,458 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:54:46,461 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:55:16,466 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:55:30,465 - app.services.enhanced_replicator_service - ERROR - _process_text_enterprise:407 - ❌ Enterprise text processing error: 'WatermarkServiceIntegrated' object has no attribute 'process_text'
+2025-08-15 23:55:30,466 - app.services.enhanced_replicator_service - ERROR - _process_message_enterprise:357 - ❌ Enterprise message processing failed: 'WatermarkServiceIntegrated' object has no attribute 'process_text'
+2025-08-15 23:55:30,466 - app.services.enhanced_replicator_service - ERROR - handle_enterprise_message:331 - ❌ Enterprise message processing error: 'WatermarkServiceIntegrated' object has no attribute 'process_text'
+2025-08-15 23:55:30,466 - app.services.enhanced_replicator_service - ERROR - _handle_processing_error:933 - ❌ Processing error for group -4989347027: 'WatermarkServiceIntegrated' object has no attribute 'process_text'
+2025-08-15 23:55:46,469 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-15 23:55:46,469 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:56:16,473 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-15 23:56:16,473 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:56:46,475 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-15 23:56:46,475 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:57:16,478 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-15 23:57:16,478 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:57:46,484 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-15 23:57:46,485 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:58:16,488 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-15 23:58:16,489 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:58:46,491 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-15 23:58:46,491 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:59:16,494 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-15 23:59:16,495 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-15 23:59:46,494 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-15 23:59:46,495 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-16 00:00:16,498 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-16 00:00:16,498 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-16 00:00:46,498 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1297 - ⚠️ High error rate: 300.00%
+2025-08-16 00:00:46,498 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1302 - ⚠️ Low direct sending rate: 0.00%
+2025-08-16 00:00:49,431 - app.services.enhanced_replicator_service - INFO - stop:989 - 🛑 Stopping Enhanced Replicator Service Enterprise...
+2025-08-16 00:00:49,432 - app.services.discord_sender - INFO - close:624 - ✅ Discord Sender cerrado correctamente
+2025-08-16 00:00:49,432 - app.services.enhanced_replicator_service - INFO - _shutdown_discord_sender:1029 - 📤 Discord sender closed
+2025-08-16 00:00:49,443 - app.services.enhanced_replicator_service - INFO - _shutdown_telegram:1021 - 📱 Telegram client disconnected
+2025-08-16 00:00:49,444 - app.services.enhanced_replicator_service - INFO - start_listening:984 - 🛑 Enterprise listening stopped
+2025-08-16 00:00:49,444 - app.services.enhanced_replicator_service - INFO - stop:1010 - ✅ Enhanced Replicator Service Enterprise stopped
+2025-08-16 00:00:49,445 - app.services.enhanced_replicator_service - INFO - stop:989 - 🛑 Stopping Enhanced Replicator Service Enterprise...
+2025-08-16 00:00:49,445 - app.services.discord_sender - INFO - close:624 - ✅ Discord Sender cerrado correctamente
+2025-08-16 00:00:49,445 - app.services.enhanced_replicator_service - INFO - _shutdown_discord_sender:1029 - 📤 Discord sender closed
+2025-08-16 00:00:49,449 - app.services.enhanced_replicator_service - INFO - _shutdown_telegram:1021 - 📱 Telegram client disconnected
+2025-08-16 00:00:49,449 - app.services.enhanced_replicator_service - INFO - stop:1010 - ✅ Enhanced Replicator Service Enterprise stopped

@@ -1,23 +1,23 @@
 """
-Servicios Enterprise Unificados
-===============================
-Archivo: app/services/__init__.py
-
-Exporta todos los servicios enterprise para facilitar imports
+Services Module
+===============
 """
 
-# Importar servicios enterprise
-from .discord_sender import DiscordSenderEnhanced
-from .file_processor import FileProcessorEnhanced
-from .watermark_service import WatermarkServiceIntegrated
+from .registry import ServiceRegistry
+from .discovery import ServiceDiscovery
+from .cache import CacheService
+from .metrics import MetricsCollector
 
-# Mantener compatibilidad con nombre original
-FileProcessorService = FileProcessorEnhanced
+# Simplified imports to avoid circular dependencies
+try:
+    from .watermark_service import WatermarkServiceIntegrated
+except ImportError:
+    WatermarkServiceIntegrated = None
 
-# Alias para facilitar imports
 __all__ = [
-    'DiscordSenderEnhanced',
-    'FileProcessorEnhanced', 
-    'FileProcessorService',  # Compatibilidad
+    'ServiceRegistry',
+    'ServiceDiscovery', 
+    'CacheService',
+    'MetricsCollector',
     'WatermarkServiceIntegrated'
 ]

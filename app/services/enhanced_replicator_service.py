@@ -23,27 +23,39 @@ from .discord_sender import DiscordSenderEnhanced
 from .file_processor import FileProcessorEnhanced  
 from .watermark_service import WatermarkServiceIntegrated
 
-# Telegram imports with graceful fallback
+# Telegram imports with graceful fallback - FIXED
 try:
     from telethon import TelegramClient, events
-    from telethon.tl.types import MessageMediaDocument, MessageMediaPhoto
-    # MessageMediaVideo doesn't exist in newer versions, we'll handle it differently
+    from telethon.tl.types import (
+        MessageMediaDocument, 
+        MessageMediaPhoto,
+        DocumentAttributeVideo,
+        DocumentAttributeAudio,
+        DocumentAttributeFilename
+    )
     TELETHON_AVAILABLE = True
+    TELETHON_VIDEO_SUPPORT = True  # Always true if we have DocumentAttributeVideo
     
-    # Try to import MessageMediaVideo, but it's OK if it doesn't exist
+    # Optional imports
     try:
-        from telethon.tl.types import MessageMediaVideo
-        MEDIA_VIDEO_AVAILABLE = True
+        from telethon.tl.types import MessageMediaWebPage
+        MEDIA_WEBPAGE_AVAILABLE = True
     except ImportError:
-        MEDIA_VIDEO_AVAILABLE = False
-        MessageMediaVideo = None
+        MEDIA_WEBPAGE_AVAILABLE = False
+        MessageMediaWebPage = None
         
-except ImportError:
+except ImportError as e:
+    print(f"⚠️ Telethon not available: {e}")
     TELETHON_AVAILABLE = False
-    MEDIA_VIDEO_AVAILABLE = False
+    TELETHON_VIDEO_SUPPORT = False
+    MEDIA_WEBPAGE_AVAILABLE = False
     MessageMediaDocument = None
     MessageMediaPhoto = None
-    MessageMediaVideo = None
+    DocumentAttributeVideo = None
+    DocumentAttributeAudio = None
+    DocumentAttributeFilename = None
+    MessageMediaWebPage = None
+
 
 # Core dependencies check
 try:
@@ -66,6 +78,12 @@ from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 settings = get_settings()
+
+# Global variables for media support
+if 'MEDIA_VIDEO_AVAILABLE' not in globals():
+    MEDIA_VIDEO_AVAILABLE = False
+if 'TELETHON_VIDEO_SUPPORT' not in globals():
+    TELETHON_VIDEO_SUPPORT = False
 
 class EnhancedReplicatorService:
     """
@@ -392,7 +410,16 @@ class EnhancedReplicatorService:
                 return
             
             # Apply enterprise watermarks
-            processed_text, was_modified = await self.watermark_service.process_text(text, chat_id)
+            # Fix for unpacking error - watermark service might return different values
+            watermark_result = await self.watermark_service.process_text(text, chat_id)
+            if isinstance(watermark_result, tuple) and len(watermark_result) >= 2:
+                processed_text, was_modified = watermark_result[:2]
+            elif isinstance(watermark_result, str):
+                processed_text = watermark_result
+                was_modified = False
+            else:
+                processed_text = text
+                was_modified = False
             if was_modified:
                 text = processed_text
                 self.stats['watermarks_applied'] += 1
