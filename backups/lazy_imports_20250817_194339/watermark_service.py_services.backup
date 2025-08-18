@@ -1,30 +1,3 @@
-
-# ============ LAZY SERVICE ACCESS HELPERS ============
-
-def __get_replicator_service():
-    """Lazy access to replicator service"""
-    try:
-        from app.main import get_replicator_service
-        return _get_replicator_service()
-    except Exception:
-        return None
-
-def _get_watermark_service():
-    """Lazy access to watermark service"""
-    try:
-        from app.main import get_watermark_service
-        return get_watermark_service()
-    except Exception:
-        return None
-
-def _get_discord_service():
-    """Lazy access to discord service"""
-    try:
-        from app.main import get_discord_service
-        return get_discord_service()
-    except Exception:
-        return None
-
 """
 🎯 SOLUCIÓN COMPLETA DEFINITIVA - ZERO COST PROJECT
 ==================================================
@@ -1061,12 +1034,13 @@ if __name__ == "__main__":
     async def _check_microservices(self):
         """Check microservices health directly"""
         try:
-                        
+            from app.main import get_replicator_service, get_watermark_service, get_discord_service
+            
             healthy = 0
             total = 0
             
             # Check replicator
-            replicator = _get_replicator_service()
+            replicator = get_replicator_service()
             if replicator:
                 total += 1
                 try:

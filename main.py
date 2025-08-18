@@ -1,53 +1,247 @@
-#!/usr/bin/env python3
 """
-SIMPLE STARTUP - Inicio rápido del sistema
-==========================================
+Main Orchestrator - Zero Cost SaaS
+===================================
+Orquestador principal de microservicios
 """
 
 import asyncio
-import uvicorn
-from pathlib import Path
 import sys
+from pathlib import Path
 
-# Añadir proyecto al path
-project_root = Path(__file__).parent
-sys.path.insert(0, str(project_root))
+# Agregar path del proyecto
+sys.path.insert(0, str(Path(__file__).parent))
 
-async def start_system():
-    """Iniciar sistema simplificado"""
-    print("\n" + "="*70)
-    print("🚀 INICIANDO SISTEMA MODULAR")
-    print("="*70 + "\n")
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
+from contextlib import asynccontextmanager
+import uvicorn
+
+from app.utils.logger import setup_logger
+from app.config.settings import get_settings
+from app.services.registry import get_registry
+
+logger = setup_logger(__name__)
+settings = get_settings()
+
+# Variable global para el servicio replicador
+replicator_service = None
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Gestión del ciclo de vida de la aplicación"""
+    logger.info("🚀 Starting Zero Cost SaaS Orchestrator...")
     
-    # Verificar que existe .env
-    env_file = Path(".env")
-    if not env_file.exists():
-        print("❌ ERROR: No se encontró archivo .env")
-        print("Copia .env.example a .env y configura tus credenciales")
-        return
+    # Inicializar registry
+    registry = get_registry()
     
-    print("✅ Archivo .env encontrado")
-    print("✅ Iniciando servidor...")
-    print("\n🌐 El sistema estará disponible en:")
-    print("   📊 Dashboard: http://localhost:8000")
-    print("   📚 API Docs:  http://localhost:8000/docs")
-    print("   🏥 Health:    http://localhost:8000/api/v1/health")
-    print("\n[Presiona Ctrl+C para detener]\n")
+    # Inicializar servicios
+    try:
+        # Intentar cargar el replicator service si existe
+        global replicator_service
+        try:
+            from app.services.enhanced_replicator_service import EnhancedReplicatorService
+            replicator_service = EnhancedReplicatorService()
+            await replicator_service.initialize()
+            logger.info("✅ Replicator service initialized")
+        except ImportError:
+            logger.warning("⚠️ Replicator service not found, running in limited mode")
+        except Exception as e:
+            logger.error(f"Error initializing replicator: {e}")
+        
+        # Iniciar todos los servicios registrados
+        await registry.start_all()
+        
+    except Exception as e:
+        logger.error(f"Error during startup: {e}")
     
-    # Iniciar servidor
-    config = uvicorn.Config(
-        "app.main:app",
-        host="0.0.0.0",
-        port=8000,
+    logger.info("✅ System ready!")
+    
+    yield
+    
+    # Shutdown
+    logger.info("🛑 Shutting down...")
+    await registry.stop_all()
+    
+    if replicator_service:
+        try:
+            await replicator_service.shutdown()
+        except:
+            pass
+    
+    logger.info("✅ Shutdown complete")
+
+def create_app() -> FastAPI:
+    """Crear aplicación FastAPI con configuración completa"""
+    
+    app = FastAPI(
+        title="Zero Cost SaaS - Enterprise Orchestrator",
+        description="Microservices orchestrator for message replication",
+        version="6.0.0",
+        lifespan=lifespan
+    )
+    
+    # Middleware
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+    
+    # Static files
+    if Path("frontend/static").exists():
+        app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
+    
+    # Root endpoint
+    @app.get("/")
+    async def root():
+        return JSONResponse({
+            "name": "Zero Cost SaaS",
+            "version": "6.0.0",
+            "status": "running",
+            "endpoints": {
+                "dashboard": "/dashboard",
+                "api_docs": "/docs",
+                "health": "/health",
+                "metrics": "/api/v1/dashboard/api/stats"
+            }
+        })
+    
+    # Health check
+    @app.get("/health")
+    async def health():
+        registry = get_registry()
+        status = await registry.get_system_status()
+        return JSONResponse(status)
+    
+    # Dashboard HTML
+    @app.get("/dashboard", response_class=HTMLResponse)
+    async def dashboard(request: Request):
+        dashboard_html = """<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Cost SaaS - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen text-white">
+    <div x-data="dashboardApp()" x-init="init()" class="container mx-auto p-6">
+        <div class="glass rounded-2xl p-8 mb-6">
+            <h1 class="text-4xl font-bold mb-2">Zero Cost SaaS</h1>
+            <p class="opacity-75">Enterprise Message Replication System</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-sm opacity-75 mb-2">Messages</h3>
+                <p class="text-3xl font-bold" x-text="stats.messages"></p>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-sm opacity-75 mb-2">Success Rate</h3>
+                <p class="text-3xl font-bold" x-text="stats.success_rate + '%'"></p>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-sm opacity-75 mb-2">Active Groups</h3>
+                <p class="text-3xl font-bold" x-text="stats.groups"></p>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-sm opacity-75 mb-2">Uptime</h3>
+                <p class="text-3xl font-bold" x-text="stats.uptime"></p>
+            </div>
+        </div>
+        
+        <div class="glass rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-4">System Status</h2>
+            <div class="space-y-2">
+                <div class="flex justify-between">
+                    <span>Replicator Service</span>
+                    <span class="text-green-400">● Running</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Dashboard Service</span>
+                    <span class="text-green-400">● Running</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Registry Service</span>
+                    <span class="text-green-400">● Running</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function dashboardApp() {
+            return {
+                stats: {
+                    messages: 0,
+                    success_rate: 100,
+                    groups: 0,
+                    uptime: '0h'
+                },
+                
+                async init() {
+                    await this.loadStats();
+                    setInterval(() => this.loadStats(), 5000);
+                },
+                
+                async loadStats() {
+                    try {
+                        const response = await fetch('/api/v1/dashboard/api/stats');
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.stats = {
+                                messages: data.overview?.messages_received || 0,
+                                success_rate: Math.round(data.overview?.success_rate || 100),
+                                groups: data.groups?.active || 0,
+                                uptime: this.formatUptime(data.overview?.uptime_hours || 0)
+                            };
+                        }
+                    } catch (error) {
+                        console.error('Error loading stats:', error);
+                    }
+                },
+                
+                formatUptime(hours) {
+                    if (hours >= 24) return Math.floor(hours / 24) + 'd';
+                    return Math.floor(hours) + 'h';
+                }
+            }
+        }
+    </script>
+</body>
+</html>"""
+        return HTMLResponse(content=dashboard_html)
+    
+    # Include routers
+    try:
+        from app.api.v1 import dashboard
+        app.include_router(dashboard.router, prefix="/api/v1/dashboard", tags=["dashboard"])
+        logger.info("✅ Dashboard API routes registered")
+    except ImportError as e:
+        logger.warning(f"Could not import dashboard router: {e}")
+    except Exception as e:
+        logger.error(f"Error registering routes: {e}")
+    
+    return app
+
+# Create app instance
+app = create_app()
+
+if __name__ == "__main__":
+    logger.info("🚀 Starting Zero Cost SaaS...")
+    uvicorn.run(
+        "main:app",
+        host=settings.HOST,
+        port=settings.PORT,
         reload=True,
         log_level="info"
     )
-    
-    server = uvicorn.Server(config)
-    await server.serve()
-
-if __name__ == "__main__":
-    try:
-        asyncio.run(start_system())
-    except KeyboardInterrupt:
-        print("\n✅ Sistema detenido por el usuario")

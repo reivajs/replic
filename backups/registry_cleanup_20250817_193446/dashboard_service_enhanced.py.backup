@@ -71,8 +71,10 @@ class SimpleDashboardService:
     async def get_health(self) -> Dict[str, Any]:
         """✅ ASYNC - Obtener estado de salud del sistema"""
         try:
+            from app.services.registry import service_registry
             
             # ✅ AWAIT agregado
+            healthy, total = await service_registry.check_all_services()
             
             status = "operational" if healthy == total else "degraded" if healthy > 0 else "down"
             

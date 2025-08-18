@@ -1,0 +1,64 @@
+2025-08-18 11:34:32,344 - main - INFO - create_app:228 - ✅ Dashboard API routes registered
+2025-08-18 11:34:32,345 - main - INFO - lifespan:34 - 🚀 Starting Zero Cost SaaS Orchestrator...
+2025-08-18 11:34:32,345 - app.services.registry.service_registry - INFO - __init__:76 - ✅ Service Registry initialized
+2025-08-18 11:34:33,246 - app.services.file_processor - INFO - __init__:383 - 🚀 FileProcessorEnhanced initialized
+2025-08-18 11:34:33,247 - app.services.discord_sender - INFO - __init__:189 - 🚀 Discord Sender Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-18 11:34:33,248 - app.services.enhanced_replicator_service - INFO - __init__:183 - 🚀 Enhanced Replicator Service v3.0 Enterprise initialized - MODO ENVÍO DIRECTO
+2025-08-18 11:34:33,248 - app.services.enhanced_replicator_service - INFO - initialize:193 - 🔧 Initializing Enhanced Replicator Service Enterprise...
+2025-08-18 11:34:33,248 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:239 - 🔍 Enterprise dependency verification:
+2025-08-18 11:34:33,248 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:243 -    telethon: ✅ Available
+2025-08-18 11:34:33,248 - app.services.enhanced_replicator_service - WARNING - _verify_dependencies:243 -    telethon_video_support: ❌ Missing
+2025-08-18 11:34:33,248 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:243 -    aiohttp: ✅ Available
+2025-08-18 11:34:33,248 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:243 -    pil: ✅ Available
+2025-08-18 11:34:33,248 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:243 -    pymupdf: ✅ Available
+2025-08-18 11:34:33,248 - app.services.enhanced_replicator_service - INFO - _verify_dependencies:247 -    📹 Video handling: Using document-based detection
+2025-08-18 11:34:33,249 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:264 - 📱 Connecting to Telegram Enterprise...
+2025-08-18 11:34:34,217 - app.services.enhanced_replicator_service - INFO - _initialize_telegram:291 - ✅ Telegram Enterprise connected: Ja (@no_username)
+2025-08-18 11:34:34,217 - app.services.file_processor_v2 - INFO - initialize:373 - ✅ File Processor initialized with 2 workers
+2025-08-18 11:34:34,217 - app.services.file_processor - INFO - initialize:137 - ✅ V2 Processor Adapter initialized
+2025-08-18 11:34:34,218 - app.services.file_processor - INFO - initialize:395 - ✅ Using V2 processor (microservices architecture)
+2025-08-18 11:34:34,231 - app.services.file_processor_v2 - INFO - _processing_loop:441 - 🔄 Processing loop started
+2025-08-18 11:34:34,777 - app.services.file_processor - INFO - _check_dependencies:415 - 📦 Dependencies:
+2025-08-18 11:34:34,778 - app.services.file_processor - INFO - _check_dependencies:418 -    ffmpeg: ✅
+2025-08-18 11:34:34,778 - app.services.file_processor - INFO - _check_dependencies:418 -    pymupdf: ✅
+2025-08-18 11:34:34,778 - app.services.file_processor - INFO - _check_dependencies:418 -    pil: ✅
+2025-08-18 11:34:34,778 - app.services.file_processor - INFO - initialize:405 - ✅ FileProcessorEnhanced ready
+2025-08-18 11:34:34,778 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:313 - ✅ File Processor Enterprise initialized
+2025-08-18 11:34:34,778 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:313 - ✅ Watermark Service Enterprise initialized
+2025-08-18 11:34:34,778 - app.services.discord_sender - INFO - initialize:216 - ✅ Discord Sender Enterprise inicializado
+2025-08-18 11:34:34,778 - app.services.enhanced_replicator_service - INFO - _initialize_enterprise_services:313 - ✅ Discord Sender Enterprise initialized
+2025-08-18 11:34:34,778 - app.services.enhanced_replicator_service - INFO - _setup_enterprise_event_handlers:355 - 📡 Enterprise event handlers configured
+2025-08-18 11:34:34,779 - app.services.enhanced_replicator_service - INFO - _start_background_tasks:896 - 🔄 Enterprise background tasks started
+2025-08-18 11:34:34,779 - app.services.enhanced_replicator_service - INFO - initialize:217 - ✅ Enhanced Replicator Service Enterprise initialized successfully
+2025-08-18 11:34:34,779 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:969 - 📊 Enterprise Configuration - ENVÍO DIRECTO:
+2025-08-18 11:34:34,779 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:970 -    Groups configured: 2
+2025-08-18 11:34:34,779 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:971 -    Max concurrent processing: 10
+2025-08-18 11:34:34,779 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:972 -    Circuit breaker threshold: 5
+2025-08-18 11:34:34,779 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:973 -    Processing timeout: 300s
+2025-08-18 11:34:34,779 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:974 -    Direct Sending Settings:
+2025-08-18 11:34:34,780 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:975 -      - Max file size: 25MB
+2025-08-18 11:34:34,780 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:976 -      - Auto compress: True
+2025-08-18 11:34:34,780 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:977 -      - Compression quality: 75
+2025-08-18 11:34:34,780 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:978 -      - Prefer direct: True
+2025-08-18 11:34:34,780 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:979 -    Enterprise Services:
+2025-08-18 11:34:34,780 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:980 -      - File Processor: ✅ Advanced
+2025-08-18 11:34:34,780 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:981 -      - Watermark Service: ✅ Multi-tenant
+2025-08-18 11:34:34,781 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:982 -      - Discord Sender: ✅ ENVÍO DIRECTO enabled
+2025-08-18 11:34:34,781 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:983 -    Dependencies:
+2025-08-18 11:34:34,781 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:984 -      - Telethon: ✅
+2025-08-18 11:34:34,781 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:985 -      - PIL: ✅
+2025-08-18 11:34:34,781 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:986 -      - PyMuPDF: ✅
+2025-08-18 11:34:34,781 - app.services.enhanced_replicator_service - INFO - _display_enterprise_configuration:987 -      - aiohttp: ✅
+2025-08-18 11:34:34,781 - main - INFO - lifespan:47 - ✅ Replicator service initialized
+2025-08-18 11:34:34,782 - app.services.registry.service_registry - INFO - start_all:111 - Starting all registered services...
+2025-08-18 11:34:34,782 - app.services.registry.service_registry - INFO - start_all:124 - ✅ Started 0/0 services
+2025-08-18 11:34:34,782 - main - INFO - lifespan:59 - ✅ System ready!
+2025-08-18 11:35:00,385 - app.services.discord_sender - INFO - send_message_with_file:310 - ✅ Archivo enviado DIRECTAMENTE: image_enterprise.jpg (0.1MB)
+2025-08-18 11:35:00,386 - app.services.enhanced_replicator_service - INFO - _process_image_enterprise:731 - 🖼️ Enterprise image enviada DIRECTAMENTE para group -4989347027
+2025-08-18 11:35:02,372 - app.services.discord_sender - INFO - send_message_with_file:310 - ✅ Archivo enviado DIRECTAMENTE: audio_20250818_113501.mp3 (0.0MB)
+2025-08-18 11:35:02,372 - app.services.enhanced_replicator_service - INFO - _handle_audio_enterprise:605 - 🎵 Enterprise audio enviado DIRECTAMENTE: unknown_document
+2025-08-18 11:35:02,381 - app.services.discord_sender - INFO - send_message_with_file:310 - ✅ Archivo enviado DIRECTAMENTE: video_enterprise.mp4 (1.2MB)
+2025-08-18 11:35:02,381 - app.services.enhanced_replicator_service - INFO - _process_video_enterprise:825 - 🎬 Enterprise video enviado DIRECTAMENTE para group -4989347027
+2025-08-18 11:35:04,782 - app.services.enhanced_replicator_service - WARNING - _perform_health_checks:1329 - ⚠️ Low direct sending rate: 75.00%
+2025-08-18 11:35:10,148 - app.services.discord_sender - INFO - send_message_with_file:310 - ✅ Archivo enviado DIRECTAMENTE: DirectionMovementIndexDMIbyTraderGauls.pdf (1.2MB)
+2025-08-18 11:35:10,148 - app.services.enhanced_replicator_service - INFO - _handle_pdf_enterprise:514 - 📄 Enterprise PDF enviado DIRECTAMENTE: DirectionMovementIndexDMIbyTraderGauls.pdf

@@ -1,0 +1,33 @@
+"""
+Dependency Injection Module - FIXED
+===================================
+"""
+
+from functools import lru_cache
+from app.services.cache import CacheService
+from app.database.connection import get_db
+
+@lru_cache()
+def get_service_registry():
+    """Get service registry instance"""
+    return service_registry
+
+@lru_cache()
+def get_cache_service():
+    """Get cache service instance"""
+    return CacheService()
+
+def get_db_session():
+    """Get database session"""
+    return get_db()
+
+def get_cache():
+    """Alias for cache service"""
+    return get_cache_service()
+
+__all__ = [
+    'get_service_registry',
+    'get_cache_service',
+    'get_db_session',
+    'get_cache'
+]

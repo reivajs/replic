@@ -1,30 +1,3 @@
-
-# ============ LAZY SERVICE ACCESS HELPERS ============
-
-def __get_replicator_service():
-    """Lazy access to replicator service"""
-    try:
-        from app.main import get_replicator_service
-        return _get_replicator_service()
-    except Exception:
-        return None
-
-def _get_watermark_service():
-    """Lazy access to watermark service"""
-    try:
-        from app.main import get_watermark_service
-        return get_watermark_service()
-    except Exception:
-        return None
-
-def _get_discord_service():
-    """Lazy access to discord service"""
-    try:
-        from app.main import get_discord_service
-        return get_discord_service()
-    except Exception:
-        return None
-
 """
 🎯 SOLUCIÓN COMPLETA DEFINITIVA - ZERO COST PROJECT
 ==================================================
@@ -685,6 +658,7 @@ def fix_dashboard_health_check_code():
     Código corregido para el dashboard health check
     
     PROBLEMA: dashboard.py línea 191:
+    healthy, total = service_registry.check_all_services()  # ❌ Sin await
     
     SOLUCIÓN: Agregar await
     """
@@ -695,8 +669,10 @@ def fix_dashboard_health_check_code():
 async def get_health_fixed(self):
     """Obtener estado de salud - VERSIÓN CORREGIDA"""
     try:
+        from app.services.registry import service_registry
         
         # ✅ CORRECCIÓN: Agregar await
+        healthy, total = await service_registry.check_all_services()
         
         status = "operational" if healthy == total else "degraded" if healthy > 0 else "down"
         
@@ -806,8 +782,10 @@ Reemplazar el método get_health en dashboard.py
 async def get_health(self):
     """Obtener estado de salud - VERSIÓN CORREGIDA"""
     try:
+        from app.services.registry import service_registry
         
         # ✅ CORRECCIÓN CRÍTICA: Agregar await
+        healthy, total = await service_registry.check_all_services()
         
         status = "operational" if healthy == total else "degraded" if healthy > 0 else "down"
         
@@ -870,8 +848,10 @@ PASOS PARA SOLUCIONAR AMBOS ERRORES:
 1. Localizar en app/api/v1/dashboard.py línea ~191:
    
    # ❌ LÍNEA PROBLEMÁTICA:
+   healthy, total = service_registry.check_all_services()
    
    # ✅ REEMPLAZAR POR:
+   healthy, total = await service_registry.check_all_services()
 
 2. Asegurar que la función que contiene esta línea sea async:
    
@@ -998,6 +978,7 @@ async def validate_watermark_service():
 async def validate_dashboard_health():
     """Validar que el dashboard health check funciona"""
     try:
+        from app.services.registry import ServiceRegistry
         
         # Test check_all_services is async
         registry = ServiceRegistry()
@@ -1057,41 +1038,6 @@ def create_complete_solution_package():
 # ============ MAIN EXECUTION ============
 
 if __name__ == "__main__":
-
-    async def _check_microservices(self):
-        """Check microservices health directly"""
-        try:
-                        
-            healthy = 0
-            total = 0
-            
-            # Check replicator
-            replicator = _get_replicator_service()
-            if replicator:
-                total += 1
-                try:
-                    health = await replicator.get_health()
-                    if health.get("status") == "healthy":
-                        healthy += 1
-                except:
-                    pass
-            
-            # Check watermark
-            watermark = get_watermark_service()
-            if watermark:
-                total += 1
-                healthy += 1  # Simple check
-            
-            # Check discord
-            discord = get_discord_service()
-            if discord:
-                total += 1
-                healthy += 1  # Simple check
-            
-            return healthy, total
-        except Exception as e:
-            return 0, 1
-
     print("🎯 ZERO COST PROJECT - COMPLETE FIX SOLUTION")
     print("=" * 50)
     print()

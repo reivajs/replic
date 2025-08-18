@@ -1,3 +1,4 @@
+from app.main import get_replicator_service, get_watermark_service, get_discord_service
 """Health Check Router"""
 from fastapi import APIRouter, Depends
 from datetime import datetime

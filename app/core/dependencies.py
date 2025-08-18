@@ -1,10 +1,36 @@
+
+# ============ LAZY SERVICE ACCESS HELPERS ============
+
+def __get_replicator_service():
+    """Lazy access to replicator service"""
+    try:
+        from app.main import get_replicator_service
+        return _get_replicator_service()
+    except Exception:
+        return None
+
+def _get_watermark_service():
+    """Lazy access to watermark service"""
+    try:
+        from app.main import get_watermark_service
+        return get_watermark_service()
+    except Exception:
+        return None
+
+def _get_discord_service():
+    """Lazy access to discord service"""
+    try:
+        from app.main import get_discord_service
+        return get_discord_service()
+    except Exception:
+        return None
+
 """
 Dependency Injection Module - FIXED
 ===================================
 """
 
 from functools import lru_cache
-from app.services.registry import service_registry
 from app.services.cache import CacheService
 from app.database.connection import get_db
 

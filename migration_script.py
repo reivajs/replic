@@ -1,3 +1,30 @@
+
+# ============ LAZY SERVICE ACCESS HELPERS ============
+
+def __get_replicator_service():
+    """Lazy access to replicator service"""
+    try:
+        from app.main import get_replicator_service
+        return _get_replicator_service()
+    except Exception:
+        return None
+
+def _get_watermark_service():
+    """Lazy access to watermark service"""
+    try:
+        from app.main import get_watermark_service
+        return get_watermark_service()
+    except Exception:
+        return None
+
+def _get_discord_service():
+    """Lazy access to discord service"""
+    try:
+        from app.main import get_discord_service
+        return get_discord_service()
+    except Exception:
+        return None
+
 """
 🎯 SOLUCIÓN COMPLETA DEFINITIVA - ZERO COST PROJECT
 ==================================================
@@ -669,8 +696,7 @@ def fix_dashboard_health_check_code():
 async def get_health_fixed(self):
     """Obtener estado de salud - VERSIÓN CORREGIDA"""
     try:
-        from app.services.registry import service_registry
-        
+                
         # ✅ CORRECCIÓN: Agregar await
         healthy, total = await service_registry.check_all_services()
         
@@ -782,8 +808,7 @@ Reemplazar el método get_health en dashboard.py
 async def get_health(self):
     """Obtener estado de salud - VERSIÓN CORREGIDA"""
     try:
-        from app.services.registry import service_registry
-        
+                
         # ✅ CORRECCIÓN CRÍTICA: Agregar await
         healthy, total = await service_registry.check_all_services()
         
@@ -978,8 +1003,7 @@ async def validate_watermark_service():
 async def validate_dashboard_health():
     """Validar que el dashboard health check funciona"""
     try:
-        from app.services.registry import ServiceRegistry
-        
+                
         # Test check_all_services is async
         registry = ServiceRegistry()
         result = registry.check_all_services()

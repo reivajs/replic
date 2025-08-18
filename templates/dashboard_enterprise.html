@@ -1,777 +1,193 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReplicBot Enterprise - Dashboard</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    
+    <title>Zero Cost SaaS - Enterprise Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * { font-family: 'Inter', sans-serif; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        :root {
-            /* Enterprise Color Palette */
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            
-            /* Dark Theme */
-            --bg-primary: #0f0f23;
-            --bg-secondary: #1a1a3e;
-            --bg-card: rgba(26, 26, 62, 0.8);
-            --bg-glass: rgba(255, 255, 255, 0.1);
-            
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0b8;
-            --text-muted: #6b6b85;
-            
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-            
-            /* Animations */
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Animated Background */
-        .bg-animated {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: var(--bg-primary);
-        }
-
-        .bg-animated::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
-            animation: pulse 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.8; }
-        }
-
-        /* Layout */
-        .dashboard-container {
-            display: flex;
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
         }
-
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid var(--border-color);
-            padding: 2rem 0;
-            position: fixed;
-            height: 100vh;
-            z-index: 1000;
-            box-shadow: var(--shadow-lg);
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
         }
-
-        .logo {
-            padding: 0 2rem 2rem;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 2rem;
-        }
-
-        .logo h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .logo p {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-
-        .nav-menu {
-            padding: 0 1rem;
-        }
-
-        .nav-item {
-            margin-bottom: 0.5rem;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: 12px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--text-primary);
-            background: var(--bg-glass);
-            transform: translateX(4px);
-        }
-
-        .nav-link.active {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .nav-icon {
-            width: 20px;
-            margin-right: 0.75rem;
-            font-size: 1.125rem;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 280px;
-            padding: 2rem;
-            min-height: 100vh;
-        }
-
-        /* Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding: 1.5rem 2rem;
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .header-title h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .header-title p {
-            color: var(--text-muted);
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .status-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--success-gradient);
-            border-radius: 25px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: white;
-            animation: statusPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes statusPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(79, 172, 254, 0); }
-        }
-
-        .refresh-btn {
-            padding: 0.75rem;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .refresh-btn:hover {
-            background: var(--primary-gradient);
-            transform: rotate(180deg);
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
+        
         .metric-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.3s ease;
         }
-
+        
         .metric-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
         }
-
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary-gradient);
+        
+        .status-dot {
+            animation: pulse 2s infinite;
         }
-
-        .metric-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-        }
-
-        .metric-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .metric-title {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .metric-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-change {
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .metric-change.positive {
-            color: #10b981;
-        }
-
-        .metric-change.negative {
-            color: #ef4444;
-        }
-
-        /* Charts */
-        .chart-container {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 2rem;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .chart-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .chart-controls {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .chart-btn {
-            padding: 0.5rem 1rem;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.875rem;
-        }
-
-        .chart-btn.active,
-        .chart-btn:hover {
-            background: var(--primary-gradient);
-            color: white;
-            border-color: transparent;
-        }
-
-        /* Activity Feed */
-        .activity-feed {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .activity-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            color: white;
-        }
-
-        .activity-content {
-            flex: 1;
-        }
-
-        .activity-text {
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .activity-time {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        /* Loading States */
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid transparent;
-            border-top: 2px solid var(--text-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar {
-                transform: translateX(-100%);
-                transition: var(--transition);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Micro-animations */
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .slide-up {
-            animation: slideUp 0.8s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
-<body x-data="dashboard()">
-    <div class="bg-animated"></div>
-    
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <div class="logo">
-                <h1><i class="fas fa-robot"></i> ReplicBot</h1>
-                <p>Enterprise Dashboard</p>
+<body class="gradient-bg text-white">
+    <div x-data="dashboardApp()" x-init="init()">
+        <!-- Header -->
+        <header class="glass border-b border-white/10">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-violet-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <span class="text-xl font-bold">Z</span>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-semibold">Zero Cost SaaS</h1>
+                            <p class="text-xs opacity-75">Enterprise Message Orchestrator</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <span class="text-sm opacity-75">v6.0.0</span>
+                        <div class="flex items-center space-x-2">
+                            <span class="status-dot w-2 h-2 bg-green-400 rounded-full"></span>
+                            <span class="text-sm">All Systems Operational</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="container mx-auto px-6 py-8">
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="metric-card rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-violet-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full">+12%</span>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-1" x-text="stats.messages.toLocaleString()"></h3>
+                    <p class="text-sm opacity-75">Total Messages</p>
+                </div>
+                
+                <div class="metric-card rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-blue-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full">Stable</span>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-1" x-text="stats.success_rate + '%'"></h3>
+                    <p class="text-sm opacity-75">Success Rate</p>
+                </div>
+                
+                <div class="metric-card rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-green-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full">Active</span>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-1" x-text="stats.groups"></h3>
+                    <p class="text-sm opacity-75">Active Groups</p>
+                </div>
+                
+                <div class="metric-card rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-yellow-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-full">99.9%</span>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-1" x-text="stats.uptime"></h3>
+                    <p class="text-sm opacity-75">Uptime</p>
+                </div>
             </div>
             
-            <div class="nav-menu">
-                <div class="nav-item">
-                    <a href="#" class="nav-link active" @click="setActiveTab('overview')">
-                        <i class="fas fa-chart-line nav-icon"></i>
-                        Overview
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" @click="setActiveTab('groups')">
-                        <i class="fas fa-users nav-icon"></i>
-                        Groups
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" @click="setActiveTab('processing')">
-                        <i class="fas fa-cogs nav-icon"></i>
-                        Processing
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" @click="setActiveTab('watermarks')">
-                        <i class="fas fa-paint-brush nav-icon"></i>
-                        Watermarks
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" @click="setActiveTab('performance')">
-                        <i class="fas fa-tachometer-alt nav-icon"></i>
-                        Performance
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" @click="setActiveTab('health')">
-                        <i class="fas fa-heartbeat nav-icon"></i>
-                        Health
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" @click="setActiveTab('settings')">
-                        <i class="fas fa-cog nav-icon"></i>
-                        Settings
-                    </a>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header -->
-            <header class="header fade-in">
-                <div class="header-title">
-                    <h1 x-text="tabs[activeTab].title">Enterprise Overview</h1>
-                    <p x-text="tabs[activeTab].subtitle">Real-time monitoring and analytics</p>
-                </div>
-                <div class="header-actions">
-                    <div class="status-badge">
-                        <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
-                        <span x-text="systemStatus">System Online</span>
-                    </div>
-                    <button class="refresh-btn" @click="refreshData()" :class="{ 'loading': isLoading }">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
-                </div>
-            </header>
-
-            <!-- Overview Tab -->
-            <div x-show="activeTab === 'overview'" class="slide-up">
-                <!-- Metrics Cards -->
-                <div class="cards-grid">
-                    <div class="metric-card fade-in" style="animation-delay: 0.1s">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Total Messages</div>
-                                <div class="metric-value" x-text="formatNumber(stats.messages_received)">0</div>
-                                <div class="metric-change positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span x-text="'+' + stats.message_growth + '%'">+5%</span>
-                                    <span style="color: var(--text-muted);">from last week</span>
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Active Flows -->
+                <div class="glass rounded-xl p-6 lg:col-span-2">
+                    <h2 class="text-xl font-semibold mb-4">Active Message Flows</h2>
+                    <div class="space-y-3">
+                        <template x-for="flow in flows" :key="flow.id">
+                            <div class="glass rounded-lg p-4 flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                                        <span class="text-sm font-bold">TG</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium" x-text="flow.name"></h3>
+                                        <p class="text-xs opacity-75" x-text="flow.source + ' → ' + flow.destination"></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="metric-icon" style="background: var(--primary-gradient);">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="metric-card fade-in" style="animation-delay: 0.2s">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Success Rate</div>
-                                <div class="metric-value" x-text="stats.success_rate.toFixed(1) + '%'">0%</div>
-                                <div class="metric-change positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>+2%</span>
-                                    <span style="color: var(--text-muted);">from last week</span>
-                                </div>
-                            </div>
-                            <div class="metric-icon" style="background: var(--success-gradient);">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="metric-card fade-in" style="animation-delay: 0.3s">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Active Groups</div>
-                                <div class="metric-value" x-text="stats.groups_active">0</div>
-                                <div class="metric-change positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>+8%</span>
-                                    <span style="color: var(--text-muted);">from last week</span>
-                                </div>
-                            </div>
-                            <div class="metric-icon" style="background: var(--warning-gradient);">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="metric-card fade-in" style="animation-delay: 0.4s">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Avg Response Time</div>
-                                <div class="metric-value" x-text="stats.avg_processing_time.toFixed(2) + 's'">0s</div>
-                                <div class="metric-change negative">
-                                    <i class="fas fa-arrow-down"></i>
-                                    <span>-12%</span>
-                                    <span style="color: var(--text-muted);">from last week</span>
-                                </div>
-                            </div>
-                            <div class="metric-icon" style="background: var(--secondary-gradient);">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charts Row -->
-                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
-                    <!-- Main Chart -->
-                    <div class="chart-container slide-up" style="animation-delay: 0.5s">
-                        <div class="chart-header">
-                            <h3 class="chart-title">Message Processing Trends</h3>
-                            <div class="chart-controls">
-                                <button class="chart-btn active">24h</button>
-                                <button class="chart-btn">7d</button>
-                                <button class="chart-btn">30d</button>
-                            </div>
-                        </div>
-                        <canvas id="mainChart" width="400" height="200"></canvas>
-                    </div>
-
-                    <!-- Activity Feed -->
-                    <div class="activity-feed slide-up" style="animation-delay: 0.6s">
-                        <h3 class="chart-title" style="margin-bottom: 1.5rem;">Recent Activity</h3>
-                        <template x-for="activity in recentActivity" :key="activity.id">
-                            <div class="activity-item">
-                                <div class="activity-icon" :style="'background: ' + activity.color">
-                                    <i :class="activity.icon"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <div class="activity-text" x-text="activity.text"></div>
-                                    <div class="activity-time" x-text="activity.time"></div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium" x-text="flow.messages + ' msgs'"></p>
+                                    <p class="text-xs text-green-400">Active</p>
                                 </div>
                             </div>
                         </template>
                     </div>
                 </div>
-            </div>
-
-            <!-- Processing Tab -->
-            <div x-show="activeTab === 'processing'" class="slide-up">
-                <div class="cards-grid">
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">PDFs Processed</div>
-                                <div class="metric-value" x-text="stats.pdfs_processed">0</div>
-                            </div>
-                            <div class="metric-icon" style="background: #ef4444;">
-                                <i class="fas fa-file-pdf"></i>
+                
+                <!-- System Status -->
+                <div class="glass rounded-xl p-6">
+                    <h2 class="text-xl font-semibold mb-4">System Health</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Orchestrator</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span class="text-xs text-green-400">Running</span>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Videos Processed</div>
-                                <div class="metric-value" x-text="stats.videos_processed">0</div>
-                            </div>
-                            <div class="metric-icon" style="background: #8b5cf6;">
-                                <i class="fas fa-video"></i>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Replicator</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span class="text-xs text-green-400">Running</span>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Images Processed</div>
-                                <div class="metric-value" x-text="stats.images_processed">0</div>
-                            </div>
-                            <div class="metric-icon" style="background: #06d6a0;">
-                                <i class="fas fa-image"></i>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Dashboard</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span class="text-xs text-green-400">Running</span>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Audio Files</div>
-                                <div class="metric-value" x-text="stats.audios_processed">0</div>
-                            </div>
-                            <div class="metric-icon" style="background: #f72585;">
-                                <i class="fas fa-music"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="chart-container">
-                    <div class="chart-header">
-                        <h3 class="chart-title">Processing Performance</h3>
-                    </div>
-                    <canvas id="processingChart" width="400" height="200"></canvas>
-                </div>
-            </div>
-
-            <!-- Health Tab -->
-            <div x-show="activeTab === 'health'" class="slide-up">
-                <div class="cards-grid">
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">System Status</div>
-                                <div class="metric-value" style="color: #10b981;">Healthy</div>
-                            </div>
-                            <div class="metric-icon" style="background: var(--success-gradient);">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Uptime</div>
-                                <div class="metric-value" x-text="formatUptime(stats.uptime_hours)">0h</div>
-                            </div>
-                            <div class="metric-icon" style="background: #3b82f6;">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Error Rate</div>
-                                <div class="metric-value" x-text="(stats.error_rate || 0).toFixed(2) + '%'">0%</div>
-                            </div>
-                            <div class="metric-icon" style="background: #ef4444;">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="metric-header">
-                            <div>
-                                <div class="metric-title">Active Connections</div>
-                                <div class="metric-value" x-text="stats.active_connections || 0">0</div>
-                            </div>
-                            <div class="metric-icon" style="background: var(--warning-gradient);">
-                                <i class="fas fa-plug"></i>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Registry</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span class="text-xs text-green-400">Running</span>
                             </div>
                         </div>
                     </div>
@@ -779,459 +195,66 @@
             </div>
         </main>
     </div>
-
+    
     <script>
-        function dashboard() {
+        function dashboardApp() {
             return {
-                activeTab: 'overview',
-                isLoading: false,
-                systemStatus: 'System Online',
                 stats: {
-                    messages_received: 0,
-                    messages_replicated: 0,
-                    success_rate: 0,
-                    groups_active: 0,
-                    avg_processing_time: 0,
-                    pdfs_processed: 0,
-                    videos_processed: 0,
-                    images_processed: 0,
-                    audios_processed: 0,
-                    watermarks_applied: 0,
-                    uptime_hours: 0,
-                    error_rate: 0,
-                    active_connections: 0,
-                    message_growth: 5
+                    messages: 0,
+                    success_rate: 100,
+                    groups: 0,
+                    uptime: '0h'
                 },
-                tabs: {
-                    overview: {
-                        title: 'Enterprise Overview',
-                        subtitle: 'Real-time monitoring and analytics'
-                    },
-                    groups: {
-                        title: 'Group Management',
-                        subtitle: 'Monitor and configure your groups'
-                    },
-                    processing: {
-                        title: 'Media Processing',
-                        subtitle: 'File processing analytics and performance'
-                    },
-                    watermarks: {
-                        title: 'Watermark Engine',
-                        subtitle: 'Branding and watermark management'
-                    },
-                    performance: {
-                        title: 'Performance Metrics',
-                        subtitle: 'System performance and optimization'
-                    },
-                    health: {
-                        title: 'System Health',
-                        subtitle: 'Monitoring and diagnostics'
-                    },
-                    settings: {
-                        title: 'Enterprise Settings',
-                        subtitle: 'Configuration and preferences'
-                    }
+                flows: [],
+                
+                async init() {
+                    await this.loadData();
+                    setInterval(() => this.loadData(), 5000);
                 },
-                recentActivity: [
-                    {
-                        id: 1,
-                        icon: 'fas fa-envelope',
-                        color: 'var(--primary-gradient)',
-                        text: 'New message processed from Group A',
-                        time: '2 minutes ago'
-                    },
-                    {
-                        id: 2,
-                        icon: 'fas fa-image',
-                        color: 'var(--success-gradient)',
-                        text: 'Image watermark applied successfully',
-                        time: '5 minutes ago'
-                    },
-                    {
-                        id: 3,
-                        icon: 'fas fa-video',
-                        color: 'var(--secondary-gradient)',
-                        text: 'Video compression completed',
-                        time: '8 minutes ago'
-                    },
-                    {
-                        id: 4,
-                        icon: 'fas fa-users',
-                        color: 'var(--warning-gradient)',
-                        text: 'New group connected to Discord',
-                        time: '15 minutes ago'
-                    },
-                    {
-                        id: 5,
-                        icon: 'fas fa-cog',
-                        color: '#6b7280',
-                        text: 'System maintenance completed',
-                        time: '1 hour ago'
-                    }
-                ],
-                mainChart: null,
-                processingChart: null,
-
-                init() {
-                    this.loadInitialData();
-                    this.initCharts();
-                    this.startRealTimeUpdates();
-                },
-
-                async loadInitialData() {
-                    this.isLoading = true;
+                
+                async loadData() {
+                    // Load stats
                     try {
-                        await this.fetchStats();
-                        await this.updateActivity();
-                    } catch (error) {
-                        console.error('Error loading data:', error);
-                    } finally {
-                        this.isLoading = false;
-                    }
-                },
-
-                async fetchStats() {
-                    try {
-                        const response = await fetch('/api/dashboard/stats');
-                        if (response.ok) {
-                            const data = await response.json();
-                            this.updateStats(data);
-                            this.updateSystemStatus(data);
+                        const statsResponse = await fetch('/api/v1/dashboard/api/stats');
+                        if (statsResponse.ok) {
+                            const data = await statsResponse.json();
+                            this.stats = {
+                                messages: data.overview?.messages_received || 0,
+                                success_rate: Math.round(data.overview?.success_rate || 100),
+                                groups: data.groups?.active || 0,
+                                uptime: this.formatUptime(data.overview?.uptime_hours || 0)
+                            };
                         }
                     } catch (error) {
-                        console.error('Error fetching stats:', error);
-                        // Simulate data for demo
-                        this.simulateData();
+                        console.error('Error loading stats:', error);
                     }
-                },
-
-                updateStats(data) {
-                    if (data.overview) {
-                        Object.assign(this.stats, data.overview);
-                    }
-                    if (data.processing) {
-                        Object.assign(this.stats, data.processing);
-                    }
-                    if (data.performance) {
-                        Object.assign(this.stats, data.performance);
-                    }
-                },
-
-                simulateData() {
-                    // Simulate real data for demo
-                    this.stats = {
-                        messages_received: Math.floor(Math.random() * 10000) + 5000,
-                        messages_replicated: Math.floor(Math.random() * 9500) + 4500,
-                        success_rate: 95 + Math.random() * 4,
-                        groups_active: Math.floor(Math.random() * 10) + 5,
-                        avg_processing_time: Math.random() * 2 + 0.5,
-                        pdfs_processed: Math.floor(Math.random() * 500) + 100,
-                        videos_processed: Math.floor(Math.random() * 300) + 50,
-                        images_processed: Math.floor(Math.random() * 1000) + 500,
-                        audios_processed: Math.floor(Math.random() * 200) + 50,
-                        watermarks_applied: Math.floor(Math.random() * 800) + 400,
-                        uptime_hours: Math.floor(Math.random() * 720) + 168,
-                        error_rate: Math.random() * 2,
-                        active_connections: Math.floor(Math.random() * 20) + 5,
-                        message_growth: Math.floor(Math.random() * 20) + 5
-                    };
-                    this.stats.success_rate = (this.stats.messages_replicated / this.stats.messages_received) * 100;
-                },
-
-                updateSystemStatus(data) {
-                    if (data && data.overview && data.overview.is_running) {
-                        this.systemStatus = 'System Online';
-                    } else {
-                        this.systemStatus = 'System Offline';
-                    }
-                },
-
-                async updateActivity() {
-                    // Simulate new activity
-                    const activities = [
-                        { icon: 'fas fa-envelope', color: 'var(--primary-gradient)', text: 'New message processed' },
-                        { icon: 'fas fa-image', color: 'var(--success-gradient)', text: 'Image watermark applied' },
-                        { icon: 'fas fa-video', color: 'var(--secondary-gradient)', text: 'Video compression completed' },
-                        { icon: 'fas fa-file-pdf', color: '#ef4444', text: 'PDF preview generated' },
-                        { icon: 'fas fa-users', color: 'var(--warning-gradient)', text: 'Group activity detected' }
-                    ];
-
-                    if (Math.random() > 0.7) {
-                        const newActivity = activities[Math.floor(Math.random() * activities.length)];
-                        newActivity.id = Date.now();
-                        newActivity.time = 'Just now';
-                        
-                        this.recentActivity.unshift(newActivity);
-                        if (this.recentActivity.length > 10) {
-                            this.recentActivity.pop();
-                        }
-                    }
-                },
-
-                initCharts() {
-                    this.$nextTick(() => {
-                        this.initMainChart();
-                        this.initProcessingChart();
-                    });
-                },
-
-                initMainChart() {
-                    const ctx = document.getElementById('mainChart');
-                    if (!ctx) return;
-
-                    const gradient1 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
-                    gradient1.addColorStop(0, 'rgba(102, 126, 234, 0.3)');
-                    gradient1.addColorStop(1, 'rgba(102, 126, 234, 0.05)');
-
-                    const gradient2 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
-                    gradient2.addColorStop(0, 'rgba(79, 172, 254, 0.3)');
-                    gradient2.addColorStop(1, 'rgba(79, 172, 254, 0.05)');
-
-                    this.mainChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: this.generateTimeLabels(),
-                            datasets: [{
-                                label: 'Messages Received',
-                                data: this.generateRandomData(24),
-                                borderColor: '#667eea',
-                                backgroundColor: gradient1,
-                                borderWidth: 3,
-                                fill: true,
-                                tension: 0.4,
-                                pointBackgroundColor: '#667eea',
-                                pointBorderColor: '#ffffff',
-                                pointBorderWidth: 2,
-                                pointRadius: 6,
-                                pointHoverRadius: 8
-                            }, {
-                                label: 'Messages Replicated',
-                                data: this.generateRandomData(24, 0.95),
-                                borderColor: '#4facfe',
-                                backgroundColor: gradient2,
-                                borderWidth: 3,
-                                fill: true,
-                                tension: 0.4,
-                                pointBackgroundColor: '#4facfe',
-                                pointBorderColor: '#ffffff',
-                                pointBorderWidth: 2,
-                                pointRadius: 6,
-                                pointHoverRadius: 8
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    display: true,
-                                    position: 'top',
-                                    labels: {
-                                        color: '#a0a0b8',
-                                        font: {
-                                            family: "'SF Pro Display', sans-serif",
-                                            size: 12
-                                        },
-                                        usePointStyle: true,
-                                        pointStyle: 'circle'
-                                    }
-                                }
-                            },
-                            scales: {
-                                x: {
-                                    grid: {
-                                        color: 'rgba(255, 255, 255, 0.1)',
-                                        drawBorder: false
-                                    },
-                                    ticks: {
-                                        color: '#6b6b85',
-                                        font: {
-                                            family: "'SF Pro Display', sans-serif"
-                                        }
-                                    }
-                                },
-                                y: {
-                                    grid: {
-                                        color: 'rgba(255, 255, 255, 0.1)',
-                                        drawBorder: false
-                                    },
-                                    ticks: {
-                                        color: '#6b6b85',
-                                        font: {
-                                            family: "'SF Pro Display', sans-serif"
-                                        }
-                                    }
-                                }
-                            },
-                            interaction: {
-                                intersect: false,
-                                mode: 'index'
-                            },
-                            elements: {
-                                point: {
-                                    hoverBackgroundColor: '#ffffff'
-                                }
-                            }
-                        }
-                    });
-                },
-
-                initProcessingChart() {
-                    const ctx = document.getElementById('processingChart');
-                    if (!ctx) return;
-
-                    this.processingChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: ['PDFs', 'Videos', 'Images', 'Audio', 'Documents'],
-                            datasets: [{
-                                data: [
-                                    this.stats.pdfs_processed,
-                                    this.stats.videos_processed,
-                                    this.stats.images_processed,
-                                    this.stats.audios_processed,
-                                    50
-                                ],
-                                backgroundColor: [
-                                    '#ef4444',
-                                    '#8b5cf6',
-                                    '#06d6a0',
-                                    '#f72585',
-                                    '#fbbf24'
-                                ],
-                                borderWidth: 0,
-                                cutout: '70%'
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'bottom',
-                                    labels: {
-                                        color: '#a0a0b8',
-                                        font: {
-                                            family: "'SF Pro Display', sans-serif",
-                                            size: 12
-                                        },
-                                        padding: 20,
-                                        usePointStyle: true,
-                                        pointStyle: 'circle'
-                                    }
-                                }
-                            }
-                        }
-                    });
-                },
-
-                generateTimeLabels() {
-                    const labels = [];
-                    for (let i = 23; i >= 0; i--) {
-                        const hour = new Date();
-                        hour.setHours(hour.getHours() - i);
-                        labels.push(hour.getHours().toString().padStart(2, '0') + ':00');
-                    }
-                    return labels;
-                },
-
-                generateRandomData(points, multiplier = 1) {
-                    const data = [];
-                    let base = 100;
-                    for (let i = 0; i < points; i++) {
-                        base += (Math.random() - 0.5) * 20;
-                        data.push(Math.max(0, Math.floor(base * multiplier)));
-                    }
-                    return data;
-                },
-
-                setActiveTab(tab) {
-                    this.activeTab = tab;
-                    // Update nav links
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    event.target.classList.add('active');
-                },
-
-                async refreshData() {
-                    this.isLoading = true;
                     
+                    // Load flows
                     try {
-                        await this.fetchStats();
-                        await this.updateActivity();
-                        
-                        // Update charts with new data
-                        if (this.mainChart) {
-                            this.mainChart.data.datasets[0].data = this.generateRandomData(24);
-                            this.mainChart.data.datasets[1].data = this.generateRandomData(24, 0.95);
-                            this.mainChart.update('active');
+                        const flowsResponse = await fetch('/api/v1/dashboard/api/flows');
+                        if (flowsResponse.ok) {
+                            const data = await flowsResponse.json();
+                            this.flows = data.flows || [{
+                                id: 1,
+                                name: 'Main Flow',
+                                source: 'Telegram',
+                                destination: 'Discord',
+                                messages: this.stats.messages,
+                                status: 'active'
+                            }];
                         }
-                        
-                        if (this.processingChart) {
-                            this.processingChart.data.datasets[0].data = [
-                                this.stats.pdfs_processed,
-                                this.stats.videos_processed,
-                                this.stats.images_processed,
-                                this.stats.audios_processed,
-                                Math.floor(Math.random() * 100) + 50
-                            ];
-                            this.processingChart.update('active');
-                        }
-                        
                     } catch (error) {
-                        console.error('Error refreshing data:', error);
-                    } finally {
-                        setTimeout(() => {
-                            this.isLoading = false;
-                        }, 500);
+                        console.error('Error loading flows:', error);
                     }
                 },
-
-                startRealTimeUpdates() {
-                    // Update stats every 30 seconds
-                    setInterval(() => {
-                        this.fetchStats();
-                        this.updateActivity();
-                    }, 30000);
-
-                    // Update charts every 60 seconds
-                    setInterval(() => {
-                        if (this.mainChart) {
-                            this.mainChart.data.datasets[0].data = this.generateRandomData(24);
-                            this.mainChart.data.datasets[1].data = this.generateRandomData(24, 0.95);
-                            this.mainChart.update('active');
-                        }
-                    }, 60000);
-                },
-
-                formatNumber(num) {
-                    if (num >= 1000000) {
-                        return (num / 1000000).toFixed(1) + 'M';
-                    } else if (num >= 1000) {
-                        return (num / 1000).toFixed(1) + 'K';
-                    }
-                    return num.toString();
-                },
-
+                
                 formatUptime(hours) {
-                    if (hours >= 24) {
-                        const days = Math.floor(hours / 24);
-                        const remainingHours = Math.floor(hours % 24);
-                        return `${days}d ${remainingHours}h`;
-                    }
-                    return `${Math.floor(hours)}h`;
+                    if (hours >= 24) return Math.floor(hours / 24) + 'd';
+                    if (hours >= 1) return Math.floor(hours) + 'h';
+                    return Math.floor(hours * 60) + 'm';
                 }
             }
         }
-
-        // Initialize dashboard when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add some entrance animations
-            setTimeout(() => {
-                document.querySelector('.sidebar').style.transform = 'translateX(0)';
-            }, 100);
-        });
     </script>
 </body>
 </html>
