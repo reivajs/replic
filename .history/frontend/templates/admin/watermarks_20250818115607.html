@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Watermark Admin Panel - Zero Cost</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a67d8;
+            --secondary: #48bb78;
+            --danger: #f56565;
+            --warning: #ed8936;
+            --dark: #1a202c;
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-card: rgba(255, 255, 255, 0.08);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --text-muted: #718096;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+            min-height: 600px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .group-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .group-item {
+            padding: 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .group-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .group-item.active {
+            background: var(--gradient-primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .group-info {
+            flex: 1;
+        }
+
+        .group-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .group-id {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+
+        .group-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--secondary);
+        }
+
+        .group-status.disabled {
+            background: var(--text-muted);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .content-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid var(--border-glass);
+            background: var(--bg-glass);
+        }
+
+        .content-body {
+            padding: 2rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .tab:hover {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .form-section {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .form-section-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* Color Input */
+        .color-input-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid var(--border-glass);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .color-preview:hover {
+            border-color: var(--primary);
+        }
+
+        /* Range Inputs */
+        .range-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .range-value {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .form-range {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--bg-glass);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .form-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            border: 1px solid var(--border-glass);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--primary);
+        }
+
+        .btn-success {
+            background: var(--gradient-secondary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+            color: white;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--text-muted);
+            transition: var(--transition);
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        .toggle-input:checked + .toggle-slider {
+            background: var(--gradient-primary);
+        }
+
+        .toggle-input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Preview Area */
+        .preview-area {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .device-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .device-btn {
+            padding: 0.5rem;
+            background: transparent;
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .device-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--primary);
+        }
+
+        .device-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .preview-canvas {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            border: 2px dashed var(--border-glass);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed var(--border-glass);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--bg-glass);
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--secondary);
+            background: rgba(72, 187, 120, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background: rgba(72, 187, 120, 0.1);
+            border: 1px solid rgba(72, 187, 120, 0.3);
+            color: #68d391;
+        }
+
+        .status-error {
+            background: rgba(245, 101, 101, 0.1);
+            border: 1px solid rgba(245, 101, 101, 0.3);
+            color: #fc8181;
+        }
+
+        .status-warning {
+            background: rgba(237, 137, 54, 0.1);
+            border: 1px solid rgba(237, 137, 54, 0.3);
+            color: #f6ad55;
+        }
+
+        /* Loading State */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .preview-canvas {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" x-data="watermarkAdmin()">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>🎨 Watermark Admin Panel</h1>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                        Zero Cost SaaS - Gestión de Watermarks
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" @click="loadGroups()">
+                        <span x-show="!loading" class="spinner" x-cloak></span>
+                        <span x-text="loading ? 'Cargando...' : 'Actualizar'"></span>
+                    </button>
+                    <button class="btn btn-primary" @click="saveConfig()" :disabled="!selectedGroup">
+                        💾 Guardar Cambios
+                    </button>
+                    <a href="/dashboard" class="btn btn-secondary">
+                        ← Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div x-show="statusMessage" x-transition class="status-message" :class="statusType">
+            <span x-text="statusMessage"></span>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Groups List -->
+                <div class="sidebar-section">
+                    <div class="sidebar-title">
+                        👥 Grupos Configurados
+                        <span x-text="groups.length" 
+                              style="background: var(--gradient-primary); color: white; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.75rem;"></span>
+                    </div>
+                    <div class="group-list">
+                        <template x-for="group in groups" :key="group.group_id">
+                            <div class="group-item" 
+                                 :class="{ active: selectedGroup?.group_id === group.group_id }"
+                                 @click="selectGroup(group)">
+                                <div class="group-info">
+                                    <div class="group-name" x-text="group.name || `Grupo ${group.group_id}`"></div>
+                                    <div class="group-id" x-text="group.group_id"></div>
+                                </div>
+                                <div class="group-status" :class="{ disabled: !group.enabled }"></div>
+                            </div>
+                        </template>
+                        
+                        <!-- Add New Group -->
+                        <div class="group-item" style="border: 2px dashed var(--border-glass);" @click="showAddGroupModal = true">
+                            <div class="group-info">
+                                <div class="group-name">➕ Añadir Grupo</div>
+                                <div class="group-id">Nuevo grupo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="sidebar-section">
+                    <div class="sidebar-title">📊 Estadísticas</div>
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-glass);">
+                            <span style="color: var(--text-secondary);">Grupos activos:</span>
+                            <span style="font-weight: 600;" x-text="groups.filter(g => g.enabled).length"></span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-glass);">
+                            <span style="color: var(--text-secondary);">Con PNG:</span>
+                            <span style="font-weight: 600;" x-text="groups.filter(g => g.png_enabled).length"></span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="color: var(--text-secondary);">Con texto:</span>
+                            <span style="font-weight: 600;" x-text="groups.filter(g => g.text_enabled).length"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="content-header">
+                    <h2 x-text="selectedGroup ? `Configurando: ${selectedGroup.name || 'Grupo ' + selectedGroup.group_id}` : 'Selecciona un grupo'"></h2>
+                    <div x-show="selectedGroup" style="color: var(--text-secondary); margin-top: 0.5rem;">
+                        ID: <span x-text="selectedGroup?.group_id"></span>
+                    </div>
+                </div>
+
+                <div class="content-body" x-show="selectedGroup" x-transition>
+                    <!-- Tabs -->
+                    <div class="tabs">
+                        <button class="tab" :class="{ active: activeTab === 'general' }" @click="activeTab = 'general'">
+                            ⚙️ General
+                        </button>
+                        <button class="tab" :class="{ active: activeTab === 'text' }" @click="activeTab = 'text'">
+                            📝 Texto
+                        </button>
+                        <button class="tab" :class="{ active: activeTab === 'png' }" @click="activeTab = 'png'">
+                            🖼️ PNG
+                        </button>
+                        <button class="tab" :class="{ active: activeTab === 'video' }" @click="activeTab = 'video'">
+                            🎬 Video
+                        </button>
+                        <button class="tab" :class="{ active: activeTab === 'preview' }" @click="activeTab = 'preview'">
+                            👁️ Preview
+                        </button>
+                    </div>
+
+                    <!-- General Tab -->
+                    <div x-show="activeTab === 'general'" x-transition>
+                        <div class="form-grid">
+                            <div class="form-section">
+                                <div class="form-section-title">⚙️ Configuración General</div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Estado del Watermark</label>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="toggle-input" x-model="config.enabled">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                        <span x-text="config.enabled ? 'Activado' : 'Desactivado'" 
+                                              :style="{ color: config.enabled ? 'var(--secondary)' : 'var(--text-muted)' }"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Tipo de Watermark</label>
+                                    <select class="form-select" x-model="config.watermark_type">
+                                        <option value="none">Sin watermark</option>
+                                        <option value="text">Solo texto</option>
+                                        <option value="png">Solo PNG</option>
+                                        <option value="both">Texto + PNG</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Nombre del Grupo (opcional)</label>
+                                    <input type="text" class="form-input" x-model="config.name" placeholder="Ej: Canal Principal">
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="form-section-title">📊 Estadísticas del Grupo</div>
+                                
+                                <div style="display: grid; gap: 1rem;">
+                                    <div style="display: flex; justify-content: space-between; padding: 1rem; background: var(--bg-glass); border-radius: 8px;">
+                                        <span style="color: var(--text-secondary);">Imágenes procesadas:</span>
+                                        <span style="font-weight: 600;">0</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding: 1rem; background: var(--bg-glass); border-radius: 8px;">
+                                        <span style="color: var(--text-secondary);">Videos procesados:</span>
+                                        <span style="font-weight: 600;">0</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding: 1rem; background: var(--bg-glass); border-radius: 8px;">
+                                        <span style="color: var(--text-secondary);">Último procesado:</span>
+                                        <span style="font-weight: 600;">Nunca</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Tab -->
+                    <div x-show="activeTab === 'text'" x-transition>
+                        <div class="form-grid">
+                            <div class="form-section">
+                                <div class="form-section-title">📝 Configuración de Texto</div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Activar texto watermark</label>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="toggle-input" x-model="config.text_enabled">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                        <span x-text="config.text_enabled ? 'Activado' : 'Desactivado'" 
+                                              :style="{ color: config.text_enabled ? 'var(--secondary)' : 'var(--text-muted)' }"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.text_enabled">
+                                    <label class="form-label">Texto del Watermark</label>
+                                    <textarea class="form-textarea" x-model="config.text_content" 
+                                              placeholder="Ej: © 2024 Mi Canal - Síguenos en Discord"></textarea>
+                                </div>
+
+                                <div class="form-group" x-show="config.text_enabled">
+                                    <label class="form-label">Posición del Texto</label>
+                                    <select class="form-select" x-model="config.text_position">
+                                        <option value="top_left">Arriba Izquierda</option>
+                                        <option value="top_right">Arriba Derecha</option>
+                                        <option value="bottom_left">Abajo Izquierda</option>
+                                        <option value="bottom_right">Abajo Derecha</option>
+                                        <option value="center">Centro</option>
+                                        <option value="custom">Posición Personalizada</option>
+                                    </select>
+                                </div>
+
+                                <div x-show="config.text_enabled && config.text_position === 'custom'" class="form-group">
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                        <div>
+                                            <label class="form-label">Posición X</label>
+                                            <input type="number" class="form-input" x-model="config.text_custom_x" min="0">
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Posición Y</label>
+                                            <input type="number" class="form-input" x-model="config.text_custom_y" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="form-section-title">🎨 Estilo del Texto</div>
+                                
+                                <div class="form-group" x-show="config.text_enabled">
+                                    <label class="form-label">Tamaño de Fuente</label>
+                                    <div class="range-input-group">
+                                        <input type="range" class="form-range" x-model="config.text_font_size" 
+                                               min="12" max="72" step="2">
+                                        <div class="range-value" x-text="config.text_font_size + 'px'"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.text_enabled">
+                                    <label class="form-label">Color del Texto</label>
+                                    <div class="color-input-group">
+                                        <div class="color-preview" :style="{ backgroundColor: config.text_color }" 
+                                             @click="$refs.textColorInput.click()"></div>
+                                        <input type="color" x-ref="textColorInput" x-model="config.text_color" style="display: none;">
+                                        <input type="text" class="form-input" x-model="config.text_color" 
+                                               placeholder="#FFFFFF" style="flex: 1;">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.text_enabled">
+                                    <label class="form-label">Color del Borde</label>
+                                    <div class="color-input-group">
+                                        <div class="color-preview" :style="{ backgroundColor: config.text_stroke_color }" 
+                                             @click="$refs.strokeColorInput.click()"></div>
+                                        <input type="color" x-ref="strokeColorInput" x-model="config.text_stroke_color" style="display: none;">
+                                        <input type="text" class="form-input" x-model="config.text_stroke_color" 
+                                               placeholder="#000000" style="flex: 1;">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.text_enabled">
+                                    <label class="form-label">Grosor del Borde</label>
+                                    <div class="range-input-group">
+                                        <input type="range" class="form-range" x-model="config.text_stroke_width" 
+                                               min="0" max="10" step="1">
+                                        <div class="range-value" x-text="config.text_stroke_width + 'px'"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PNG Tab -->
+                    <div x-show="activeTab === 'png'" x-transition>
+                        <div class="form-grid">
+                            <div class="form-section">
+                                <div class="form-section-title">🖼️ Configuración PNG</div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Activar PNG watermark</label>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="toggle-input" x-model="config.png_enabled">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                        <span x-text="config.png_enabled ? 'Activado' : 'Desactivado'" 
+                                              :style="{ color: config.png_enabled ? 'var(--secondary)' : 'var(--text-muted)' }"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.png_enabled">
+                                    <label class="form-label">Subir PNG Watermark</label>
+                                    <div class="upload-area" 
+                                         @click="$refs.pngInput.click()"
+                                         @dragover.prevent="$event.target.classList.add('dragover')"
+                                         @dragleave.prevent="$event.target.classList.remove('dragover')"
+                                         @drop.prevent="handlePngDrop($event)">
+                                        <div class="upload-icon">🖼️</div>
+                                        <div class="upload-text">Click para subir PNG o arrastra aquí</div>
+                                        <div class="upload-hint">PNG transparente recomendado (máx. 5MB)</div>
+                                    </div>
+                                    <input type="file" x-ref="pngInput" accept=".png" style="display: none;" 
+                                           @change="handlePngUpload($event)">
+                                </div>
+
+                                <div class="form-group" x-show="config.png_enabled && config.png_path">
+                                    <label class="form-label">PNG Actual</label>
+                                    <div style="padding: 1rem; background: var(--bg-glass); border-radius: 8px; text-align: center;">
+                                        <img :src="config.png_preview" style="max-width: 200px; max-height: 100px; border-radius: 4px;">
+                                        <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted);" x-text="config.png_path"></div>
+                                        <button class="btn btn-danger" style="margin-top: 0.5rem;" @click="removePng()">
+                                            🗑️ Eliminar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="form-section-title">📐 Configuración de Posición</div>
+                                
+                                <div class="form-group" x-show="config.png_enabled">
+                                    <label class="form-label">Posición del PNG</label>
+                                    <select class="form-select" x-model="config.png_position">
+                                        <option value="top_left">Arriba Izquierda</option>
+                                        <option value="top_right">Arriba Derecha</option>
+                                        <option value="bottom_left">Abajo Izquierda</option>
+                                        <option value="bottom_right">Abajo Derecha</option>
+                                        <option value="center">Centro</option>
+                                        <option value="custom">Posición Personalizada</option>
+                                    </select>
+                                </div>
+
+                                <div x-show="config.png_enabled && config.png_position === 'custom'" class="form-group">
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                        <div>
+                                            <label class="form-label">Posición X</label>
+                                            <input type="number" class="form-input" x-model="config.png_custom_x" min="0">
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Posición Y</label>
+                                            <input type="number" class="form-input" x-model="config.png_custom_y" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.png_enabled">
+                                    <label class="form-label">Escala del PNG</label>
+                                    <div class="range-input-group">
+                                        <input type="range" class="form-range" x-model="config.png_scale" 
+                                               min="0.05" max="0.5" step="0.01">
+                                        <div class="range-value" x-text="Math.round(config.png_scale * 100) + '%'"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.png_enabled">
+                                    <label class="form-label">Opacidad</label>
+                                    <div class="range-input-group">
+                                        <input type="range" class="form-range" x-model="config.png_opacity" 
+                                               min="0.1" max="1.0" step="0.1">
+                                        <div class="range-value" x-text="Math.round(config.png_opacity * 100) + '%'"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Tab -->
+                    <div x-show="activeTab === 'video'" x-transition>
+                        <div class="form-grid">
+                            <div class="form-section">
+                                <div class="form-section-title">🎬 Configuración de Video</div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Procesar Videos</label>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="toggle-input" x-model="config.video_enabled">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                        <span x-text="config.video_enabled ? 'Activado' : 'Desactivado'" 
+                                              :style="{ color: config.video_enabled ? 'var(--secondary)' : 'var(--text-muted)' }"></span>
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                                        ⚠️ Funcionalidad en desarrollo - Solo imágenes soportadas actualmente
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.video_enabled">
+                                    <label class="form-label">Tamaño Máximo (MB)</label>
+                                    <div class="range-input-group">
+                                        <input type="range" class="form-range" x-model="config.video_max_size_mb" 
+                                               min="50" max="2048" step="50">
+                                        <div class="range-value" x-text="config.video_max_size_mb + ' MB'"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.video_enabled">
+                                    <label class="form-label">Timeout de Procesamiento (segundos)</label>
+                                    <div class="range-input-group">
+                                        <input type="range" class="form-range" x-model="config.video_timeout_sec" 
+                                               min="30" max="300" step="30">
+                                        <div class="range-value" x-text="config.video_timeout_sec + 's'"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="form-section-title">⚙️ Configuración Avanzada</div>
+                                
+                                <div class="form-group" x-show="config.video_enabled">
+                                    <label class="form-label">Comprimir Videos</label>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="toggle-input" x-model="config.video_compress">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                        <span x-text="config.video_compress ? 'Activado' : 'Desactivado'"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" x-show="config.video_enabled && config.video_compress">
+                                    <label class="form-label">Calidad de Compresión (CRF)</label>
+                                    <div class="range-input-group">
+                                        <input type="range" class="form-range" x-model="config.video_quality_crf" 
+                                               min="18" max="32" step="1">
+                                        <div class="range-value" x-text="config.video_quality_crf + ' (menor = mejor calidad)'"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Tab -->
+                    <div x-show="activeTab === 'preview'" x-transition>
+                        <div class="preview-area">
+                            <div class="preview-header">
+                                <div class="preview-title">
+                                    👁️ Vista Previa del Watermark
+                                </div>
+                                <div class="device-selector">
+                                    <button class="device-btn" :class="{ active: previewDevice === 'desktop' }" 
+                                            @click="previewDevice = 'desktop'" title="Desktop">
+                                        💻
+                                    </button>
+                                    <button class="device-btn" :class="{ active: previewDevice === 'tablet' }" 
+                                            @click="previewDevice = 'tablet'" title="Tablet">
+                                        📱
+                                    </button>
+                                    <button class="device-btn" :class="{ active: previewDevice === 'mobile' }" 
+                                            @click="previewDevice = 'mobile'" title="Mobile">
+                                        📱
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="preview-canvas" 
+                                 :style="{ 
+                                     maxWidth: previewDevice === 'mobile' ? '320px' : 
+                                              previewDevice === 'tablet' ? '480px' : '600px',
+                                     height: previewDevice === 'mobile' ? '240px' : 
+                                            previewDevice === 'tablet' ? '320px' : '400px'
+                                 }">
+                                <div x-show="!previewImage" style="text-align: center;">
+                                    <div style="font-size: 3rem; margin-bottom: 1rem;">🖼️</div>
+                                    <div>Sube una imagen para ver el preview</div>
+                                    <button class="btn btn-primary" style="margin-top: 1rem;" @click="$refs.previewInput.click()">
+                                        📁 Seleccionar Imagen
+                                    </button>
+                                    <input type="file" x-ref="previewInput" accept="image/*" style="display: none;" 
+                                           @change="handlePreviewUpload($event)">
+                                </div>
+                                
+                                <img x-show="previewImage" :src="previewImage" class="preview-image" 
+                                     @load="generatePreview()">
+                                
+                                <!-- Watermark overlays -->
+                                <div x-show="previewImage && config.text_enabled && config.text_content" 
+                                     class="watermark-text-overlay" 
+                                     :style="getTextOverlayStyle()">
+                                    <span x-text="config.text_content"></span>
+                                </div>
+                                
+                                <img x-show="previewImage && config.png_enabled && config.png_preview" 
+                                     :src="config.png_preview" 
+                                     class="watermark-png-overlay"
+                                     :style="getPngOverlayStyle()">
+                            </div>
+
+                            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+                                <button class="btn btn-secondary" @click="clearPreview()">
+                                    🗑️ Limpiar Preview
+                                </button>
+                                <button class="btn btn-primary" @click="downloadPreview()" :disabled="!previewImage">
+                                    💾 Descargar Preview
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div x-show="!selectedGroup" class="content-body" style="text-align: center; padding: 4rem 2rem;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">🎨</div>
+                    <h3 style="margin-bottom: 1rem;">Selecciona un grupo para comenzar</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                        Elige un grupo de la lista de la izquierda para configurar sus watermarks
+                    </p>
+                    <button class="btn btn-primary" @click="showAddGroupModal = true">
+                        ➕ Añadir Nuevo Grupo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Group Modal -->
+        <div x-show="showAddGroupModal" x-transition 
+             style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center;">
+            <div class="modal-content" 
+                 style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 20px; padding: 2rem; width: 90%; max-width: 500px; backdrop-filter: blur(20px);">
+                <h3 style="margin-bottom: 1.5rem;">➕ Añadir Nuevo Grupo</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">ID del Grupo</label>
+                    <input type="number" class="form-input" x-model="newGroupId" 
+                           placeholder="Ej: -1001234567890">
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                        Obtén el ID desde @userinfobot en Telegram
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Nombre del Grupo (opcional)</label>
+                    <input type="text" class="form-input" x-model="newGroupName" 
+                           placeholder="Ej: Mi Canal Principal">
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button class="btn btn-secondary" @click="showAddGroupModal = false">
+                        Cancelar
+                    </button>
+                    <button class="btn btn-primary" @click="addNewGroup()" :disabled="!newGroupId">
+                        ➕ Añadir Grupo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function watermarkAdmin() {
+            return {
+                // Estado principal
+                groups: [],
+                selectedGroup: null,
+                activeTab: 'general',
+                previewDevice: 'desktop',
+                loading: false,
+                statusMessage: '',
+                statusType: 'status-success',
+                
+                // Modales
+                showAddGroupModal: false,
+                newGroupId: '',
+                newGroupName: '',
+                
+                // Preview
+                previewImage: null,
+                
+                // Configuración del grupo seleccionado
+                config: {
+                    group_id: null,
+                    enabled: true,
+                    watermark_type: 'none',
+                    name: '',
+                    
+                    // Text settings
+                    text_enabled: false,
+                    text_content: '',
+                    text_position: 'bottom_right',
+                    text_font_size: 32,
+                    text_color: '#FFFFFF',
+                    text_stroke_color: '#000000',
+                    text_stroke_width: 2,
+                    text_custom_x: 20,
+                    text_custom_y: 20,
+                    
+                    // PNG settings
+                    png_enabled: false,
+                    png_position: 'bottom_right',
+                    png_opacity: 0.7,
+                    png_scale: 0.15,
+                    png_custom_x: 20,
+                    png_custom_y: 20,
+                    png_path: '',
+                    png_preview: '',
+                    
+                    // Video settings
+                    video_enabled: false,
+                    video_max_size_mb: 1024,
+                    video_timeout_sec: 60,
+                    video_compress: true,
+                    video_quality_crf: 23
+                },
+
+                async init() {
+                    console.log('🎨 Initializing Watermark Admin Panel...');
+                    await this.loadGroups();
+                },
+
+                async loadGroups() {
+                    this.loading = true;
+                    this.statusMessage = '';
+                    
+                    try {
+                        // Simular carga de grupos desde API
+                        // En la implementación real, esto sería: const response = await fetch('/api/watermark/groups');
+                        
+                        // Mock data basado en tus configs existentes
+                        this.groups = [
+                            {
+                                group_id: -4989347027,
+                                name: 'Grupo Principal',
+                                enabled: true,
+                                text_enabled: true,
+                                png_enabled: false,
+                                watermark_type: 'text'
+                            },
+                            {
+                                group_id: -1001697798998,
+                                name: 'Canal Secundario',
+                                enabled: false,
+                                text_enabled: false,
+                                png_enabled: false,
+                                watermark_type: 'none'
+                            }
+                        ];
+                        
+                        console.log('✅ Groups loaded:', this.groups);
+                        
+                        // Seleccionar primer grupo si no hay ninguno seleccionado
+                        if (!this.selectedGroup && this.groups.length > 0) {
+                            this.selectGroup(this.groups[0]);
+                        }
+                        
+                    } catch (error) {
+                        console.error('❌ Error loading groups:', error);
+                        this.showStatus('Error cargando grupos: ' + error.message, 'status-error');
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                selectGroup(group) {
+                    console.log('📋 Selecting group:', group.group_id);
+                    this.selectedGroup = group;
+                    
+                    // Cargar configuración del grupo
+                    this.loadGroupConfig(group.group_id);
+                },
+
+                async loadGroupConfig(groupId) {
+                    try {
+                        // En la implementación real: const response = await fetch(`/api/watermark/groups/${groupId}/config`);
+                        
+                        // Por ahora usar configuración por defecto con algunos datos del grupo
+                        const groupData = this.groups.find(g => g.group_id === groupId);
+                        
+                        this.config = {
+                            ...this.config,
+                            group_id: groupId,
+                            name: groupData?.name || '',
+                            enabled: groupData?.enabled || false,
+                            watermark_type: groupData?.watermark_type || 'none',
+                            text_enabled: groupData?.text_enabled || false,
+                            png_enabled: groupData?.png_enabled || false,
+                            text_content: groupData?.text_content || 'Replicated via Zero Cost'
+                        };
+                        
+                        console.log('✅ Config loaded for group:', groupId);
+                        
+                    } catch (error) {
+                        console.error('❌ Error loading group config:', error);
+                        this.showStatus('Error cargando configuración: ' + error.message, 'status-error');
+                    }
+                },
+
+                async saveConfig() {
+                    if (!this.selectedGroup) return;
+                    
+                    this.loading = true;
+                    
+                    try {
+                        console.log('💾 Saving config for group:', this.selectedGroup.group_id);
+                        
+                        // En la implementación real:
+                        // const response = await fetch(`/api/watermark/groups/${this.selectedGroup.group_id}/config`, {
+                        //     method: 'POST',
+                        //     headers: { 'Content-Type': 'application/json' },
+                        //     body: JSON.stringify(this.config)
+                        // });
+                        
+                        // Simular guardado exitoso
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        
+                        // Actualizar grupo en la lista
+                        const groupIndex = this.groups.findIndex(g => g.group_id === this.selectedGroup.group_id);
+                        if (groupIndex !== -1) {
+                            this.groups[groupIndex] = {
+                                ...this.groups[groupIndex],
+                                enabled: this.config.enabled,
+                                name: this.config.name,
+                                text_enabled: this.config.text_enabled,
+                                png_enabled: this.config.png_enabled,
+                                watermark_type: this.config.watermark_type
+                            };
+                        }
+                        
+                        this.showStatus('✅ Configuración guardada exitosamente', 'status-success');
+                        
+                    } catch (error) {
+                        console.error('❌ Error saving config:', error);
+                        this.showStatus('❌ Error guardando configuración: ' + error.message, 'status-error');
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                addNewGroup() {
+                    if (!this.newGroupId) return;
+                    
+                    const groupId = parseInt(this.newGroupId);
+                    
+                    // Verificar que no exista ya
+                    if (this.groups.find(g => g.group_id === groupId)) {
+                        this.showStatus('❌ El grupo ya existe', 'status-error');
+                        return;
+                    }
+                    
+                    // Añadir nuevo grupo
+                    const newGroup = {
+                        group_id: groupId,
+                        name: this.newGroupName || `Grupo ${groupId}`,
+                        enabled: false,
+                        text_enabled: false,
+                        png_enabled: false,
+                        watermark_type: 'none'
+                    };
+                    
+                    this.groups.push(newGroup);
+                    this.selectGroup(newGroup);
+                    
+                    // Limpiar modal
+                    this.newGroupId = '';
+                    this.newGroupName = '';
+                    this.showAddGroupModal = false;
+                    
+                    this.showStatus('✅ Grupo añadido exitosamente', 'status-success');
+                },
+
+                handlePngUpload(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    
+                    // Validar archivo
+                    if (!file.type.includes('png')) {
+                        this.showStatus('❌ Solo se permiten archivos PNG', 'status-error');
+                        return;
+                    }
+                    
+                    if (file.size > 5 * 1024 * 1024) { // 5MB
+                        this.showStatus('❌ El archivo es demasiado grande (máx. 5MB)', 'status-error');
+                        return;
+                    }
+                    
+                    // Crear preview
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.config.png_preview = e.target.result;
+                        this.config.png_path = file.name;
+                        this.showStatus('✅ PNG cargado exitosamente', 'status-success');
+                    };
+                    reader.readAsDataURL(file);
+                },
+
+                handlePngDrop(event) {
+                    event.target.classList.remove('dragover');
+                    const files = event.dataTransfer.files;
+                    if (files.length > 0) {
+                        this.handlePngUpload({ target: { files } });
+                    }
+                },
+
+                removePng() {
+                    this.config.png_path = '';
+                    this.config.png_preview = '';
+                    this.showStatus('✅ PNG eliminado', 'status-success');
+                },
+
+                handlePreviewUpload(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    
+                    if (!file.type.includes('image')) {
+                        this.showStatus('❌ Solo se permiten imágenes', 'status-error');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.previewImage = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                },
+
+                clearPreview() {
+                    this.previewImage = null;
+                },
+
+                generatePreview() {
+                    // Esta función se llamaría para generar el preview real con watermarks
+                    console.log('🖼️ Generating preview with watermarks...');
+                },
+
+                downloadPreview() {
+                    if (!this.previewImage) return;
+                    
+                    // En la implementación real, esto generaría la imagen con watermarks y la descargaría
+                    console.log('💾 Downloading preview...');
+                    this.showStatus('💾 Descarga iniciada', 'status-success');
+                },
+
+                getTextOverlayStyle() {
+                    const position = this.config.text_position;
+                    let style = {
+                        position: 'absolute',
+                        color: this.config.text_color,
+                        fontSize: `${Math.max(12, this.config.text_font_size * 0.5)}px`,
+                        fontWeight: 'bold',
+                        textShadow: `1px 1px 2px ${this.config.text_stroke_color}`,
+                        pointerEvents: 'none',
+                        zIndex: 10
+                    };
+                    
+                    switch (position) {
+                        case 'top_left':
+                            style.top = '10px';
+                            style.left = '10px';
+                            break;
+                        case 'top_right':
+                            style.top = '10px';
+                            style.right = '10px';
+                            break;
+                        case 'bottom_left':
+                            style.bottom = '10px';
+                            style.left = '10px';
+                            break;
+                        case 'bottom_right':
+                            style.bottom = '10px';
+                            style.right = '10px';
+                            break;
+                        case 'center':
+                            style.top = '50%';
+                            style.left = '50%';
+                            style.transform = 'translate(-50%, -50%)';
+                            break;
+                        case 'custom':
+                            style.top = `${this.config.text_custom_y}px`;
+                            style.left = `${this.config.text_custom_x}px`;
+                            break;
+                    }
+                    
+                    return Object.entries(style).map(([key, value]) => 
+                        `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value}`
+                    ).join('; ');
+                },
+
+                getPngOverlayStyle() {
+                    const position = this.config.png_position;
+                    const scale = Math.min(this.config.png_scale * 2, 0.3); // Limitar escala en preview
+                    
+                    let style = {
+                        position: 'absolute',
+                        opacity: this.config.png_opacity,
+                        width: `${scale * 100}%`,
+                        height: 'auto',
+                        pointerEvents: 'none',
+                        zIndex: 10
+                    };
+                    
+                    switch (position) {
+                        case 'top_left':
+                            style.top = '10px';
+                            style.left = '10px';
+                            break;
+                        case 'top_right':
+                            style.top = '10px';
+                            style.right = '10px';
+                            break;
+                        case 'bottom_left':
+                            style.bottom = '10px';
+                            style.left = '10px';
+                            break;
+                        case 'bottom_right':
+                            style.bottom = '10px';
+                            style.right = '10px';
+                            break;
+                        case 'center':
+                            style.top = '50%';
+                            style.left = '50%';
+                            style.transform = 'translate(-50%, -50%)';
+                            break;
+                        case 'custom':
+                            style.top = `${Math.min(this.config.png_custom_y, 50)}px`;
+                            style.left = `${Math.min(this.config.png_custom_x, 50)}px`;
+                            break;
+                    }
+                    
+                    return Object.entries(style).map(([key, value]) => 
+                        `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value}`
+                    ).join('; ');
+                },
+
+                showStatus(message, type = 'status-success') {
+                    this.statusMessage = message;
+                    this.statusType = type;
+                    
+                    // Auto hide after 5 seconds
+                    setTimeout(() => {
+                        this.statusMessage = '';
+                    }, 5000);
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Additional overlay styles for preview */
+        .watermark-text-overlay {
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+        
+        .watermark-png-overlay {
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Animation for transitions */
+        [x-cloak] { 
+            display: none !important; 
+        }
+
+        /* Custom scrollbar */
+        .group-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .group-list::-webkit-scrollbar-track {
+            background: var(--bg-glass);
+            border-radius: 3px;
+        }
+
+        .group-list::-webkit-scrollbar-thumb {
+            background: var(--border-glass);
+            border-radius: 3px;
+        }
+
+        .group-list::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+    </style>
+</body>
+</html>

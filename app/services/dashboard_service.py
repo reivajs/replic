@@ -190,7 +190,7 @@ class DashboardService:
             }]
         }
     
-    async def get_health(self) -> Dict[str, Any]:
+    async async def get_health(self) -> Dict[str, Any]:
         """Obtener health"""
         return {
             "status": "operational",

@@ -159,7 +159,7 @@ class DashboardService:
             ]
         }
     
-    async def get_health(self) -> Dict[str, Any]:
+    async async def get_health(self) -> Dict[str, Any]:
         """Obtener estado de salud del sistema"""
         try:
             # Intentar obtener estado del registry
@@ -234,7 +234,7 @@ async def get_accounts():
         )
 
 @router.get("/api/health")
-async def get_health():
+async async def get_health():
     """Obtener estado de salud del sistema"""
     try:
         health = await dashboard_service.get_health()

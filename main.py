@@ -1,247 +1,435 @@
+#!/usr/bin/env python3
 """
-Main Orchestrator - Zero Cost SaaS
-===================================
-Orquestador principal de microservicios
+🎭 ZERO COST PROJECT - MAIN ORCHESTRATOR COMPLETO
+===============================================
+Orchestrator con Enhanced Replicator Service integrado
 """
 
 import asyncio
-import sys
+import json
+import logging
+from datetime import datetime
 from pathlib import Path
+from typing import Dict, Any, List, Optional
 
-# Agregar path del proyecto
-sys.path.insert(0, str(Path(__file__).parent))
-
-from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, Request, HTTPException, BackgroundTasks
 from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from contextlib import asynccontextmanager
-import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
 
-from app.utils.logger import setup_logger
-from app.config.settings import get_settings
-from app.services.registry import get_registry
+# Import services
+from app.services.enhanced_replicator_service import EnhancedReplicatorService
+from app.services.registry.service_registry import ServiceRegistry
 
-logger = setup_logger(__name__)
-settings = get_settings()
+# Configuración de logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
-# Variable global para el servicio replicador
-replicator_service = None
+# ============ FASTAPI APP ============
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Gestión del ciclo de vida de la aplicación"""
-    logger.info("🚀 Starting Zero Cost SaaS Orchestrator...")
+app = FastAPI(
+    title="Zero Cost Orchestrator",
+    description="Sistema de replicación completo con watermarks",
+    version="3.0.0"
+)
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Templates y Static files
+templates = Jinja2Templates(directory="frontend/templates")
+
+if Path("frontend/static").exists():
+    app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
+
+# ============ GLOBAL SERVICES ============
+
+replicator_service: Optional[EnhancedReplicatorService] = None
+service_registry: Optional[ServiceRegistry] = None
+
+# ============ STARTUP/SHUTDOWN ============
+
+@app.on_event("startup")
+async def startup_event():
+    """Inicialización completa del sistema"""
+    global replicator_service, service_registry
     
-    # Inicializar registry
-    registry = get_registry()
+    logger.info("🚀 Zero Cost Orchestrator iniciando...")
     
-    # Inicializar servicios
+    # Crear directorios
+    directories = ["config", "logs", "watermarks", "temp", "frontend/templates/admin", "data"]
+    for directory in directories:
+        Path(directory).mkdir(parents=True, exist_ok=True)
+    
     try:
-        # Intentar cargar el replicator service si existe
-        global replicator_service
-        try:
-            from app.services.enhanced_replicator_service import EnhancedReplicatorService
-            replicator_service = EnhancedReplicatorService()
-            await replicator_service.initialize()
-            logger.info("✅ Replicator service initialized")
-        except ImportError:
-            logger.warning("⚠️ Replicator service not found, running in limited mode")
-        except Exception as e:
-            logger.error(f"Error initializing replicator: {e}")
+        # Inicializar Enhanced Replicator Service
+        logger.info("📡 Inicializando Enhanced Replicator Service...")
+        replicator_service = EnhancedReplicatorService()
+        await replicator_service.initialize()
         
-        # Iniciar todos los servicios registrados
-        await registry.start_all()
+        # Iniciar listening en background
+        asyncio.create_task(replicator_service.start_listening())
+        logger.info("✅ Enhanced Replicator Service iniciado")
+        
+        # Inicializar Service Registry
+        service_registry = ServiceRegistry()
+        logger.info("✅ Service Registry iniciado")
         
     except Exception as e:
-        logger.error(f"Error during startup: {e}")
+        logger.error(f"❌ Error en startup: {e}")
+        import traceback
+        traceback.print_exc()
     
-    logger.info("✅ System ready!")
+    logger.info("🎉 Zero Cost Orchestrator listo!")
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Shutdown limpio"""
+    global replicator_service
     
-    yield
-    
-    # Shutdown
     logger.info("🛑 Shutting down...")
-    await registry.stop_all()
     
     if replicator_service:
         try:
-            await replicator_service.shutdown()
-        except:
-            pass
+            await replicator_service.stop()
+            logger.info("✅ Replicator stopped")
+        except Exception as e:
+            logger.error(f"❌ Error stopping replicator: {e}")
     
     logger.info("✅ Shutdown complete")
 
-def create_app() -> FastAPI:
-    """Crear aplicación FastAPI con configuración completa"""
+# ============ HEALTH CHECK ============
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    global replicator_service
     
-    app = FastAPI(
-        title="Zero Cost SaaS - Enterprise Orchestrator",
-        description="Microservices orchestrator for message replication",
-        version="6.0.0",
-        lifespan=lifespan
-    )
+    system_health = {
+        "status": "healthy",
+        "service": "zero_cost_orchestrator",
+        "version": "3.0.0",
+        "timestamp": datetime.now().isoformat()
+    }
     
-    # Middleware
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+    if replicator_service:
+        try:
+            replicator_health = await replicator_service.get_health()
+            system_health["replicator"] = replicator_health
+        except Exception as e:
+            system_health["replicator"] = {"status": "error", "error": str(e)}
+            system_health["status"] = "degraded"
+    else:
+        system_health["replicator"] = {"status": "not_initialized"}
+        system_health["status"] = "degraded"
     
-    # Static files
-    if Path("frontend/static").exists():
-        app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
+    return system_health
+
+@app.get("/")
+async def root():
+    """Root endpoint"""
+    return {
+        "message": "Zero Cost Orchestrator", 
+        "status": "running",
+        "version": "3.0.0"
+    }
+
+# ============ DASHBOARD ROUTES ============
+
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    """Dashboard principal"""
+    try:
+        return templates.TemplateResponse("dashboard.html", {"request": request})
+    except Exception as e:
+        logger.error(f"Error loading dashboard: {e}")
+        return HTMLResponse(f"<h1>Dashboard</h1><p>Error: {e}</p>")
+
+# ============ DASHBOARD API ROUTES (para arreglar 404s) ============
+
+@app.get("/api/v1/dashboard/api/stats")
+async def get_dashboard_stats():
+    """API stats para dashboard - FIX 404"""
+    global replicator_service
     
-    # Root endpoint
-    @app.get("/")
-    async def root():
-        return JSONResponse({
-            "name": "Zero Cost SaaS",
-            "version": "6.0.0",
-            "status": "running",
-            "endpoints": {
-                "dashboard": "/dashboard",
-                "api_docs": "/docs",
-                "health": "/health",
-                "metrics": "/api/v1/dashboard/api/stats"
-            }
-        })
-    
-    # Health check
-    @app.get("/health")
-    async def health():
-        registry = get_registry()
-        status = await registry.get_system_status()
-        return JSONResponse(status)
-    
-    # Dashboard HTML
-    @app.get("/dashboard", response_class=HTMLResponse)
-    async def dashboard(request: Request):
-        dashboard_html = """<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero Cost SaaS - Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <style>
-        .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); }
-        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    </style>
-</head>
-<body class="gradient-bg min-h-screen text-white">
-    <div x-data="dashboardApp()" x-init="init()" class="container mx-auto p-6">
-        <div class="glass rounded-2xl p-8 mb-6">
-            <h1 class="text-4xl font-bold mb-2">Zero Cost SaaS</h1>
-            <p class="opacity-75">Enterprise Message Replication System</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-            <div class="glass rounded-xl p-6">
-                <h3 class="text-sm opacity-75 mb-2">Messages</h3>
-                <p class="text-3xl font-bold" x-text="stats.messages"></p>
-            </div>
-            <div class="glass rounded-xl p-6">
-                <h3 class="text-sm opacity-75 mb-2">Success Rate</h3>
-                <p class="text-3xl font-bold" x-text="stats.success_rate + '%'"></p>
-            </div>
-            <div class="glass rounded-xl p-6">
-                <h3 class="text-sm opacity-75 mb-2">Active Groups</h3>
-                <p class="text-3xl font-bold" x-text="stats.groups"></p>
-            </div>
-            <div class="glass rounded-xl p-6">
-                <h3 class="text-sm opacity-75 mb-2">Uptime</h3>
-                <p class="text-3xl font-bold" x-text="stats.uptime"></p>
-            </div>
-        </div>
-        
-        <div class="glass rounded-2xl p-8">
-            <h2 class="text-2xl font-bold mb-4">System Status</h2>
-            <div class="space-y-2">
-                <div class="flex justify-between">
-                    <span>Replicator Service</span>
-                    <span class="text-green-400">● Running</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>Dashboard Service</span>
-                    <span class="text-green-400">● Running</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>Registry Service</span>
-                    <span class="text-green-400">● Running</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        function dashboardApp() {
+    try:
+        if not replicator_service:
             return {
-                stats: {
-                    messages: 0,
-                    success_rate: 100,
-                    groups: 0,
-                    uptime: '0h'
-                },
-                
-                async init() {
-                    await this.loadStats();
-                    setInterval(() => this.loadStats(), 5000);
-                },
-                
-                async loadStats() {
-                    try {
-                        const response = await fetch('/api/v1/dashboard/api/stats');
-                        if (response.ok) {
-                            const data = await response.json();
-                            this.stats = {
-                                messages: data.overview?.messages_received || 0,
-                                success_rate: Math.round(data.overview?.success_rate || 100),
-                                groups: data.groups?.active || 0,
-                                uptime: this.formatUptime(data.overview?.uptime_hours || 0)
-                            };
-                        }
-                    } catch (error) {
-                        console.error('Error loading stats:', error);
-                    }
-                },
-                
-                formatUptime(hours) {
-                    if (hours >= 24) return Math.floor(hours / 24) + 'd';
-                    return Math.floor(hours) + 'h';
+                "status": "error",
+                "message": "Replicator service not initialized",
+                "stats": {
+                    "messages_replicated": 0,
+                    "images_processed": 0,
+                    "videos_processed": 0,
+                    "watermarks_applied": 0,
+                    "errors": 0,
+                    "uptime_hours": 0,
+                    "groups_active": 0,
+                    "success_rate": 0
                 }
             }
+        
+        # Obtener stats del replicator
+        stats = await replicator_service.get_dashboard_stats()
+        
+        return {
+            "status": "success",
+            "stats": stats,
+            "timestamp": datetime.now().isoformat()
         }
-    </script>
-</body>
-</html>"""
-        return HTMLResponse(content=dashboard_html)
-    
-    # Include routers
-    try:
-        from app.api.v1 import dashboard
-        app.include_router(dashboard.router, prefix="/api/v1/dashboard", tags=["dashboard"])
-        logger.info("✅ Dashboard API routes registered")
-    except ImportError as e:
-        logger.warning(f"Could not import dashboard router: {e}")
+        
     except Exception as e:
-        logger.error(f"Error registering routes: {e}")
-    
-    return app
+        logger.error(f"Error getting dashboard stats: {e}")
+        return {
+            "status": "error",
+            "message": str(e),
+            "stats": {
+                "messages_replicated": 0,
+                "images_processed": 0,
+                "videos_processed": 0,
+                "watermarks_applied": 0,
+                "errors": 0,
+                "uptime_hours": 0,
+                "groups_active": 0,
+                "success_rate": 0
+            }
+        }
 
-# Create app instance
-app = create_app()
+@app.get("/api/v1/dashboard/api/health")
+async def get_dashboard_health():
+    """API health para dashboard - FIX 404"""
+    global replicator_service, service_registry
+    
+    try:
+        health_data = {
+            "status": "healthy",
+            "services": {},
+            "summary": {
+                "healthy_services": 0,
+                "total_services": 0,
+                "system_status": "online"
+            }
+        }
+        
+        # Check replicator
+        if replicator_service:
+            try:
+                replicator_health = await replicator_service.get_health()
+                health_data["services"]["replicator"] = replicator_health
+                if replicator_health.get("status") == "healthy":
+                    health_data["summary"]["healthy_services"] += 1
+                health_data["summary"]["total_services"] += 1
+            except Exception as e:
+                health_data["services"]["replicator"] = {"status": "error", "error": str(e)}
+                health_data["summary"]["total_services"] += 1
+                health_data["status"] = "degraded"
+        
+        # Check service registry
+        if service_registry:
+            try:
+                healthy, total = await service_registry.check_all_services()
+                health_data["summary"]["healthy_services"] += healthy
+                health_data["summary"]["total_services"] += total
+            except Exception as e:
+                logger.error(f"Error checking service registry: {e}")
+        
+        # Update system status
+        if health_data["summary"]["healthy_services"] == 0:
+            health_data["summary"]["system_status"] = "down"
+            health_data["status"] = "unhealthy"
+        elif health_data["summary"]["healthy_services"] < health_data["summary"]["total_services"]:
+            health_data["summary"]["system_status"] = "degraded"
+            health_data["status"] = "degraded"
+        
+        return health_data
+        
+    except Exception as e:
+        logger.error(f"Error getting dashboard health: {e}")
+        return {
+            "status": "error",
+            "message": str(e),
+            "services": {},
+            "summary": {
+                "healthy_services": 0,
+                "total_services": 0,
+                "system_status": "down"
+            }
+        }
+
+@app.get("/api/v1/dashboard/api/flows")
+async def get_dashboard_flows():
+    """API flows para dashboard - FIX 404"""
+    global replicator_service
+    
+    try:
+        if not replicator_service:
+            return {
+                "status": "error",
+                "message": "Replicator service not initialized",
+                "flows": []
+            }
+        
+        # Obtener información de flujos/grupos
+        stats = await replicator_service.get_dashboard_stats()
+        
+        flows = []
+        if "groups_active" in stats:
+            for group_id in stats["groups_active"]:
+                flows.append({
+                    "id": str(group_id),
+                    "name": f"Group {group_id}",
+                    "status": "active",
+                    "messages_count": stats.get("messages_replicated", 0),
+                    "last_activity": datetime.now().isoformat()
+                })
+        
+        return {
+            "status": "success",
+            "flows": flows,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting dashboard flows: {e}")
+        return {
+            "status": "error",
+            "message": str(e),
+            "flows": []
+        }
+
+# ============ WATERMARK ADMIN PANEL ============
+
+@app.get("/admin/watermarks", response_class=HTMLResponse)
+async def watermark_admin_panel(request: Request):
+    """Panel de administración de watermarks"""
+    try:
+        return templates.TemplateResponse("admin/watermarks.html", {"request": request})
+    except Exception as e:
+        logger.error(f"Error loading watermark panel: {e}")
+        return HTMLResponse(f"""
+        <h1>🎨 Panel de Watermarks</h1>
+        <p>Error: {e}</p>
+        <p>Asegúrate de que el archivo watermarks.html esté en frontend/templates/admin/</p>
+        <a href="/dashboard">← Volver al Dashboard</a>
+        """)
+
+@app.get("/api/watermark/groups")
+async def get_watermark_groups():
+    """API para obtener grupos configurados - FIX para panel"""
+    try:
+        config_dir = Path("config")
+        groups = []
+        
+        if config_dir.exists():
+            for config_file in config_dir.glob("group_*.json"):
+                try:
+                    with open(config_file, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                    groups.append(data)
+                except Exception as e:
+                    logger.error(f"Error loading {config_file}: {e}")
+        
+        return {"groups": groups, "status": "success"}
+    except Exception as e:
+        logger.error(f"Error getting groups: {e}")
+        return {"error": str(e), "status": "error"}
+
+@app.post("/api/watermark/groups/{group_id}/config")
+async def save_group_config(group_id: int, config: dict):
+    """Guardar configuración de grupo - FIX para panel"""
+    try:
+        config_dir = Path("config")
+        config_dir.mkdir(exist_ok=True)
+        
+        # Añadir metadata
+        config.update({
+            "group_id": group_id,
+            "updated_at": datetime.now().isoformat()
+        })
+        
+        # Si es nuevo grupo, añadir created_at
+        config_file = config_dir / f"group_{group_id}.json"
+        if not config_file.exists():
+            config["created_at"] = datetime.now().isoformat()
+        
+        # Guardar configuración
+        with open(config_file, 'w', encoding='utf-8') as f:
+            json.dump(config, f, indent=2, ensure_ascii=False)
+        
+        logger.info(f"✅ Configuración guardada para grupo {group_id}")
+        
+        # Si el replicator está corriendo, recargar configs
+        global replicator_service
+        if replicator_service and hasattr(replicator_service, 'watermark_service'):
+            try:
+                await replicator_service.watermark_service.reload_configurations()
+                logger.info("✅ Configuraciones recargadas en replicator")
+            except Exception as e:
+                logger.warning(f"⚠️ No se pudieron recargar configs en replicator: {e}")
+        
+        return {"status": "success", "message": "Configuración guardada"}
+        
+    except Exception as e:
+        logger.error(f"Error saving config: {e}")
+        return {"error": str(e), "status": "error"}
+
+@app.get("/api/replicator/status")
+async def get_replicator_status():
+    """Status detallado del replicator"""
+    global replicator_service
+    
+    if not replicator_service:
+        return {"status": "not_initialized", "message": "Replicator service not initialized"}
+    
+    try:
+        status = await replicator_service.get_system_status()
+        return status
+    except Exception as e:
+        logger.error(f"Error getting replicator status: {e}")
+        return {"status": "error", "error": str(e)}
+
+@app.post("/api/replicator/restart")
+async def restart_replicator():
+    """Reiniciar replicator service"""
+    global replicator_service
+    
+    try:
+        if replicator_service:
+            await replicator_service.stop()
+            logger.info("🛑 Replicator stopped")
+        
+        # Reiniciar
+        replicator_service = EnhancedReplicatorService()
+        await replicator_service.initialize()
+        asyncio.create_task(replicator_service.start_listening())
+        
+        logger.info("✅ Replicator restarted")
+        return {"status": "success", "message": "Replicator reiniciado"}
+        
+    except Exception as e:
+        logger.error(f"Error restarting replicator: {e}")
+        return {"status": "error", "error": str(e)}
+
+# ============ MAIN ============
 
 if __name__ == "__main__":
-    logger.info("🚀 Starting Zero Cost SaaS...")
+    import uvicorn
+    
+    logger.info("🎭 Iniciando Zero Cost Orchestrator Completo...")
     uvicorn.run(
         "main:app",
-        host=settings.HOST,
-        port=settings.PORT,
+        host="0.0.0.0",
+        port=8000,
         reload=True,
         log_level="info"
     )

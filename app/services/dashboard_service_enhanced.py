@@ -68,7 +68,7 @@ class SimpleDashboardService:
             "last_update": datetime.now().isoformat()
         }
     
-    async def get_health(self) -> Dict[str, Any]:
+    async async def get_health(self) -> Dict[str, Any]:
         """✅ ASYNC - Obtener estado de salud del sistema"""
         try:
             
