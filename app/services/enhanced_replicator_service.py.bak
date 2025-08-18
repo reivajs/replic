@@ -1163,17 +1163,17 @@ class EnhancedReplicatorService:
             
             # File processor stats
             if self.file_processor and hasattr(self.file_processor, 'get_stats'):
-                file_stats = self.file_processor.get_stats()
+                file_stats = await self.file_processor.get_stats()
                 combined_stats.update(file_stats)
             
             # Watermark service stats
             if self.watermark_service and hasattr(self.watermark_service, 'get_stats'):
-                watermark_stats = self.watermark_service.get_stats()
+                watermark_stats = await self.watermark_service.get_stats()
                 combined_stats.update(watermark_stats)
             
             # Discord sender stats
             if self.discord_sender and hasattr(self.discord_sender, 'get_stats'):
-                discord_stats = self.discord_sender.get_stats()
+                discord_stats = await self.discord_sender.get_stats()
                 combined_stats.update(discord_stats)
             
             # Build enterprise dashboard data with direct sending metrics
